@@ -32,6 +32,7 @@ func init_border():
             
     var border = Control.new()
     add_child(border)
+    border.mouse_filter = Control.MOUSE_FILTER_IGNORE
     border.set_script(preload("res://common/draw_border.gd"))
 
 func init_mouse():
@@ -44,6 +45,7 @@ func _ready():
     init_border()
     init_mouse()
     load_all_scenes()
+    #load_all_actor_scripts()
     
 func somewhere( x1:float, y1:float, x2:float, y2:float ) -> Vector2: 
     return Vector2(randf_range(x1, x2), randf_range(y1, y2))
@@ -109,35 +111,100 @@ func _scan_directory(path: String):
     
     print("Finished scanning: %s" % path)
 
-func spawn_actor(actor_name:String):
-    pass
-
-func spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    # Spawn a scene by name
-    if not scenes.has(scene_name):
-        print("Scene not found: %s" % scene_name)
+func spawn(name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
+    # Spawn by name - checks actor scripts first, then scenes
+    #if actor_scripts.has(name):
+        #return _spawn_actor(name, parent, position)
+    if scenes.has(name):
+        return _spawn_scene(name, parent, position)
+    else:
+        print("Not found: %s" % name)
         return null
-    
+
+func _spawn_actor(actor_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
+    var instance = scenes["actor_2d"].instantiate()
+    instance.set_script(actor_scripts[actor_name])
+
+    if parent == null:
+        get_tree().current_scene.add_child(instance)
+    else:
+        parent.add_child(instance)
+
+    if position == Vector2.INF:
+        position = pen
+
+    instance.global_position = position
+    return instance
+
+func _spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
     var instance = scenes[scene_name].instantiate()
     if parent == null:
         get_tree().current_scene.add_child(instance)
     else:
         parent.add_child(instance)
-    
-    if position != Vector2.INF:
+
+    if position == Vector2.INF:
         position = pen
-    
+
     if instance.has_method("set_global_position"):
         instance.set_global_position(position)
     elif instance.has_method("set_position"):
         instance.set_position(position)
-    
+
     return instance
 
 func get_scene(scene_name: String) -> PackedScene:
-    # Get scene resource directly if you need more control
     return scenes.get(scene_name)
 
 func has_scene(scene_name: String) -> bool:
-    # Check if scene exists
     return scenes.has(scene_name)
+
+# ==================================================================================================
+# Actor Script Manager
+
+@export var actor_scripts = {}
+
+func load_all_actor_scripts():
+    print("Loading all actor scripts...")
+    _scan_directory_for_scripts("res://")
+    print("Loaded %d actor scripts" % actor_scripts.size())
+
+func _scan_directory_for_scripts(path: String):
+    var dir = DirAccess.open(path)
+    if not dir:
+        return
+
+    dir.list_dir_begin()
+    var file_name = dir.get_next()
+
+    while file_name != "":
+        if file_name.begins_with("."):
+            file_name = dir.get_next()
+            continue
+
+        var full_path = path.path_join(file_name)
+
+        if dir.current_is_dir():
+            _scan_directory_for_scripts(full_path)
+        elif file_name.ends_with(".gd"):
+            _check_if_actor_script(full_path, file_name)
+
+        file_name = dir.get_next()
+
+func _check_if_actor_script(script_path: String, file_name: String):
+    var script = load(script_path)
+    if script and _extends_actor2d(script):
+        var script_name = file_name.get_basename()
+        actor_scripts[script_name] = script
+        print("  Loaded actor script: %s" % script_name)
+
+func _extends_actor2d(script: Script) -> bool:
+    var base = script.get_base_script()
+    while base:
+        if base.get_global_name() == "Actor2D":
+            return true
+        base = base.get_base_script()
+    return false
+
+func has_actor(actor_name: String) -> bool:
+    return actor_scripts.has(actor_name)

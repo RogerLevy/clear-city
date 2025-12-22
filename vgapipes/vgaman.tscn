@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://og0ba1v4l8vl"]
+
+[ext_resource type="Texture2D" uid="uid://bs8d2yvb7x05y" path="res://vgapipes/vgapipes.png" id="1_dt8o0"]
+
+[sub_resource type="GDScript" id="GDScript_x35cx"]
+script/source = "@tool
+extends Actor2D
+
+func init():
+    act( func(): 
+        position.x += randf_range(-1,1)
+        position.y += randf_range(-1,1)
+    )
+
+    # slow!!!    
+    #while 1:
+        #await frame()
+        #position.x += randf_range(-1,1)
+        #position.y += randf_range(-1,1)
+        
+"
+
+[node name="Vgaman" type="CharacterBody2D"]
+script = SubResource("GDScript_x35cx")
+sprite_texture = ExtResource("1_dt8o0")
+current_frame = 2
+metadata/_custom_type_script = "uid://ll0nji0vvpln"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

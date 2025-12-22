@@ -31,4 +31,4 @@ metadata/_custom_type_script = "uid://dunxgg8cja87w"
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_m7tx6")]
 position = Vector2(376, 86)
 script = ExtResource("5_rjvcn")
-time_counter = 30.399999999999554
+time_counter = 30.39999999999955

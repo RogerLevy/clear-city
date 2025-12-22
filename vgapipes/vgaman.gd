@@ -1,3 +1,5 @@
+# old; moved to built-in script in vgaman.tscn
+
 @tool
 extends Actor2D
 
