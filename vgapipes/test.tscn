@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://cim000kmgvhuy"]
+[gd_scene load_steps=7 format=4 uid="uid://cim000kmgvhuy"]
 
 [ext_resource type="PackedScene" uid="uid://ddj227pjqrov8" path="res://common/freemove.tscn" id="1_gxoua"]
 [ext_resource type="TileSet" uid="uid://cf86cmegveq76" path="res://vgapipes/vgapipes_tileset.tres" id="2_gxoua"]
 [ext_resource type="Script" uid="uid://dqk4sy7w3dvw8" path="res://vgapipes/spawner.gd" id="3_6emwx"]
 [ext_resource type="PackedScene" uid="uid://bp2d703t1yrgl" path="res://common/actor_2d.tscn" id="3_m7tx6"]
 [ext_resource type="Script" uid="uid://dfojbpqbdh2g5" path="res://common/spawn_test.gd" id="5_rjvcn"]
+[ext_resource type="PackedScene" uid="uid://ds2v0io4qlv7g" path="res://vgapipes/doodad.tscn" id="6_6emwx"]
 
 [node name="Node" type="Node"]
 
@@ -14,7 +15,7 @@ editor_draw_limits = true
 
 [node name="Freemove" parent="Camera2D" instance=ExtResource("1_gxoua")]
 
-[node name="Layer0" type="TileMapLayer" parent="."]
+[node name="PipemareTilemapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
 use_parent_material = true
 position = Vector2(0, -2)
@@ -28,7 +29,10 @@ count = 3000
 time_counter = 45.23333333333205
 metadata/_custom_type_script = "uid://dunxgg8cja87w"
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_m7tx6")]
+[node name="Vgaman" parent="." instance=ExtResource("3_m7tx6")]
 position = Vector2(376, 86)
 script = ExtResource("5_rjvcn")
 time_counter = 30.39999999999955
+
+[node name="Doodad" parent="." instance=ExtResource("6_6emwx")]
+position = Vector2(401, 116)
