@@ -1,0 +1,22 @@
+Physics for Actor2D
+--------------------
+Add RigidBody2D as invisible child of Actor2D. The RigidBody2D simulates physics
+and Actor2D syncs its position in _physics_process:
+
+    @onready var physics_body: RigidBody2D = $RigidBody2D
+
+    func _physics_process(delta):
+        if physics_body:
+            global_position = physics_body.global_position
+
+Wrap physics calls in simple helpers:
+
+    func impulse(force: Vector2):
+        if physics_body:
+            physics_body.apply_central_impulse(force)
+
+    func push(force: Vector2):
+        if physics_body:
+            physics_body.apply_central_force(force)
+
+Physics becomes optional - actors without the child node just ignore these calls.
