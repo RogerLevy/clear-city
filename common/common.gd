@@ -9,6 +9,9 @@ func _input(event):
         elif DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
+    if edit_mode and edit_mode.is_node_ready():
+        edit_mode.handle_input(event)
+
 func _on_files_dropped( files ):
     print("Files dropped:")
     for file in files:
@@ -32,7 +35,6 @@ func init_border():
             
     var border = Control.new()
     add_child(border)
-    border.mouse_filter = Control.MOUSE_FILTER_IGNORE
     border.set_script(preload("res://common/draw_border.gd"))
 
 func init_mouse():
@@ -40,12 +42,22 @@ func init_mouse():
         Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _ready():
+    process_mode = Node.PROCESS_MODE_ALWAYS
+    set_process_input(true)
     init_window()
     init_drag()
-    init_border()
+    #init_border()
     init_mouse()
+    init_edit_mode()
     load_all_scenes()
     #load_all_actor_scripts()
+
+var edit_mode
+
+func init_edit_mode():
+    var EditModeScript = preload("res://common/edit_mode.gd")
+    edit_mode = EditModeScript.new()
+    add_child(edit_mode)
     
 func somewhere( x1:float, y1:float, x2:float, y2:float ) -> Vector2: 
     return Vector2(randf_range(x1, x2), randf_range(y1, y2))
