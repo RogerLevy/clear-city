@@ -1,0 +1,34 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cf86cmegveq76"]
+
+[ext_resource type="Texture2D" uid="uid://bs8d2yvb7x05y" path="res://vgapipes/vgapipes.png" id="1_l3owm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jwu5j"]
+texture = ExtResource("1_l3owm")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/animation_columns = 8
+11:0/animation_speed = 15.0
+11:0/animation_frame_0/duration = 1.0
+11:0/animation_frame_1/duration = 1.0
+11:0/animation_frame_2/duration = 1.0
+11:0/animation_frame_3/duration = 1.0
+11:0/animation_frame_4/duration = 1.0
+11:0/animation_frame_5/duration = 1.0
+11:0/animation_frame_6/duration = 1.0
+11:0/animation_frame_7/duration = 1.0
+11:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+
+[resource]
+sources/1 = SubResource("TileSetAtlasSource_jwu5j")
