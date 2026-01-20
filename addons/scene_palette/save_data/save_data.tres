@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PalettePluginSaveData" load_steps=2 format=3 uid="uid://c67dfq1rofp8g"]
+
+[ext_resource type="Script" uid="uid://bfm64dhei0kba" path="res://addons/scene_palette/resources/rsc_pallete_plugin_save_data.gd" id="1_tuhxn"]
+
+[resource]
+script = ExtResource("1_tuhxn")
+favorites = {
+"res://vgapipes": {
+&"allow_nonscene_files": false,
+&"color": "#0e1521",
+"flattened_dirs": {},
+&"flattened_subdirs": {},
+&"instantiate_scenes_for_previews": true,
+&"minimized_dirs": {},
+&"scene_preview_scale": 1.79,
+&"show_labels": true
+}
+}

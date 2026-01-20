@@ -10,3 +10,4 @@ current_frame = 7
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_u51k3")
 frame = 7
+metadata/_edit_lock_ = true

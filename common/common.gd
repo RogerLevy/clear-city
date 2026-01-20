@@ -46,7 +46,7 @@ func _ready():
     set_process_input(true)
     init_window()
     init_drag()
-    #init_border()
+    init_border()
     init_mouse()
     init_edit_mode()
     load_all_scenes()
