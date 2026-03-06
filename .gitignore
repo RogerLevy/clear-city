@@ -4,3 +4,6 @@ godot/
 *.tmp
 *.import
 *.uid
+rel/
+*.exe
+*.pck

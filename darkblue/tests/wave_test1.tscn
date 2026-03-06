@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bs125uy2x2ncv"]
+
+[ext_resource type="Shader" uid="uid://04fvu25s4cav" path="res://darkblue/shaders/bgblur.gdshader" id="1_mc12d"]
+[ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="1_ojoi7"]
+[ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="3_mc12d"]
+[ext_resource type="PackedScene" uid="uid://dv7l1cl73olw3" path="res://darkblue/actors/enemy2_e01.tscn" id="3_ojoi7"]
+
+[sub_resource type="GDScript" id="GDScript_rruhc"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqy2i"]
+shader = ExtResource("1_mc12d")
+shader_parameter/radius = 20.0
+shader_parameter/expansion = 0.0
+shader_parameter/dither_strength = 1.0
+
+[sub_resource type="GDScript" id="GDScript_2ntwe"]
+script/source = "extends Node
+func _ready():
+    var newsize = Vector2i(480, 320)
+    get_window().size = newsize
+    get_window().content_scale_size = newsize
+    #DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+    DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+"
+
+[node name="SceneRoot" type="Node2D" unique_id=287075061]
+script = SubResource("GDScript_rruhc")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1605552771]
+material = SubResource("ShaderMaterial_gqy2i")
+scale = Vector2(1.0434783, 0.92753613)
+texture = ExtResource("1_ojoi7")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="GuideRect" type="Control" parent="." unique_id=588328765]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 320.0
+mouse_filter = 2
+script = ExtResource("3_mc12d")
+metadata/_custom_type_script = "uid://bagke2prhjpih"
+metadata/_edit_lock_ = true
+
+[node name="enemy2-e01-1" parent="." unique_id=2000254261 instance=ExtResource("3_ojoi7")]
+position = Vector2(176, -112)
+
+[node name="GuideRect" parent="enemy2-e01-1" index="2" unique_id=1038611430]
+visible = false
+
+[node name="enemy2-e01-2" parent="." unique_id=340494037 instance=ExtResource("3_ojoi7")]
+position = Vector2(176, -72)
+
+[node name="Timer" parent="enemy2-e01-2/AnimationPlayer" parent_id_path=PackedInt32Array(340494037, 1993602715) index="0" unique_id=944347611]
+wait_time = 1.0
+
+[node name="GuideRect" parent="enemy2-e01-2" index="2" unique_id=1038611430]
+visible = false
+
+[node name="enemy2-e01-3" parent="." unique_id=442288645 instance=ExtResource("3_ojoi7")]
+position = Vector2(176, -32)
+
+[node name="Timer" parent="enemy2-e01-3/AnimationPlayer" parent_id_path=PackedInt32Array(442288645, 1993602715) index="0" unique_id=944347611]
+wait_time = 2.0
+
+[node name="GuideRect" parent="enemy2-e01-3" index="2" unique_id=1038611430]
+visible = false
+
+[node name="enemy2-e01-4" parent="." unique_id=742208516 instance=ExtResource("3_ojoi7")]
+position = Vector2(176, 8)
+
+[node name="Timer" parent="enemy2-e01-4/AnimationPlayer" parent_id_path=PackedInt32Array(742208516, 1993602715) index="0" unique_id=944347611]
+wait_time = 3.0
+
+[node name="GuideRect" parent="enemy2-e01-4" index="2" unique_id=1038611430]
+auto_translate_mode = 2
+visible = false
+
+[node name="Node" type="Node" parent="." unique_id=1914668296]
+script = SubResource("GDScript_2ntwe")
+
+[editable path="enemy2-e01-1"]
+[editable path="enemy2-e01-2"]
+[editable path="enemy2-e01-3"]
+[editable path="enemy2-e01-4"]

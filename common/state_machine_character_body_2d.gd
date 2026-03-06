@@ -1,3 +1,4 @@
+@tool
 class_name StateMachineCharacterBody2D
 extends CharacterBody2D
 
@@ -64,9 +65,9 @@ func frame():
 func secs( time:float = 1.0 ):
     # usage:
     #   await secs( 5 )    # wait 5 seconds
-    if Engine.is_editor_hint(): 
+    if Engine.is_editor_hint():
         await universe_heat_death
-        return        
+        return
     var elapsed = 0.0
     while elapsed < time:
         await get_tree().physics_frame
@@ -74,3 +75,15 @@ func secs( time:float = 1.0 ):
     #state_name = get_stack()[0].function
     #if debug:
         #print_debug("%s:%d" % [state_name, get_stack()[0].line])
+
+func beats( count:float = 1.0 ):
+    # usage:
+    #   await beats( 4 )    # wait 4 beats (tempo-scaled)
+    if Engine.is_editor_hint():
+        await universe_heat_death
+        return
+    var real_time = count * beat.scale
+    var elapsed = 0.0
+    while elapsed < real_time:
+        await get_tree().physics_frame
+        elapsed += delta

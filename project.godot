@@ -8,19 +8,31 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="CLEAR-CITY"
-run/main_scene="uid://cim000kmgvhuy"
+run/main_scene="uid://dvhht6hqt8jf2"
 config/use_hidden_project_data_directory=false
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.14117648, 0.79607844, 0.14117648, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+beat/default_timing_mode=2
+beat/bpm=143.0
+beat/metronome_enabled=true
+beat/metronome_sample="uid://dcjio1vuxp1v"
+
 [autoload]
 
 g="*res://common/common.gd"
+beat="*uid://bp8vsqr2b5bjf"
 
 [debug]
 
@@ -28,14 +40,19 @@ gdscript/warnings/enable=false
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=240
+window/size/viewport_width=960
+window/size/viewport_height=640
 window/size/mode=3
-window/size/resizable=false
+window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
-window/size/mode.editor=0
-window/vsync/vsync_mode.editor=0
+window/size/mode.editor=3
+window/vsync/vsync_mode.editor=1
+
+[editor]
+
+movie_writer/video_quality=0.8
+movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest2.avi"
 
 [editor_plugins]
 
@@ -49,11 +66,16 @@ toggle_fullscreen={
 ]
 }
 
+[physics]
+
+common/physics_jitter_fix=0.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/use_debanding=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

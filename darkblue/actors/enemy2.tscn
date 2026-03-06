@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d11bd30wwp8ls"]
+
+[ext_resource type="Texture2D" uid="uid://b20gvpstw2ofd" path="res://darkblue/actors/enemy2.png" id="2_26v3i"]
+
+[sub_resource type="GDScript" id="GDScript_3hwg8"]
+resource_name = "enemy2"
+script/source = "@tool
+extends Actor2D
+
+static var IDLE_ANM:Array = range( 22 ) 
+
+func init():
+    animation = IDLE_ANM
+    animationSpeed = 1.0/3
+
+#func _ready():
+    #print_debug(\"enemy2 says hi\")
+    #super._ready()
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1198562410]
+script = SubResource("GDScript_3hwg8")
+sprite_texture = ExtResource("2_26v3i")
+frame_width = 41
+frame_height = 27
+time_counter = 425.88333333327466
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]
+unique_name_in_owner = true
+texture = ExtResource("2_26v3i")
+hframes = 6
+vframes = 4

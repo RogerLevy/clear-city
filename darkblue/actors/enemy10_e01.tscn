@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://c8j3x0ok0ubjj"]
+
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_hh6el"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="2_0eu6a"]
+[ext_resource type="Script" path="res://common/relative_animation_player.gd" id="2_4jbkn"]
+[ext_resource type="PackedScene" uid="uid://b8htk744rdnqj" path="res://darkblue/actors/enemy10.tscn" id="3_hh6el"]
+
+[sub_resource type="Animation" id="Animation_s8dt2"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path/PathFollow2D:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_2ntwe"]
+resource_name = "enter"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path/PathFollow2D:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(5.4704742, 0, 0, 0.3, 0.52952576, 150, -0.26666665, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.96666664)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_acxwa"]
+_data = {
+&"RESET": SubResource("Animation_s8dt2"),
+&"in-and-out1": SubResource("Animation_2ntwe")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_efeo1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 190.14815, -136, 36.879627, 13, -36.879627, -13, 145.40742, -88, 0, 0, 0, 0, 95.07408, -40)
+}
+point_count = 3
+
+[node name="enemy10-e01" type="Node2D" unique_id=1337668934]
+script = ExtResource("1_hh6el")
+autoplay_name = &"in-and-out1"
+open_ended = true
+metadata/_custom_type_script = "uid://s853qwn0ogyp"
+
+[node name="RelativeAnimationPlayer" type="AnimationPlayer" parent="." unique_id=447413219]
+libraries/ = SubResource("AnimationLibrary_acxwa")
+speed_scale = 1.667
+script = ExtResource("2_4jbkn")
+metadata/_custom_type_script = "uid://5qw6botosf7p"
+
+[node name="Path" type="Path2D" parent="." unique_id=459419434]
+position = Vector2(264, 184)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_efeo1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path" unique_id=989409510]
+position = Vector2(190.14815, -136)
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path/PathFollow2D" unique_id=1795476604]
+remote_path = NodePath("../../../enemy10")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Path/PathFollow2D/RemoteTransform2D" unique_id=1985398944]
+script = ExtResource("2_0eu6a")
+x_period = 3.0
+y_period = 3.0
+y_pixels = 20.0
+speed = 0.0
+amount = -0.5
+
+[node name="enemy10" parent="." unique_id=1198562410 instance=ExtResource("3_hh6el")]
+position = Vector2(536, 48)

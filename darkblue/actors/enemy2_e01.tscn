@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://dv7l1cl73olw3"]
+
+[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2.tscn" id="1_606qf"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="2_xetrd"]
+[ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="3_xetrd"]
+
+[sub_resource type="GDScript" id="GDScript_xetrd"]
+script/source = "extends Node2D
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+    queue_free()
+"
+
+[sub_resource type="Curve2D" id="Curve2D_efeo1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 175, -131, 97, 0, -97, 0, 0, 8)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_s8dt2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path:curve")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [SubResource("Curve2D_efeo1")]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path/PathFollow2D/enemy2/SineMovement:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Path/PathFollow2D:progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Curve2D" id="Curve2D_xetrd"]
+bake_interval = 1.0
+_data = {
+"points": PackedVector2Array(28.332777, 0.37777036, -25, -0.33333334, 0, 8, -0.33333334, 14.666667, 0.34090522, -14.99983, -29, -26, -19.419926, -0.42370293, 74.07875, 1.6162465, 0, -56, -90.833336, -19.833332, 90.82369, 19.831226, 184, 40)
+}
+point_count = 4
+
+[sub_resource type="Animation" id="Animation_2ntwe"]
+resource_name = "enter"
+length = 10.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path:curve")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [SubResource("Curve2D_efeo1"), SubResource("Curve2D_xetrd")]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path/PathFollow2D/enemy2/SineMovement:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 1, 1, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.4172294, 0, 0, 0, 1.5, 0, 0, 0, 0, 1.499507, 0, 0, 0, 0, 0.0004930869, -0.28783703, 0.039447732, 0, 0),
+"times": PackedFloat32Array(0, 1.8, 2.5, 5.266667, 6)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path/PathFollow2D:progress")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0, 2),
+"points": PackedFloat32Array(5.4704742, 0, 0, 0.9666667, -0.9117457, 233, -1.2666667, -0.28788757, 0, 0, 233, 0, 0, 100, 0, 0, 0, 1.6089664, 1.7333331, 3.4482727, 305.40552, -0.73333263, -80.14914, 0, 0),
+"times": PackedFloat32Array(0.2, 2.5666666, 5.99, 6, 10.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_acxwa"]
+_data = {
+&"RESET": SubResource("Animation_s8dt2"),
+&"in-and-out1": SubResource("Animation_2ntwe")
+}
+
+[node name="Node2D" type="Node2D" unique_id=2000254261]
+script = SubResource("GDScript_xetrd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1993602715]
+libraries/ = SubResource("AnimationLibrary_acxwa")
+speed_scale = 1.667
+
+[node name="Timer" type="Timer" parent="AnimationPlayer" unique_id=944347611]
+wait_time = 0.001
+one_shot = true
+autostart = true
+
+[node name="Path" type="Path2D" parent="." unique_id=689081630]
+position = Vector2(160, 184)
+curve = SubResource("Curve2D_efeo1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path" unique_id=228162269]
+position = Vector2(175, -131)
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="enemy2" parent="Path/PathFollow2D" unique_id=1198562410 instance=ExtResource("1_606qf")]
+position = Vector2(0.045578003, 0.003189087)
+metadata/_edit_lock_ = true
+
+[node name="SineMovement" type="Node" parent="Path/PathFollow2D/enemy2" unique_id=1103629488]
+script = ExtResource("2_xetrd")
+x_period = 3.0
+y_period = 3.0
+y_pixels = 20.0
+amount = -0.5
+
+[node name="GuideRect" type="Control" parent="." unique_id=1038611430]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 320.0
+mouse_filter = 2
+script = ExtResource("3_xetrd")
+metadata/_custom_type_script = "uid://bagke2prhjpih"
+metadata/_edit_lock_ = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="AnimationPlayer/Timer" to="AnimationPlayer" method="play" binds= ["in-and-out1"]]

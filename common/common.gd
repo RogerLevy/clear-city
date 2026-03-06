@@ -1,13 +1,18 @@
 extends CanvasLayer
 
 var canvas_item
+var border
 
 func _input(event):
     if event.is_action_pressed("toggle_fullscreen"):
-        if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+        if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN and \
+           DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+            print_debug("Going fullscreen.")
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-        elif DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
+        else:
+            print_debug("Going windowed.")
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+            set_windowed_size()
 
     if edit_mode and edit_mode.is_node_ready():
         edit_mode.handle_input(event)
@@ -17,23 +22,27 @@ func _on_files_dropped( files ):
     for file in files:
         print("  ", file)	
 
+func set_windowed_size():
+    var viewport_size = get_viewport().get_visible_rect().size
+    get_window().size = Vector2i(viewport_size * 2)
+    var screen_idx = get_window().current_screen
+    var screen_size = DisplayServer.screen_get_size(screen_idx)
+    var screen_pos = DisplayServer.screen_get_position(screen_idx)
+    get_window().position = screen_pos + (screen_size - get_window().size) / 2
+
 func init_window():
     if not OS.has_feature("editor") and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
-        get_window().size *= 2
-        var screen_size = DisplayServer.screen_get_size()
-        var window_size = get_window().size
-        get_window().position = (screen_size - window_size) / 2	
+        set_windowed_size()	
     
 func init_drag():
     get_viewport().files_dropped.connect(_on_files_dropped)
 
 func init_border():
-    # RenderingServer.set_default_clear_color(Color(0.1, 0.1, 0.2))  # dark blue
     layer = 100
-    follow_viewport_enabled = false  # Draw in screen space, not viewport space
-    follow_viewport_scale = 1.0  # Prevent viewport scale from affecting this layer
-            
-    var border = Control.new()
+    follow_viewport_enabled = false
+    follow_viewport_scale = 1.0
+
+    border = Control.new()
     add_child(border)
     border.set_script(preload("res://common/draw_border.gd"))
 
@@ -88,10 +97,10 @@ func load_all_scenes():
         #print("  - %s" % scene_name)
 
 func _scan_directory(path: String):
-    print("Scanning directory: %s" % path)
+    #print("Scanning directory: %s" % path)
     var dir = DirAccess.open(path)
     if not dir:
-        print("Failed to open directory: %s" % path)
+        #print("Failed to open directory: %s" % path)
         return
         
     dir.list_dir_begin()
@@ -105,10 +114,10 @@ func _scan_directory(path: String):
             
         # Build full path more reliably
         var full_path = path.path_join(file_name)
-        print("  Found: %s (dir: %s)" % [full_path, dir.current_is_dir()])
+        #print("  Found: %s (dir: %s)" % [full_path, dir.current_is_dir()])
         
         if dir.current_is_dir():
-            print("  Recursing into: %s" % full_path)
+            #print("  Recursing into: %s" % full_path)
             _scan_directory(full_path)
         elif file_name.ends_with(".tscn"):
             var scene_resource = load(full_path)
@@ -121,10 +130,8 @@ func _scan_directory(path: String):
         
         file_name = dir.get_next()
     
-    print("Finished scanning: %s" % path)
-
 func spawn(name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    # Spawn by name - checks actor scripts first, then scenes
+    # Spawn by name 
     #if actor_scripts.has(name):
         #return _spawn_actor(name, parent, position)
     if scenes.has(name):
@@ -220,3 +227,12 @@ func _extends_actor2d(script: Script) -> bool:
 
 func has_actor(actor_name: String) -> bool:
     return actor_scripts.has(actor_name)
+
+func timeout( duration:float, on_timeout = null, one_shot = true ) -> Timer:
+    var timer = Timer.new()
+    timer.wait_time = duration
+    timer.one_shot = one_shot
+    if on_timeout:
+        timer.timeout.connect( on_timeout ) # Connect to function
+    timer.start()
+    return timer
