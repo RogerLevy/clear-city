@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cf86cmegveq76"]
+[gd_resource type="TileSet" format=3 uid="uid://cf86cmegveq76"]
 
 [ext_resource type="Texture2D" uid="uid://bs8d2yvb7x05y" path="res://vgapipes/vgapipes.png" id="1_l3owm"]
 

@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://dtwv1bbjf3uji"]
+
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_evw1v"]
+[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2.tscn" id="2_vn3cm"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="3_2pbcw"]
+
+[sub_resource type="Curve2D" id="Curve2D_efeo1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 184.55556, -136, 97, 0, -97, 0, 24, -16, 0, 0, 0, 0, -201.33334, -208)
+}
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_s8dt2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path:curve")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [SubResource("Curve2D_efeo1")]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path/PathFollow2D/RemoteTransform2D/SineMovement:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Path/PathFollow2D:progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_2ntwe"]
+resource_name = "enter"
+length = 10.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path:curve")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [SubResource("Curve2D_efeo1")]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path/PathFollow2D/RemoteTransform2D/SineMovement:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 1, 1),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.4172294, 0, 0, 0, 1.5, 0, 0, 0, 0, 1.499507, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1.8, 2.5, 5.266667)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path/PathFollow2D:progress")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0, 2, 2),
+"points": PackedFloat32Array(5.4704742, 0, 0, 0.9666667, -0.9117457, 207.87904, -1.2666667, -0.28788757, 0, 0, 231.75821, -0.66663665, -0.29442358, 1.547143, 0.68330383, 496.36142, -1.2333333, 0, 0, 0),
+"times": PackedFloat32Array(0.2, 2.4333334, 4.4333334, 8.333333)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_acxwa"]
+_data = {
+&"RESET": SubResource("Animation_s8dt2"),
+&"in-and-out1": SubResource("Animation_2ntwe")
+}
+
+[node name="enemy2-e03-1" type="Node2D" unique_id=1337668934]
+script = ExtResource("1_evw1v")
+autoplay_name = &"in-and-out1"
+metadata/_custom_type_script = "uid://s853qwn0ogyp"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2063353101]
+libraries/ = SubResource("AnimationLibrary_acxwa")
+speed_scale = 1.667
+
+[node name="Path" type="Path2D" parent="." unique_id=459419434]
+position = Vector2(264, 184)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_efeo1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path" unique_id=989409510]
+position = Vector2(184.55556, -136)
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path/PathFollow2D" unique_id=1795476604]
+remote_path = NodePath("../../../enemy2")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Path/PathFollow2D/RemoteTransform2D" unique_id=1985398944]
+script = ExtResource("3_2pbcw")
+x_period = 3.0
+y_period = 3.0
+y_pixels = 20.0
+amount = -0.5
+
+[node name="enemy2" parent="." unique_id=1198562410 instance=ExtResource("2_vn3cm")]
+position = Vector2(528, 48)
+metadata/_edit_lock_ = true
