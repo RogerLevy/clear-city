@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://drq7l6mcaf5dn"]
+
+[ext_resource type="Texture2D" uid="uid://cfmve8fim4iho" path="res://darkblue/actors/enemy4.png" id="1_0myeb"]
+
+[sub_resource type="GDScript" id="GDScript_3hwg8"]
+resource_name = "enemy10"
+script/source = "@tool
+extends Vessel2D
+
+static var IDLE_ANM:Array = range( 10 )
+
+func init():
+    animation = IDLE_ANM
+    animationPos = randi() % IDLE_ANM.size() 
+    animationSpeed = musical_anim_speed( IDLE_ANM, 0.5 )
+    
+func _physics_process( _delta ):
+    super._physics_process( _delta )
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0myeb"]
+radius = 8.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
+collision_layer = 0
+collision_mask = 0
+script = SubResource("GDScript_3hwg8")
+sprite_texture = ExtResource("1_0myeb")
+frame_width = 22
+frame_height = 22
+animationSpeed = 0.3333333333333333
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]
+unique_name_in_owner = true
+texture = ExtResource("1_0myeb")
+hframes = 10
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1873428708]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1339303778]
+shape = SubResource("CircleShape2D_0myeb")

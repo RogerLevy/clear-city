@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://4uqhvhkagt1j"]
+
+[ext_resource type="Script" uid="uid://dk8dnm8n57dvk" path="res://darkblue/actors/tri.gd" id="1_yvw2k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 5.0
+
+[sub_resource type="Shader" id="Shader_cutout"]
+code = "shader_type canvas_item;
+render_mode blend_disabled;
+void fragment() {
+    COLOR = vec4(0.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cutout"]
+shader = SubResource("Shader_cutout")
+
+[node name="Tri" type="CharacterBody2D" unique_id=14285508 groups=["resources"]]
+position = Vector2(56, 56)
+rotation = 609.01874
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_yvw2k")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1051925014]
+unique_name_in_owner = true
+hframes = 7
+vframes = 6
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1927640462]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1911618980]
+shape = SubResource("CircleShape2D_1")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1046820881]
+scale = Vector2(0.667, 0.667)
+color = Color(0.49803922, 0.49803922, 0.6666667, 1)
+polygon = PackedVector2Array(0, -10, 8.66, 5, -8.66, 5)
+
+[node name="Line2D" type="Line2D" parent="." unique_id=782049083]
+material = SubResource("ShaderMaterial_cutout")
+scale = Vector2(0.667, 0.667)
+points = PackedVector2Array(0, -10, 8.66, 5, -8.66, 5, 0, -10)
+width = 2.0

@@ -2,6 +2,8 @@ extends CanvasLayer
 
 var canvas_item
 var border
+var playfield:Node2D
+var tri_manager
 
 func _input(event):
     if event.is_action_pressed("toggle_fullscreen"):
@@ -13,6 +15,9 @@ func _input(event):
             print_debug("Going windowed.")
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
             set_windowed_size()
+
+    if event is InputEventMouseMotion:
+        constrain_mouse()
 
     if edit_mode and edit_mode.is_node_ready():
         edit_mode.handle_input(event)
@@ -46,20 +51,18 @@ func init_border():
     add_child(border)
     border.set_script(preload("res://common/draw_border.gd"))
 
-func init_mouse():
-    if not OS.has_feature("editor"):
-        Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+## Constrain mouse to game viewport (call from _process)
+func constrain_mouse():
+    if not get_window().has_focus(): return
 
-func _ready():
-    process_mode = Node.PROCESS_MODE_ALWAYS
-    set_process_input(true)
-    init_window()
-    init_drag()
-    init_border()
-    init_mouse()
-    init_edit_mode()
-    load_all_scenes()
-    #load_all_actor_scripts()
+    var root = get_tree().root
+    var game_size = Vector2(root.content_scale_size)
+    if game_size.x <= 0 or game_size.y <= 0: return
+
+    var mouse = root.get_mouse_position()
+    var clamped = mouse.clamp(Vector2.ZERO, game_size - Vector2(1,1))
+    if mouse != clamped:
+        root.warp_mouse(clamped)
 
 var edit_mode
 
@@ -129,38 +132,15 @@ func _scan_directory(path: String):
                 print("  Failed to load: %s" % full_path)
         
         file_name = dir.get_next()
-    
-func spawn(name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    # Spawn by name 
-    #if actor_scripts.has(name):
-        #return _spawn_actor(name, parent, position)
-    if scenes.has(name):
-        return _spawn_scene(name, parent, position)
-    else:
-        print("Not found: %s" % name)
-        return null
 
-func _spawn_actor(actor_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    var instance = scenes["actor_2d"].instantiate()
-    instance.set_script(actor_scripts[actor_name])
-
+func _spawn_actor(instance:Actor2D, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
     if parent == null:
-        get_tree().current_scene.add_child(instance)
+        if playfield:
+            playfield.add_child.call_deferred(instance)
+        else:
+            get_tree().current_scene.add_child.call_deferred(instance)
     else:
-        parent.add_child(instance)
-
-    if position == Vector2.INF:
-        position = pen
-
-    instance.global_position = position
-    return instance
-
-func _spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    var instance = scenes[scene_name].instantiate()
-    if parent == null:
-        get_tree().current_scene.add_child(instance)
-    else:
-        parent.add_child(instance)
+        parent.add_child.call_deferred(instance)
 
     if position == Vector2.INF:
         position = pen
@@ -169,15 +149,31 @@ func _spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = V
         instance.set_global_position(position)
     elif instance.has_method("set_position"):
         instance.set_position(position)
-
+        
     return instance
+
+func _spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
+    var instance:Actor2D = scenes[scene_name].instantiate()
+    return _spawn_actor( instance, parent, position )
 
 func get_scene(scene_name: String) -> PackedScene:
     return scenes.get(scene_name)
 
 func has_scene(scene_name: String) -> bool:
     return scenes.has(scene_name)
-
+    
+func spawn(name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
+    # Spawn by name 
+    #if actor_scripts.has(name):
+        #return _spawn_actor(name, parent, position)
+    if name == "":
+        return _spawn_actor(Actor2D.new(), parent, position)
+        
+    if scenes.has(name):
+        return _spawn_scene(name, parent, position)
+    else:
+        print("Not found: %s" % name)
+        return null
 # ==================================================================================================
 # Actor Script Manager
 
@@ -232,7 +228,61 @@ func timeout( duration:float, on_timeout = null, one_shot = true ) -> Timer:
     var timer = Timer.new()
     timer.wait_time = duration
     timer.one_shot = one_shot
+    timer.autostart = true
     if on_timeout:
         timer.timeout.connect( on_timeout ) # Connect to function
-    timer.start()
     return timer
+
+## Call a method by name on all actors that have it
+func shout(method_name: String, args: Array = []):
+    for actor in get_tree().get_nodes_in_group("actors"):
+        if actor.has_method(method_name):
+            actor.callv(method_name, args)
+
+## Get the center of the viewport
+func screen_center() -> Vector2:
+    return Vector2(get_viewport().get_visible_rect().size) / 2
+
+## Get mouse position in game coordinates
+func mouse_pos() -> Vector2:
+    return get_tree().root.get_mouse_position()
+
+## Check if mouse is within the game viewport
+func mouse_in_viewport() -> bool:
+    var pos = mouse_pos()
+    var game_size = Vector2(get_tree().root.content_scale_size)
+    return pos.x >= 0 and pos.y >= 0 and pos.x <= game_size.x and pos.y <= game_size.y 
+
+## Play a sound effect (uses standard Godot mixer)
+## Each sound self-chokes (stops previous instance of same sound)
+var _sfx_players: Dictionary = {}
+
+func sfx(stream: AudioStream, volume: float = 1.0, bus: String = "SFX" ):
+    if not stream: return
+
+    # Stop previous instance of this sound
+    if _sfx_players.has(stream):
+        var prev = _sfx_players[stream]
+        if is_instance_valid(prev):
+            prev.stop()
+            prev.queue_free()
+
+    var player = AudioStreamPlayer.new()
+    player.stream = stream
+    player.volume_linear = volume
+    player.bus = bus
+    add_child(player)
+    player.play()
+    player.finished.connect(player.queue_free)
+    _sfx_players[stream] = player
+
+func _ready():
+    get_tree().root.ready.connect(func(): playfield = get_tree().current_scene.get_node_or_null("%Playfield"))
+    process_mode = Node.PROCESS_MODE_ALWAYS
+    set_process_input(true)
+    init_window()
+    init_drag()
+    init_border()
+    init_edit_mode()
+    load_all_scenes()
+    #load_all_actor_scripts()

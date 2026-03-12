@@ -50,7 +50,6 @@ point_count = 3
 script = ExtResource("1_hh6el")
 autoplay_name = &"in-and-out1"
 open_ended = true
-metadata/_custom_type_script = "uid://s853qwn0ogyp"
 
 [node name="RelativeAnimationPlayer" type="AnimationPlayer" parent="." unique_id=447413219]
 libraries/ = SubResource("AnimationLibrary_acxwa")

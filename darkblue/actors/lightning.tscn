@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dwq0mg08twmll"]
+
+[ext_resource type="Script" uid="uid://do3jc8ql0lrq6" path="res://darkblue/actors/lightning.gd" id="1_lightning"]
+[ext_resource type="Texture2D" uid="uid://egjltigjtje8" path="res://darkblue/actors/lightning.png" id="2_adl5e"]
+
+[node name="Lightning" type="CharacterBody2D" unique_id=164286137]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_lightning")
+sprite_texture = ExtResource("2_adl5e")
+frame_width = 1024
+frame_height = 1024
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=392283225]
+unique_name_in_owner = true
+texture = ExtResource("2_adl5e")

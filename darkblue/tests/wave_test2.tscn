@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://1m8bvsoxc6pj" path="res://common/beat_config.gd" id="1_0328a"]
 [ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/shaders/bgblur.gdshader" id="1_n4ig4"]
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="2_forhw"]
-[ext_resource type="AudioStream" uid="uid://l7am6sy7a58m" path="res://darkblue/music/darkblue-reprise-test.wav" id="2_s47a8"]
 [ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_xfhlu"]
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="3_0328a"]
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="4_xfhlu"]
@@ -11,7 +10,9 @@
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="6_forhw"]
 [ext_resource type="PackedScene" uid="uid://cbxaen0wlpqoa" path="res://darkblue/actors/enemy2_e02.tscn" id="7_t8l6d"]
 [ext_resource type="PackedScene" uid="uid://dtwv1bbjf3uji" path="res://darkblue/actors/enemy2_e03.tscn" id="8_prije"]
-[ext_resource type="PackedScene" uid="uid://cq2ciasunnax4" path="res://darkblue/actors/enemy_2_e_04.tscn" id="12_s47a8"]
+[ext_resource type="PackedScene" uid="uid://cq2ciasunnax4" path="res://darkblue/actors/enemy_2_e04.tscn" id="12_s47a8"]
+[ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="13_t8l6d"]
+[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4.tscn" id="14_prije"]
 
 [sub_resource type="GDScript" id="GDScript_n4ig4"]
 script/source = "extends Node2D
@@ -50,9 +51,12 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 16),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 16, 32),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
+"args": [],
+"method": &"next"
+}, {
 "args": [],
 "method": &"next"
 }, {
@@ -110,7 +114,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 7.4078183, 7.9078183, 8.407818, 8.907818, 9.407818, 9.907818, 10.399786, 10.907818),
+"times": PackedFloat32Array(0, 2, 3.54, 4.04, 4.5399995, 5.0399995, 5.5399995, 6.0399995, 6.5319676, 7.04),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -150,13 +154,47 @@ _data = {
 &"sequence": SubResource("Animation_gp5rv")
 }
 
+[sub_resource type="Animation" id="Animation_t8l6d"]
+resource_name = "sequence"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prije"]
+_data = {
+&"sequence": SubResource("Animation_t8l6d")
+}
+
 [node name="SceneRoot" type="Node2D" unique_id=287075061]
 script = SubResource("GDScript_n4ig4")
 
 [node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
 script = ExtResource("1_0328a")
 bpm = 143.0
-music = ExtResource("2_s47a8")
+target_sequence = NodePath("../Level001Sequence")
+metronome_enabled = true
 metronome_sound = ExtResource("2_xfhlu")
 
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=1605552771]
@@ -192,59 +230,109 @@ running = true
 [node name="LevelAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence" unique_id=734777420]
 libraries/ = SubResource("AnimationLibrary_2wvjl")
 
-[node name="Wave001Sequence" type="Node2D" parent="Level001Sequence" unique_id=19577533]
+[node name="Wave001" type="Node2D" parent="Level001Sequence" unique_id=19577533]
+script = ExtResource("6_forhw")
+
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence/Wave001" unique_id=1316925420]
+libraries/ = SubResource("AnimationLibrary_fhmn5")
+
+[node name="enemy2-e02-1" parent="Level001Sequence/Wave001" unique_id=1059565042 instance=ExtResource("7_t8l6d")]
+position = Vector2(176, -128)
+
+[node name="enemy2-e02-2" parent="Level001Sequence/Wave001" unique_id=2119177072 instance=ExtResource("7_t8l6d")]
+position = Vector2(176, -64)
+
+[node name="enemy2-e02-3" parent="Level001Sequence/Wave001" unique_id=517138493 instance=ExtResource("7_t8l6d")]
+position = Vector2(176, 0)
+
+[node name="enemy2-e02-4" parent="Level001Sequence/Wave001" unique_id=1916199662 instance=ExtResource("7_t8l6d")]
+position = Vector2(176, 64)
+
+[node name="Wave002" type="Node2D" parent="Level001Sequence" unique_id=1235966571]
 visible = false
 script = ExtResource("6_forhw")
 
-[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence/Wave001Sequence" unique_id=1316925420]
-libraries/ = SubResource("AnimationLibrary_fhmn5")
-
-[node name="enemy2-e02-1" parent="Level001Sequence/Wave001Sequence" unique_id=1059565042 instance=ExtResource("7_t8l6d")]
-position = Vector2(176, -128)
-
-[node name="enemy2-e02-2" parent="Level001Sequence/Wave001Sequence" unique_id=2119177072 instance=ExtResource("7_t8l6d")]
-position = Vector2(176, -64)
-
-[node name="enemy2-e02-3" parent="Level001Sequence/Wave001Sequence" unique_id=517138493 instance=ExtResource("7_t8l6d")]
-position = Vector2(176, 0)
-
-[node name="enemy2-e02-4" parent="Level001Sequence/Wave001Sequence" unique_id=1916199662 instance=ExtResource("7_t8l6d")]
-position = Vector2(176, 64)
-
-[node name="Wave002Sequence" type="Node2D" parent="Level001Sequence" unique_id=1235966571]
-script = ExtResource("6_forhw")
-
-[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence/Wave002Sequence" unique_id=1596294550]
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence/Wave002" unique_id=1596294550]
 libraries/ = SubResource("AnimationLibrary_4l4sq")
 
-[node name="e1" parent="Level001Sequence/Wave002Sequence" unique_id=1337668934 instance=ExtResource("8_prije")]
+[node name="enemy2-e03-1" parent="Level001Sequence/Wave002" unique_id=1337668934 instance=ExtResource("8_prije")]
 position = Vector2(-16, -24)
 
-[node name="e2" parent="Level001Sequence/Wave002Sequence" unique_id=215721961 instance=ExtResource("8_prije")]
+[node name="enemy2-e03-2" parent="Level001Sequence/Wave002" unique_id=215721961 instance=ExtResource("8_prije")]
 position = Vector2(-16, 24)
 
-[node name="enemy2-e04-1" parent="Level001Sequence/Wave002Sequence" unique_id=1094319328 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-1" parent="Level001Sequence/Wave002" unique_id=1094319328 instance=ExtResource("12_s47a8")]
 position = Vector2(160, -128)
 
-[node name="enemy2-e04-2" parent="Level001Sequence/Wave002Sequence" unique_id=411941233 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-2" parent="Level001Sequence/Wave002" unique_id=411941233 instance=ExtResource("12_s47a8")]
 position = Vector2(160, -64)
 
-[node name="enemy2-e04-3" parent="Level001Sequence/Wave002Sequence" unique_id=1391711958 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-3" parent="Level001Sequence/Wave002" unique_id=1391711958 instance=ExtResource("12_s47a8")]
 position = Vector2(160, 0)
 
-[node name="enemy2-e04-4" parent="Level001Sequence/Wave002Sequence" unique_id=1972696847 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-4" parent="Level001Sequence/Wave002" unique_id=1972696847 instance=ExtResource("12_s47a8")]
 position = Vector2(160, 64)
 
-[node name="enemy2-e04-8" parent="Level001Sequence/Wave002Sequence" unique_id=1736508581 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-8" parent="Level001Sequence/Wave002" unique_id=1736508581 instance=ExtResource("12_s47a8")]
 position = Vector2(224, 64)
 
-[node name="enemy2-e04-7" parent="Level001Sequence/Wave002Sequence" unique_id=753610822 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-7" parent="Level001Sequence/Wave002" unique_id=753610822 instance=ExtResource("12_s47a8")]
 position = Vector2(224, 0)
 
-[node name="enemy2-e04-6" parent="Level001Sequence/Wave002Sequence" unique_id=931418090 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-6" parent="Level001Sequence/Wave002" unique_id=931418090 instance=ExtResource("12_s47a8")]
 position = Vector2(224, -64)
 
-[node name="enemy2-e04-5" parent="Level001Sequence/Wave002Sequence" unique_id=1920150194 instance=ExtResource("12_s47a8")]
+[node name="enemy2-e04-5" parent="Level001Sequence/Wave002" unique_id=1920150194 instance=ExtResource("12_s47a8")]
 position = Vector2(224, -128)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1204720892]
+[node name="Wave003" type="Node2D" parent="Level001Sequence" unique_id=890910561]
+visible = false
+script = ExtResource("6_forhw")
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Level001Sequence/Wave003" unique_id=1368193689]
+libraries/ = SubResource("AnimationLibrary_prije")
+
+[node name="Burst2D" type="Node2D" parent="Level001Sequence/Wave003" unique_id=915418790]
+position = Vector2(504, 64)
+script = ExtResource("13_t8l6d")
+scene = ExtResource("14_prije")
+count = 8
+angle_offset = 90.0
+time_stagger = 1.0
+random_angles = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Burst2D2" type="Node2D" parent="Level001Sequence/Wave003" unique_id=434525370]
+position = Vector2(152, 104)
+script = ExtResource("13_t8l6d")
+scene = ExtResource("14_prije")
+count = 8
+angle_offset = 90.0
+time_stagger = 1.0
+random_angles = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Burst2D3" type="Node2D" parent="Level001Sequence/Wave003" unique_id=464020652]
+position = Vector2(320, 96)
+script = ExtResource("13_t8l6d")
+scene = ExtResource("14_prije")
+count = 8
+angle_offset = 90.0
+time_stagger = 1.0
+random_angles = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Burst2D4" type="Node2D" parent="Level001Sequence/Wave003" unique_id=1599876925]
+position = Vector2(232, 232)
+script = ExtResource("13_t8l6d")
+scene = ExtResource("14_prije")
+count = 8
+angle_offset = 90.0
+time_stagger = 1.0
+random_angles = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"

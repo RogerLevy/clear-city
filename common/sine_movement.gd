@@ -20,6 +20,7 @@ var _prev_y_pixels: float
 var _prev_amount: float
 
 func _ready():
+    add_to_group("sine_movements")
     _prev_x_pixels = x_pixels
     _prev_y_pixels = y_pixels
     _prev_amount = amount

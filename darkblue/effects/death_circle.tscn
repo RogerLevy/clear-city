@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ne6j6o3jpyi3"]
+
+[ext_resource type="Script" uid="uid://bgqk23efqlx4g" path="res://darkblue/effects/death_circle.gd" id="1_dc"]
+
+[node name="DeathCircle" type="Sprite2D" unique_id=927509948]
+script = ExtResource("1_dc")

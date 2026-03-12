@@ -2,19 +2,19 @@
 class_name Actor2D
 extends StateMachineCharacterBody2D
 
-@onready var sprite:Sprite2D = $Sprite2D
+@onready var sprite:Sprite2D
 
 @export var sprite_texture: Texture2D:
     set(value):
         sprite_texture = value
         update_sprite()
 
-@export var frame_width: int = 16:
+@export_range(0, 2048, 1) var frame_width: int = 16:
     set(value):
         frame_width = max( value, 1 )
         update_sprite()
 
-@export var frame_height: int = 16:
+@export_range(0, 2048, 1) var frame_height: int = 16:
     set(value):
         frame_height = max( value, 1 )
         update_sprite()
@@ -43,6 +43,8 @@ func update_sprite():
         s.frame = current_frame
     
 func _ready():
+    add_to_group("actors")
+    sprite = find_child("Sprite2D")
     update_sprite()
     if get_parent() == get_tree().root:
         var cam = Camera2D.new()
@@ -64,3 +66,6 @@ func _physics_process( _delta ):
         current_frame = animation[ animationPos ]
         
     super._physics_process( _delta )
+
+func musical_anim_speed(frames: Array, period: float) -> float:
+    return frames.size() / (period * beat.scale * Engine.physics_ticks_per_second)

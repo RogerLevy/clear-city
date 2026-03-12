@@ -105,7 +105,6 @@ _data = {
 [node name="enemy2-e03-1" type="Node2D" unique_id=1337668934]
 script = ExtResource("1_evw1v")
 autoplay_name = &"in-and-out1"
-metadata/_custom_type_script = "uid://s853qwn0ogyp"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2063353101]
 libraries/ = SubResource("AnimationLibrary_acxwa")

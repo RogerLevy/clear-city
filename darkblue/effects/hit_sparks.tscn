@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ds43qsspswonm"]
+
+[ext_resource type="Script" uid="uid://bh0ur38mnrtlm" path="res://darkblue/effects/hit_sparks.gd" id="1_hs"]
+
+[node name="HitSparks" type="Node2D" unique_id=1458460962]
+script = ExtResource("1_hs")

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b5pqkhglrcguv"]
+
+[ext_resource type="Script" uid="uid://5qw6botosf7p" path="res://common/relative_animation_player.gd" id="2_5b7ko"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="3_v2ppp"]
+
+[sub_resource type="Curve2D" id="Curve2D_efeo1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 167.77779, -120, 0, 0, 0, 0, -22.370361, -24)
+}
+point_count = 2
+
+[node name="EnemyMovement" type="AnimationPlayer" unique_id=447413219]
+speed_scale = 1.667
+script = ExtResource("2_5b7ko")
+metadata/_custom_type_script = "uid://5qw6botosf7p"
+
+[node name="Path" type="Path2D" parent="." unique_id=459419434]
+position = Vector2(264, 184)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_efeo1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path" unique_id=989409510]
+position = Vector2(167.77779, -120)
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path/PathFollow2D" unique_id=1795476604]
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Path/PathFollow2D/RemoteTransform2D" unique_id=1985398944]
+script = ExtResource("3_v2ppp")
+x_period = 3.0
+y_period = 3.0
+y_pixels = 20.0
+speed = 0.0
+amount = -0.5

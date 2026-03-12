@@ -69,6 +69,8 @@ func get_scale_for_mode(mode: TimingMode.Mode) -> float:
 
 var scale: float = 1.0  # duration multiplier: 1 beat-second = scale real-seconds
 var playing: bool = false
+var started_from_beat: float = 0.0  # The beat we started from (for Sequence to check)
+var target_sequence: Node  # Sequence that should start from started_from_beat
 var _start_time: float = 0.0
 var _pause_position: float = 0.0
 var _last_beat: int = -1
@@ -150,9 +152,11 @@ func _physics_process(_delta):
 
 ## Start playing a music track with sample-accurate timing (WAV only)
 func play_music(stream: AudioStreamWAV, from_beat: float = 0.0):
+    started_from_beat = from_beat
     _dsp.set_music(stream)
-    _dsp.start()  # Start first (clears state)
-    _schedule_beats_and_metronome(from_beat)  # Then schedule
+    var from_sample := int(from_beat * scale * _dsp.sample_rate)
+    _dsp.start(from_sample)  # Start from the correct sample
+    _schedule_beats_and_metronome(from_beat)
     _using_dsp = true
     _last_beat = int(from_beat) - 1
     _last_measure = _last_beat / beats_per_measure
@@ -162,6 +166,7 @@ func play_music(stream: AudioStreamWAV, from_beat: float = 0.0):
 ## Start the beat system without music
 ## Uses DSP if metronome enabled (sample-accurate), otherwise polling
 func start(from_beat: float = 0.0):
+    started_from_beat = from_beat
     _last_beat = int(from_beat) - 1
     _last_measure = _last_beat / beats_per_measure
     playing = true
@@ -170,7 +175,8 @@ func start(from_beat: float = 0.0):
     if metronome_enabled and _metronome_stream:
         # Use DSP for sample-accurate metronome
         _dsp.clear_music()
-        _dsp.start()
+        var from_sample := int(from_beat * scale * _dsp.sample_rate)
+        _dsp.start(from_sample)
         _schedule_beats_and_metronome(from_beat)
         _using_dsp = true
     else:
@@ -275,3 +281,8 @@ func every(beat_interval: float) -> Timer:
     timer.autostart = true
     add_child(timer)
     return timer
+
+## Play a sound immediately (sample-accurate)
+func play_now(stream: AudioStreamWAV, volume: float = 1.0):
+    if stream and _dsp:
+        _dsp.schedule(stream, _dsp.sample_position, volume)

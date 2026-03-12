@@ -42,10 +42,11 @@ func _ready():
 
     _player = AudioStreamPlayer.new()
     _player.stream = _generator
+    _player.bus = "BGM"
     add_child(_player)
 
-func start():
-    sample_position = 0
+func start(from_sample: int = 0):
+    sample_position = from_sample
     _scheduled.clear()
     _callbacks.clear()
     _active.clear()
@@ -215,7 +216,7 @@ func _decode_wav(wav: AudioStreamWAV) -> PackedVector2Array:
         AudioStreamWAV.FORMAT_16_BITS:
             bytes_per_sample = 4 if stereo else 2
         _:
-            push_warning("Dsp: Unsupported WAV format")
+            push_warning("Dsp: Unsupported WAV format: ", format)
             return PackedVector2Array()
 
     var num_samples: int = data.size() / bytes_per_sample

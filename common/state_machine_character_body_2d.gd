@@ -34,6 +34,7 @@ func _physics_process( _delta ):
         self.delta = _delta
         time_counter += _delta
         if behavior: behavior.call()
+        move_and_slide()
 
 signal universe_heat_death
 
