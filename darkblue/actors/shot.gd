@@ -26,15 +26,10 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
     if actor.is_in_group("enemies"):
         if actor.has_method("damage"):
             actor.damage(atk)
-        # Spawn hit sparks at contact point using raycast
+        # Spawn hit sparks at contact point
         var playfield = g.get("playfield")
         if playfield:
-            var space = get_world_2d().direct_space_state
-            var query = PhysicsRayQueryParameters2D.create(global_position, area.global_position)
-            query.collide_with_areas = true
-            query.collide_with_bodies = false
-            var result = space.intersect_ray(query)
-            var contact = result.position if result else global_position
+            var contact = g.find_contact_point(global_position, area.global_position, global_position)
             HitSparks.spawn(playfield, contact, velocity.angle() + PI, 20)
         visible = false
         queue_free()

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bqqhi3o6x5v3p"]
 
 [ext_resource type="Texture2D" uid="uid://dx4yc1j06nap7" path="res://darkblue/actors/angel.png" id="1_mfutx"]
-[ext_resource type="FontFile" uid="uid://bjn7d6ss5e23g" path="res://darkblue/fonts/darkblue_mini.ttf" id="2_font"]
 
 [sub_resource type="GDScript" id="GDScript_3hwg8"]
 resource_name = "enemy10"
@@ -17,10 +16,9 @@ func init():
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
 script = SubResource("GDScript_3hwg8")
-hp = 10
+hp = 200
 r = 64.0
 bounty = 100
-bounty_font = ExtResource("2_font")
 sprite_texture = ExtResource("1_mfutx")
 frame_width = 50
 frame_height = 64

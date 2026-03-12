@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://bp2d703t1yrgl" path="res://common/actor_2d.tscn" id="1"]
+[ext_resource type="Script" path="res://darkblue/actors/big_shot_beam.gd" id="2"]
+
+[node name="BigShotBeam" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="Sprite2D" parent="." index="0"]
+visible = false

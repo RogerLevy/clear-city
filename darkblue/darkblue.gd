@@ -9,6 +9,7 @@ var move_mouse_with_player:bool = true
 
 var _p1_prev_pos: Vector2
 var _status_text: BitmapText
+var _display_energy: float = 100.0  # rolls towards actual energy
 
 func _ready():
     super._ready()
@@ -27,7 +28,11 @@ func process_mouse():
     constrain_mouse()
 
 func process_status():
-    _status_text.text = "%d" % energy
+    # Roll display energy towards actual energy (faster when difference is larger)
+    var diff = energy - _display_energy
+    var roll_speed = absf(diff) * 0.1 + 1.0  # proportional + 1/frame minimum
+    _display_energy = move_toward(_display_energy, energy, roll_speed)
+    _status_text.text = "%d" % int(_display_energy)
 
 func _process(_delta):
     process_mouse()

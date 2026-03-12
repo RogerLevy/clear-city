@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://darkblue/actors/big_shot_burst.gd" id="1"]
+
+[node name="BigShotBurst" type="Node2D"]
+script = ExtResource("1")

@@ -133,7 +133,7 @@ func _scan_directory(path: String):
         
         file_name = dir.get_next()
 
-func _spawn_actor(instance:Actor2D, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
+func _spawn_actor(instance: Node, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
     if parent == null:
         if playfield:
             playfield.add_child.call_deferred(instance)
@@ -153,7 +153,7 @@ func _spawn_actor(instance:Actor2D, parent: Node = null, position: Vector2 = Vec
     return instance
 
 func _spawn_scene(scene_name: String, parent: Node = null, position: Vector2 = Vector2.INF) -> Node:
-    var instance:Actor2D = scenes[scene_name].instantiate()
+    var instance = scenes[scene_name].instantiate()
     return _spawn_actor( instance, parent, position )
 
 func get_scene(scene_name: String) -> PackedScene:
@@ -252,6 +252,16 @@ func mouse_in_viewport() -> bool:
     var pos = mouse_pos()
     var game_size = Vector2(get_tree().root.content_scale_size)
     return pos.x >= 0 and pos.y >= 0 and pos.x <= game_size.x and pos.y <= game_size.y 
+
+## Find contact point between two positions using raycast against Area2D
+## Returns the raycast hit position, or fallback if no hit
+func find_contact_point(from: Vector2, to: Vector2, fallback: Vector2 = Vector2.ZERO) -> Vector2:
+    var space = get_tree().root.world_2d.direct_space_state
+    var query = PhysicsRayQueryParameters2D.create(from, to)
+    query.collide_with_areas = true
+    query.collide_with_bodies = false
+    var result = space.intersect_ray(query)
+    return result.position if result else fallback
 
 ## Play a sound effect (uses standard Godot mixer)
 ## Each sound self-chokes (stops previous instance of same sound)

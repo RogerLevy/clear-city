@@ -9,9 +9,12 @@
 position = Vector2(48, 52)
 script = ExtResource("2_c7gc6")
 orbit_radius = 32.0
-mouse_lerp_speed = null
-shot_speed = null
+mouse_lerp_speed = 0.5
+shot_speed = 800.0
 snd_shoot = ExtResource("3_ud5ui")
+snd_charge = null
+snd_bigshot = null
+snd_laser = null
 
 [node name="Turret" type="Sprite2D" parent="." index="1" unique_id=1691812379]
 visible = false
@@ -19,5 +22,5 @@ position = Vector2(50, 127)
 texture = ExtResource("2_uj4cd")
 
 [node name="Polygon2D" type="Polygon2D" parent="." index="2" unique_id=1001934855]
-color = Color(0.49803922, 0.49803922, 0.6666667, 1)
+color = Color(0.81960785, 0.81960785, 0.69803923, 1)
 polygon = PackedVector2Array(1, -2, -3, -6, -6, -6, -8, -4, -8, -3, -6, -1, -4, -1, -4, -3, -7, -3, -6, -5, -4, -5, -2, -1, 1, -1, 1, 0, -2, 0, -4, 4, -6, 4, -7, 2, -4, 2, -4, 0, -6, 0, -8, 2, -8, 3, -6, 5, -3, 5, 1, 1, 4, 1, 2, 4, -1, 8, 5, 4, 3, 8, 0, 13, 5, 8, 7, 4, 7, 2, 10, 0, 10, -1, 7, -3, 7, -5, 5, -9, 0, -14, 3, -9, 5, -5, -1, -8, 2, -5, 4, -2)
