@@ -8,7 +8,7 @@ class_name BurstSequence
 @export var force:float = 100
 @export var force_range:float = 0  # randomizes force (gets added to force)
 @export var angle_offset:float = 0
-@export var angle_spread:float = 180
+@export var angle_spread:float = 360
 @export var time_stagger:float = 0  # respects musical flag
 @export var time_stagger_frames:int = 0
 @export var random_angles:bool = false  # false = even distribution, true = random distribution
@@ -29,15 +29,15 @@ func _setup_burst():
     assert(not infinite or time_stagger > 0 or time_stagger_frames > 0, "BurstSequence: infinite requires time_stagger or time_stagger_frames")
 
     var final_count = count + randi_range(0, count_range)
-    var angle_step = (angle_spread * 2.0) / max(final_count - 1, 1) if not random_angles and final_count > 1 else 0
-    var start_angle = angle_offset - angle_spread
+    var angle_step = angle_spread / final_count if not random_angles and final_count > 0 else 0
+    var start_angle = angle_offset
     var prev_angle: float = INF
 
     for i in final_count:
         var angle: float
         if random_angles:
             for attempt in 10:
-                angle = angle_offset + randf_range(-angle_spread, angle_spread)
+                angle = angle_offset + randf_range(-angle_spread * 0.5, angle_spread * 0.5)
                 if prev_angle == INF or absf(angle_difference(deg_to_rad(angle), deg_to_rad(prev_angle))) >= deg_to_rad(45):
                     break
         else:
@@ -83,9 +83,9 @@ func _physics_process(delta):
 func _spawn_instance(vel: Vector2):
     if not scene:
         return
-    var instance = scene.instantiate()
-    instance.position = position
-    get_parent().add_child.call_deferred(instance)
+    var instance:Node2D = scene.instantiate()
+    instance.transform = get_global_transform()
+    g.playfield.add_child.call_deferred(instance)
     _apply_velocity.call_deferred(instance, vel)
 
 func _apply_velocity(instance: Node, vel: Vector2):

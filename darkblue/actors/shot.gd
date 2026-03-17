@@ -2,8 +2,10 @@
 extends Actor2D
 
 # Player pea shot projectile
+# Origin at left edge, 16 pixels long
 
 const HitSparks = preload("res://darkblue/effects/hit_sparks.gd")
+const LENGTH: float = 16.0
 
 var atk: int = 1
 
@@ -13,6 +15,9 @@ func init():
     act(func():
         cull()
     )
+
+func get_front_tip() -> Vector2:
+    return global_position + velocity.normalized() * LENGTH
 
 func cull():
     var screen_size = get_viewport().get_visible_rect().size
@@ -26,10 +31,10 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
     if actor.is_in_group("enemies"):
         if actor.has_method("damage"):
             actor.damage(atk)
-        # Spawn hit sparks at contact point
+        # Spawn hit sparks at contact point - raycast from back of shot to enemy
         var playfield = g.get("playfield")
         if playfield:
-            var contact = g.find_contact_point(global_position, area.global_position, global_position)
+            var contact = g.find_contact_point(global_position, actor.global_position, global_position)
             HitSparks.spawn(playfield, contact, velocity.angle() + PI, 20)
         visible = false
         queue_free()

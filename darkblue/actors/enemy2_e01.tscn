@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dv7l1cl73olw3"]
 
-[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2.tscn" id="1_606qf"]
+[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2__elderbeak.tscn" id="1_606qf"]
 [ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="2_xetrd"]
 [ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="3_xetrd"]
 

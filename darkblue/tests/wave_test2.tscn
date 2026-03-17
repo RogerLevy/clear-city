@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dvhht6hqt8jf2"]
 
 [ext_resource type="Script" uid="uid://1m8bvsoxc6pj" path="res://common/beat_config.gd" id="1_0328a"]
-[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/shaders/bgblur.gdshader" id="1_n4ig4"]
+[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="1_n4ig4"]
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="2_forhw"]
 [ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_xfhlu"]
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="3_0328a"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dtwv1bbjf3uji" path="res://darkblue/actors/enemy2_e03.tscn" id="8_prije"]
 [ext_resource type="PackedScene" uid="uid://cq2ciasunnax4" path="res://darkblue/actors/enemy_2_e04.tscn" id="12_s47a8"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="13_t8l6d"]
-[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4.tscn" id="14_prije"]
+[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4__quadraton.tscn" id="14_prije"]
 
 [sub_resource type="GDScript" id="GDScript_n4ig4"]
 script/source = "extends Node2D

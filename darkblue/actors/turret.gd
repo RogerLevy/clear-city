@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Actor2D
 
 # Turret orbits around the ship and points at mouse cursor
 
@@ -17,8 +17,8 @@ var current_angle: float = 0.0  # actual angle (lerps towards aim)
 # Charge system
 const CHARGE_DELAY: int = 15       # frames before charging starts
 const CHARGE_BIG_SHOT: int = 30    # charge needed for big shot
-const CHARGE_LASER: int = 120      # charge needed for laser cannon
-const CHARGE_MAX: int = 120        # max charge
+const CHARGE_LASER: int = 100      # charge needed for laser cannon
+const CHARGE_MAX: int = 100        # max charge
 const CHARGE_TIMEOUT: int = 300    # 5 seconds at 60fps
 
 var hold_frames: int = 0           # how long fire button held
@@ -26,6 +26,8 @@ var charge: int = 0                # current charge level
 var charge_level: int = 0          # 0=pea, 1=big, 2=laser
 var laser_active: bool = false     # can't shoot during laser animation
 var shake_amount: float = 0.0
+
+var charge_shot_font: Font = preload("res://darkblue/fonts/darkblue_mini.ttf")
 
 # Charge bar display
 var charge_bars: Array = []
@@ -46,6 +48,7 @@ func _create_charge_bars():
 
 func _physics_process(_delta):
     if Engine.is_editor_hint(): return
+    self.delta = _delta
 
     var ship = get_parent()
     if not ship: return
@@ -91,10 +94,11 @@ func handle_shooting(ship):
 
         hold_frames += 1
 
-        # Start charging after delay
+        # Start charging after delay (cap at energy - 1 to keep reserve)
         if hold_frames > CHARGE_DELAY:
             var old_level = charge_level
-            charge = mini(charge + 1, CHARGE_MAX)
+            var max_charge = mini(CHARGE_MAX, g.energy - 1)
+            charge = mini(charge + 1, max_charge)
             update_charge_level()
 
             # Play sound on level up
@@ -159,40 +163,40 @@ func fire_pea():
     var shot = g.spawn("shot", null, get_parent().global_position)
     if shot:
         shot.velocity = Vector2.from_angle(current_angle) * shot_speed
+    FloatingText.spawn(g.playfield, get_parent().global_position, "1", charge_shot_font, 16, Color("f00"))
 
 func fire_big_shot(ship):
-    g.energy -= 30
+    g.energy -= 29
     if snd_bigshot:
         g.sfx(snd_bigshot, 0.8)
 
     # Spawn circle burst at ship center
-    var burst = g.spawn("big_shot_burst", null, ship.global_position)
+    var burst = g.spawn("big_shot_burst", ship )
+    await secs(0.15)
 
     # Spawn wide laser from ship center
     var beam = g.spawn("big_shot_beam", null, ship.global_position)
-    if beam:
-        beam.angle = current_angle
-        beam.velocity = Vector2.from_angle(current_angle) * shot_speed
+    beam.velocity = Vector2.from_angle(current_angle) * shot_speed
+
+    FloatingText.spawn(g.playfield, get_parent().global_position, str(29), charge_shot_font, 16, Color("f00"))
 
 func fire_laser_cannon(ship):
-    g.energy -= 120
+    g.energy -= 99
     if snd_laser:
         g.sfx(snd_laser, 1.0)
 
     laser_active = true
 
     # Spawn large burst at ship center
-    var burst = g.spawn("big_shot_burst", null, ship.global_position)
-    if burst:
-        burst.max_radius = 50.0
-        burst.expand_time = 0.08
-
+    var burst = g.spawn("laser_cannon_burst", ship)
+    await secs(0.2)
     var laser = g.spawn("laser_cannon", null, ship.global_position)
-    if laser:
-        laser.angle = current_angle
-        laser.ship = ship
-        laser.turret = self
-        laser.finished.connect(func(): laser_active = false)
+    laser.angle = current_angle
+    laser.ship = ship
+    laser.turret = self
+    laser.finished.connect(func(): laser_active = false)
+        
+    FloatingText.spawn(g.playfield, get_parent().global_position, str(99), charge_shot_font, 16, Color("f00"))
 
 func _draw():
     # Debug: show charge counter (un-rotated)

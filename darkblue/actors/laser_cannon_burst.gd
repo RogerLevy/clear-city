@@ -1,17 +1,16 @@
 extends Node2D
 
-# Big shot burst - 20-radius circle that expands from turret tip
-
 var radius: float = 0.0
-var max_radius: float = 20.0
-var expand_time: float = 0.1
+var max_radius: float = 25.0
+var expand_time: float = 0.15
 var color: Color = Color(0.82, 0.82, 0.7, 1.0)
 var tween: Tween
 
 func _ready():
+    print("asdfasdfasdf")
     tween = create_tween()
     # Expand
-    tween.tween_method(set_radius, 0.0, max_radius, expand_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+    tween.tween_method(set_radius, 0.0, max_radius, expand_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
     # Shrink
     tween.tween_method(set_radius, max_radius, 0.0, expand_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
     tween.tween_callback(queue_free)

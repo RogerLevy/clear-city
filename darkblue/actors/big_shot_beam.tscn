@@ -1,10 +1,27 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cpj0uvmjlnt86"]
 
 [ext_resource type="PackedScene" uid="uid://bp2d703t1yrgl" path="res://common/actor_2d.tscn" id="1"]
-[ext_resource type="Script" path="res://darkblue/actors/big_shot_beam.gd" id="2"]
+[ext_resource type="Script" uid="uid://b51js427j3y6" path="res://darkblue/actors/big_shot_beam.gd" id="2"]
 
-[node name="BigShotBeam" instance=ExtResource("1")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beam"]
+size = Vector2(48, 16)
+
+[node name="BigShotBeam" unique_id=1645516782 instance=ExtResource("1")]
 script = ExtResource("2")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=46284632]
 visible = false
+
+[node name="Line" type="ColorRect" parent="." index="1" unique_id=1096222391]
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+color = Color(0.81960785, 0.81960785, 0.69803923, 1)
+
+[node name="Area2D" type="Area2D" parent="." index="2" unique_id=1871409212]
+position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0" unique_id=239168339]
+shape = SubResource("RectangleShape2D_beam")

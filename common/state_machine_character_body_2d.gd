@@ -55,9 +55,6 @@ func frames( frames:int = 1 ):
 func frame():
     # usage:
     #   await frame()    # wait 1 frame
-    if Engine.is_editor_hint(): 
-        await universe_heat_death
-        return
     await get_tree().physics_frame
     #state_name = get_stack()[0].function
     #if debug:
@@ -66,9 +63,6 @@ func frame():
 func secs( time:float = 1.0 ):
     # usage:
     #   await secs( 5 )    # wait 5 seconds
-    if Engine.is_editor_hint():
-        await universe_heat_death
-        return
     var elapsed = 0.0
     while elapsed < time:
         await get_tree().physics_frame

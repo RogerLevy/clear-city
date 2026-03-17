@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://1m8bvsoxc6pj" path="res://common/beat_config.gd" id="1_580qk"]
 [ext_resource type="Script" uid="uid://b1wppt5vfddg2" path="res://common/offscreen_cleaner.gd" id="1_tpyys"]
-[ext_resource type="AudioStream" uid="uid://l7am6sy7a58m" path="res://darkblue/music/darkblue-reprise-test.wav" id="2_ea0w2"]
 [ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_fayap"]
-[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/shaders/bgblur.gdshader" id="3_tpyys"]
+[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="3_tpyys"]
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="4_ktc8b"]
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="5_3he2n"]
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="6_cfphb"]
@@ -16,15 +15,18 @@
 [ext_resource type="PackedScene" uid="uid://cq2ciasunnax4" path="res://darkblue/actors/enemy_2_e04.tscn" id="11_l5s1p"]
 [ext_resource type="Script" uid="uid://5qw6botosf7p" path="res://common/relative_animation_player.gd" id="12_oxhko"]
 [ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="13_54y72"]
-[ext_resource type="PackedScene" uid="uid://bqqhi3o6x5v3p" path="res://darkblue/actors/angel.tscn" id="14_dfwl2"]
+[ext_resource type="PackedScene" uid="uid://bqqhi3o6x5v3p" path="res://darkblue/actors/miniboss1_angel.tscn" id="14_dfwl2"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="15_anun7"]
-[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4.tscn" id="16_4a321"]
-[ext_resource type="PackedScene" path="res://darkblue/actors/tri_manager.tscn" id="19_5y6s7"]
+[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4__quadraton.tscn" id="16_4a321"]
+[ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="19_5y6s7"]
 [ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="19_ktc8b"]
 [ext_resource type="Texture2D" uid="uid://egjltigjtje8" path="res://darkblue/actors/lightning.png" id="20_3he2n"]
 [ext_resource type="Texture2D" uid="uid://bwlkwqjyobdqd" path="res://darkblue/actors/reticule.png" id="21_cfphb"]
 [ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="22_3v83u"]
+[ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="22_oxhko"]
+[ext_resource type="Script" uid="uid://cllx4h5h8ipa1" path="res://darkblue/actors/miniboss1_angel.gd" id="23_54y72"]
 [ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="23_ea0w2"]
+[ext_resource type="PackedScene" uid="uid://ba6uy87d0tkkd" path="res://darkblue/actors/heart.tscn" id="24_ea0w2"]
 
 [sub_resource type="GDScript" id="GDScript_5y6s7"]
 script/source = "extends Node2D
@@ -48,7 +50,7 @@ func _ready():
     var newsize = Vector2i(480, 320)
     get_window().content_scale_size = newsize
     if( DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED ):
-        get_window().size = newsize
+        get_window().size = newsize * 2
 "
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1"]
@@ -68,12 +70,9 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 16, 28, 32),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 16, 32),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
-"args": [],
-"method": &"next"
-}, {
 "args": [],
 "method": &"next"
 }, {
@@ -220,7 +219,7 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_rpjjy"]
-length = 6.0
+length = 8.0
 step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -317,6 +316,62 @@ tracks/7/keys = {
 "update": 0,
 "values": [0.0, 0.0, 1.0]
 }
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../Angel/Burst2D")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../Angel2/Burst2D2")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../Angel3/Burst2D3")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../Angel4/Burst2D4")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_fayap"]
 resource_name = "default_2"
@@ -366,7 +421,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_fayap"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -240.48148, -136, 0, 0, 0, 0, -78.296295, -80)
+"points": PackedVector2Array(0, 0, 0, 0, -154.49536, -229, 0, 0, 0, 0, -78.296295, -80)
 }
 point_count = 2
 
@@ -387,7 +442,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4, 8, 12),
+"times": PackedFloat32Array(0, 1, 2, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -426,8 +481,9 @@ metadata/_edit_lock_ = true
 [node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
 script = ExtResource("1_580qk")
 bpm = 143.0
-music = ExtResource("2_ea0w2")
+start_from_beat = 28.0
 target_sequence = NodePath("../Playfield/Level001Sequence")
+metronome_enabled = true
 metronome_sound = ExtResource("2_fayap")
 
 [node name="OffscreenCleaner" type="Node" parent="." unique_id=1795284918]
@@ -465,6 +521,12 @@ unique_name_in_owner = true
 texture_filter = 1
 texture = SubResource("ViewportTexture_1")
 centered = false
+
+[node name="EncounterRule" type="Node2D" parent="PixelatedViewport" unique_id=998192730]
+script = ExtResource("22_oxhko")
+target_class = ExtResource("23_54y72")
+drop_scene = ExtResource("24_ea0w2")
+running = true
 
 [node name="SubViewport" type="SubViewport" parent="PixelatedViewport" unique_id=571273759]
 transparent_bg = true
@@ -531,6 +593,7 @@ position = Vector2(176, 0)
 position = Vector2(176, 64)
 
 [node name="Wave002" type="Node2D" parent="Playfield/Level001Sequence" unique_id=1235966571]
+visible = false
 script = ExtResource("8_oee1l")
 
 [node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/Level001Sequence/Wave002" unique_id=1596294550]
@@ -581,7 +644,6 @@ position = Vector2(224, -64)
 position = Vector2(224, -128)
 
 [node name="Wave003Pre" type="Node2D" parent="Playfield/Level001Sequence" unique_id=94369381]
-visible = false
 script = ExtResource("8_oee1l")
 stick_around = true
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
@@ -595,12 +657,13 @@ script = ExtResource("12_oxhko")
 metadata/_custom_type_script = "uid://5qw6botosf7p"
 
 [node name="Path" type="Path2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement" unique_id=459419434]
-position = Vector2(272, 168)
+position = Vector2(373, 168)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_efeo1")
 
 [node name="PathFollow2D-1" type="PathFollow2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path" unique_id=989409510]
-position = Vector2(-22.370361, -224)
+position = Vector2(-22.370361, -24)
+progress = 200.0
 rotates = false
 cubic_interp = false
 loop = false
@@ -614,17 +677,18 @@ update_scale = false
 [node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path/PathFollow2D-1/RemoteTransform2D" unique_id=1288960595]
 script = ExtResource("13_54y72")
 y_period = 4.0
-y_pixels = 20.0
+y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Path2" type="Path2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement" unique_id=1917052384]
-position = Vector2(272, 176)
+position = Vector2(373, 176)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_580qk")
 
 [node name="PathFollow2D-2" type="PathFollow2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path2" unique_id=1963029312]
-position = Vector2(218.11113, -128)
+position = Vector2(39.148148, -88)
+progress = 183.37874
 rotates = false
 cubic_interp = false
 loop = false
@@ -638,17 +702,17 @@ update_scale = false
 [node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path2/PathFollow2D-2/RemoteTransform2D" unique_id=1103809284]
 script = ExtResource("13_54y72")
 y_period = 4.0
-y_pixels = 20.0
-speed = 0.0
+y_pixels = 10.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Path3" type="Path2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement" unique_id=34017776]
-position = Vector2(256, 168)
+position = Vector2(357, 168)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_fayap")
 
 [node name="PathFollow2D-3" type="PathFollow2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path3" unique_id=1122402518]
-position = Vector2(-240.48148, -136)
+position = Vector2(-78.296295, -80)
+progress = 167.35376
 rotates = false
 cubic_interp = false
 loop = false
@@ -662,17 +726,17 @@ update_scale = false
 [node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path3/PathFollow2D-3/RemoteTransform2D" unique_id=74368330]
 script = ExtResource("13_54y72")
 y_period = 4.0
-y_pixels = 20.0
-speed = 0.0
+y_pixels = 10.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Path4" type="Path2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement" unique_id=1048647166]
-position = Vector2(272, 192)
+position = Vector2(373, 192)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_tpyys")
 
 [node name="PathFollow2D-4" type="PathFollow2D" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path4" unique_id=1392862639]
-position = Vector2(-22.370361, 248)
+position = Vector2(-22.370361, 48)
+progress = 200.0
 rotates = false
 cubic_interp = false
 loop = false
@@ -686,37 +750,92 @@ update_scale = false
 [node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/Wave003Pre/EnemyMovement/Path4/PathFollow2D-4/RemoteTransform2D" unique_id=1088425274]
 script = ExtResource("13_54y72")
 y_period = 4.0
-y_pixels = 20.0
-speed = 0.0
+y_pixels = 10.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Angel" parent="Playfield/Level001Sequence/Wave003Pre" unique_id=1198562410 instance=ExtResource("14_dfwl2")]
-position = Vector2(240.00002, -56)
+position = Vector2(341, 144)
 metadata/_edit_lock_ = true
 
 [node name="RemoteTransform2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel" index="1" unique_id=1043338490]
 remote_path = NodePath("../../../Wave003/Burst2D")
 
+[node name="Burst2D" type="Node2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel" unique_id=709231741]
+position = Vector2(0, -48)
+script = ExtResource("15_anun7")
+scene = ExtResource("16_4a321")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
 [node name="Angel2" parent="Playfield/Level001Sequence/Wave003Pre" unique_id=77380210 instance=ExtResource("14_dfwl2")]
-position = Vector2(584, 48)
+position = Vector2(429, 88)
 metadata/_edit_lock_ = true
 
 [node name="RemoteTransform2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel2" index="1" unique_id=1043338490]
 remote_path = NodePath("../../../Wave003/Burst2D2")
 
+[node name="Burst2D2" type="Node2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel2" unique_id=1025655285]
+position = Vector2(0, -48)
+script = ExtResource("15_anun7")
+scene = ExtResource("16_4a321")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
 [node name="Angel3" parent="Playfield/Level001Sequence/Wave003Pre" unique_id=965186642 instance=ExtResource("14_dfwl2")]
-position = Vector2(-88, 32)
+position = Vector2(245, 88)
 metadata/_edit_lock_ = true
 
 [node name="RemoteTransform2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel3" index="1" unique_id=1043338490]
 remote_path = NodePath("../../../Wave003/Burst2D3")
 
+[node name="Burst2D3" type="Node2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel3" unique_id=1805654862]
+position = Vector2(0, -48)
+script = ExtResource("15_anun7")
+scene = ExtResource("16_4a321")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
 [node name="Angel4" parent="Playfield/Level001Sequence/Wave003Pre" unique_id=2121312625 instance=ExtResource("14_dfwl2")]
-position = Vector2(240.00002, 440)
+position = Vector2(341, 240)
 metadata/_edit_lock_ = true
 
 [node name="RemoteTransform2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel4" index="1" unique_id=1043338490]
 remote_path = NodePath("../../../Wave003/Burst2D4")
+
+[node name="Burst2D4" type="Node2D" parent="Playfield/Level001Sequence/Wave003Pre/Angel4" unique_id=1170336880]
+position = Vector2(0, -48)
+script = ExtResource("15_anun7")
+scene = ExtResource("16_4a321")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Wave003" type="Node2D" parent="Playfield/Level001Sequence" unique_id=890910561]
 visible = false
@@ -727,100 +846,56 @@ metadata/_custom_type_script = "uid://dosix5nlpo73y"
 libraries/ = SubResource("AnimationLibrary_prije")
 
 [node name="Burst2D" type="Node2D" parent="Playfield/Level001Sequence/Wave003" unique_id=915418790]
-position = Vector2(240.00002, -104)
+position = Vector2(341, 96)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
 count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
-random_angles = true
-infinite = true
-open_ended = true
-metadata/_custom_type_script = "uid://bpi4umj4vtm21"
-
-[node name="Burst2D5" type="Node2D" parent="Playfield/Level001Sequence/Wave003/Burst2D" unique_id=397307139]
-script = ExtResource("15_anun7")
-scene = ExtResource("16_4a321")
-count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
 random_angles = true
 infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Burst2D2" type="Node2D" parent="Playfield/Level001Sequence/Wave003" unique_id=434525370]
-position = Vector2(584, 0)
+position = Vector2(429, 40)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
 count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
-random_angles = true
-infinite = true
-open_ended = true
-metadata/_custom_type_script = "uid://bpi4umj4vtm21"
-
-[node name="Burst2D5" type="Node2D" parent="Playfield/Level001Sequence/Wave003/Burst2D2" unique_id=1376894686]
-script = ExtResource("15_anun7")
-scene = ExtResource("16_4a321")
-count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
 random_angles = true
 infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Burst2D3" type="Node2D" parent="Playfield/Level001Sequence/Wave003" unique_id=464020652]
-position = Vector2(-88, -16)
+position = Vector2(245, 40)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
 count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
-random_angles = true
-infinite = true
-open_ended = true
-metadata/_custom_type_script = "uid://bpi4umj4vtm21"
-
-[node name="Burst2D5" type="Node2D" parent="Playfield/Level001Sequence/Wave003/Burst2D3" unique_id=1745586269]
-script = ExtResource("15_anun7")
-scene = ExtResource("16_4a321")
-count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
 random_angles = true
 infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Burst2D4" type="Node2D" parent="Playfield/Level001Sequence/Wave003" unique_id=1599876925]
-position = Vector2(240.00002, 392)
+position = Vector2(341, 192)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
 count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
-random_angles = true
-infinite = true
-open_ended = true
-metadata/_custom_type_script = "uid://bpi4umj4vtm21"
-
-[node name="Burst2D5" type="Node2D" parent="Playfield/Level001Sequence/Wave003/Burst2D4" unique_id=492003678]
-script = ExtResource("15_anun7")
-scene = ExtResource("16_4a321")
-count = 8
-force = 75.0
-angle_offset = 90.0
-time_stagger = 1.0
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
 random_angles = true
 infinite = true
 open_ended = true

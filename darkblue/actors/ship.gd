@@ -3,6 +3,7 @@ extends Vessel2D
 
 # === Properties ===
 var flash_ctr: int = -1          # <0 = normal, >=0 = recovering (invincibility frames)
+var tri_cooldown: int = -1       # separate cooldown for tri collection
 var paralysis: int = 0           # prevents input when >0
 
 @onready var turret = $Turret    # child node placed in editor
@@ -22,7 +23,7 @@ func recovering() -> bool:
     return flash_ctr >= 0
 
 func get_speed() -> float:
-    return spd / 2.5 if recovering() else spd
+    return spd / 2.5 if tri_cooldown >= 0 else spd
 
 # === Main behavior ===
 func init():
@@ -68,10 +69,23 @@ func handle_controls():
 func _physics_process(delta):
     velocity *= ine
     screen_bounce(0.9)
+    attract_tris()
     check_tris()
     super._physics_process(delta)
 
+func attract_tris():
+    if dead or Engine.is_editor_hint(): return
+    var tm = g.get("tri_manager")
+    if not tm: return
+    tm.attract_trapped(global_position, 300.0)
+    if tri_cooldown < 0:
+        tm.attract_to(global_position, 50.0, 300.0)
+
 func check_tris():
+    if dead or Engine.is_editor_hint(): return
+    if tri_cooldown >= 0:
+        tri_cooldown -= 1
+        return
     var tm = g.get("tri_manager")
     if not tm: return
     if _collect_snd_cooldown > 0:
@@ -121,9 +135,11 @@ func damage(amount: int):
         return
 
     expel(amount)
-    flash_ctr = mini(flash_ctr + amount + 2, 62)
+    flash_ctr = 90
+    tri_cooldown = 30
 
 func die():
+    dead = true
     g.energy = 0
     flash_ctr = 62
     time_counter = 0.0
@@ -164,11 +180,11 @@ func shatter():
     queue_free()
 
 func expel(amount: int):
-    var tm = g.get("tri_manager")
+    var tm:TriManager = g.get("tri_manager")
     if not tm: return
     for i in amount:
         var angle = randf() * TAU
-        tm.spawn(global_position + Vector2.from_angle(angle) * 20, Vector2.from_angle(angle) * 40)
+        tm.spawn(global_position + Vector2.from_angle(angle) * 20, Vector2.from_angle(angle) * 35)
 
 func slowdown_playfield():
     var actors = get_tree().get_nodes_in_group("actors")
@@ -177,6 +193,7 @@ func slowdown_playfield():
     var anims = g.playfield.find_children("*", "AnimationPlayer") if g.playfield else []
     var decelerator = g.spawn("", get_parent(), Vector2.ZERO)
     var sines = get_tree().get_nodes_in_group("sine_movements")
+    var tm = g.get("tri_manager")
     # Disable animation tracks that control SineMovement properties
     for anim_player in anims:
         for anim_name in anim_player.get_animation_list():
@@ -196,6 +213,8 @@ func slowdown_playfield():
         for sine in sines:
             if is_instance_valid(sine):
                 sine.speed *= 0.94
+        if tm:
+            tm.slowdown(0.94)
     )
 
 # === Collision handlers (connect via Area2D signals) ===
@@ -241,5 +260,5 @@ func hit_orb(orb):
 
 func _ready():
     super._ready()
-    g.energy = 100
+    g.energy = 1000000
     g.p1 = self

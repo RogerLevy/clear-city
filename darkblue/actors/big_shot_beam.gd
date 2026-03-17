@@ -1,20 +1,25 @@
 @tool
-extends Actor2D
+extends "res://darkblue/actors/shot.gd"
 
 # Big shot beam - 48x16 laser that passes through enemies, dealing continuous damage
+# Origin at left edge (back), 48 pixels long
 
-var angle: float = 0.0
-var atk: int = 3
+const BEAM_LENGTH: float = 48.0
+
 var damage_cooldown: Dictionary = {}  # enemy -> frames until can damage again
 const DAMAGE_INTERVAL: int = 6  # frames between damage ticks
 
 func init():
+    atk = 3
     add_to_group("player_projectiles")
-    rotation = angle
+    rotation = velocity.angle()
     act(func():
         cull()
         check_hits()
     )
+
+func get_front_tip() -> Vector2:
+    return global_position + velocity.normalized() * BEAM_LENGTH
 
 func _physics_process(delta):
     super._physics_process(delta)
@@ -28,29 +33,19 @@ func _physics_process(delta):
             damage_cooldown.erase(enemy)
 
 func check_hits():
-    var space = get_world_2d().direct_space_state
-    # Check collision with Area2D
-    for enemy in get_tree().get_nodes_in_group("enemies"):
-        if not is_instance_valid(enemy): continue
-        if not enemy.is_visible_in_tree(): continue
+    for area in $Area2D.get_overlapping_areas():
+        var enemy = area.get_parent()
+        if not enemy.is_in_group("enemies"): continue
         if damage_cooldown.has(enemy): continue
-
-        # Simple distance check for now
-        var dist = global_position.distance_to(enemy.global_position)
-        var enemy_r = enemy.get("r") if enemy.get("r") else 16.0
-        if dist < enemy_r + 24:  # half of beam length
-            if enemy.has_method("damage"):
-                enemy.damage(atk)
-                damage_cooldown[enemy] = DAMAGE_INTERVAL
-                # Spawn sparks
-                spawn_sparks(enemy)
+        if enemy.has_method("damage"):
+            enemy.damage(atk)
+            damage_cooldown[enemy] = DAMAGE_INTERVAL
+            spawn_sparks(enemy)
 
 func spawn_sparks(enemy):
-    const HitSparks = preload("res://darkblue/effects/hit_sparks.gd")
     var playfield = g.get("playfield")
     if playfield:
-        var enemy_r = enemy.get("r") if enemy.get("r") else 16.0
-        var contact = g.find_contact_point(global_position, enemy.global_position, enemy.global_position)
+        var contact = g.find_contact_point(global_position, enemy.global_position, global_position)
         HitSparks.spawn(playfield, contact, velocity.angle() + PI, 10)
 
 func cull():
@@ -59,8 +54,3 @@ func cull():
         queue_free()
     if global_position.y < -50 or global_position.y > screen_size.y + 50:
         queue_free()
-
-func _draw():
-    # Draw 48x16 beam
-    var rect = Rect2(-24, -8, 48, 16)
-    draw_rect(rect, Color(0.82, 0.82, 0.7, 1.0))

@@ -34,7 +34,7 @@ beat/metronome_sample="uid://dcjio1vuxp1v"
 [autoload]
 
 beat="*uid://bp8vsqr2b5bjf"
-g="*uid://5780chgktfwu"
+g="*res://darkblue/scripts/darkblue.gd"
 
 [debug]
 
@@ -48,7 +48,7 @@ window/size/mode=3
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
-window/size/mode.editor=3
+window/size/mode.editor=0
 window/vsync/vsync_mode.editor=1
 
 [editor]
@@ -58,7 +58,7 @@ movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest3-pla
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/repl/plugin.cfg", "res://addons/scene_palette/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
+enabled=PackedStringArray("res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/scene_palette/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
 
 [global_group]
 

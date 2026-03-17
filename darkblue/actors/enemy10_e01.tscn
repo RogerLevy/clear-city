@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_hh6el"]
 [ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="2_0eu6a"]
-[ext_resource type="Script" path="res://common/relative_animation_player.gd" id="2_4jbkn"]
-[ext_resource type="PackedScene" uid="uid://b8htk744rdnqj" path="res://darkblue/actors/enemy10.tscn" id="3_hh6el"]
+[ext_resource type="Script" uid="uid://5qw6botosf7p" path="res://common/relative_animation_player.gd" id="2_4jbkn"]
+[ext_resource type="PackedScene" uid="uid://b8htk744rdnqj" path="res://darkblue/actors/enemy10__frigus.tscn" id="3_hh6el"]
 
 [sub_resource type="Animation" id="Animation_s8dt2"]
 length = 0.001

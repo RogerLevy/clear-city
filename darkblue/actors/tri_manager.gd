@@ -1,4 +1,5 @@
 extends Node2D
+class_name TriManager
 
 # Manages all tris as pure data - no individual nodes
 # Uses MultiMeshInstance2D for batched rendering
@@ -10,9 +11,11 @@ var positions: PackedVector2Array
 var velocities: PackedVector2Array
 var angles: PackedFloat32Array
 var bounced: PackedByteArray
+var trapped: PackedByteArray
 var count: int = 0
+var spin_speed: float = 12.0
 
-@onready var multimesh_instance: MultiMeshInstance2D
+var multimesh_instance: MultiMeshInstance2D
 var tri_texture: Texture2D
 var tri_shader: Shader
 var tri_material: ShaderMaterial
@@ -22,6 +25,7 @@ func _ready():
     velocities.resize(MAX_TRIS)
     angles.resize(MAX_TRIS)
     bounced.resize(MAX_TRIS)
+    trapped.resize(MAX_TRIS)
 
     tri_texture = preload("res://darkblue/actors/tri_sheet.png")
     tri_shader = preload("res://darkblue/actors/tri_multimesh.gdshader")
@@ -66,6 +70,7 @@ func spawn(pos: Vector2, vel: Vector2) -> int:
     velocities[idx] = vel
     angles[idx] = angle
     bounced[idx] = 0
+    trapped[idx] = 0
     count += 1
     # Update multimesh immediately to prevent stale data glitch
     var mm: MultiMesh = multimesh_instance.multimesh
@@ -112,7 +117,7 @@ func _physics_process(delta: float) -> void:
                 bounced[i] = 1
 
         # Update rotation
-        var angle: float = fmod(angles[i] + 12.0, 360.0)
+        var angle: float = fmod(angles[i] + spin_speed, 360.0)
         angles[i] = angle
 
         # Update multimesh transform (reuse t)
@@ -146,6 +151,42 @@ func check_ship_collision(ship_pos: Vector2, ship_radius: float) -> int:
             i += 1
     return collected
 
+func slowdown(factor: float):
+    for i in count:
+        velocities[i] *= factor
+    spin_speed *= factor
+
+func attract_to(target: Vector2, radius: float, speed: float):
+    var radius_sq: float = radius * radius
+    var tx: float = target.x
+    var ty: float = target.y
+    for i in count:
+        var pos: Vector2 = positions[i]
+        var dx: float = tx - pos.x
+        var dy: float = ty - pos.y
+        var dist_sq: float = dx * dx + dy * dy
+        if dist_sq < radius_sq and dist_sq > 0.0:
+            trapped[i] = 1
+            var dist: float = sqrt(dist_sq)
+            velocities[i] = Vector2(dx / dist * speed, dy / dist * speed)
+
+func trap_all():
+    for i in count:
+        trapped[i] = 1
+
+func attract_trapped(target: Vector2, speed: float):
+    var tx: float = target.x
+    var ty: float = target.y
+    for i in count:
+        if trapped[i] == 0: continue
+        var pos: Vector2 = positions[i]
+        var dx: float = tx - pos.x
+        var dy: float = ty - pos.y
+        var dist_sq: float = dx * dx + dy * dy
+        if dist_sq > 0.0:
+            var dist: float = sqrt(dist_sq)
+            velocities[i] = Vector2(dx / dist * speed, dy / dist * speed)
+
 func remove_tri(idx: int):
     if idx < 0 or idx >= count:
         return
@@ -157,6 +198,7 @@ func remove_tri(idx: int):
         velocities[idx] = velocities[count]
         angles[idx] = angles[count]
         bounced[idx] = bounced[count]
+        trapped[idx] = trapped[count]
         # Update multimesh for swapped element to prevent visual glitch
         var t: Transform2D = Transform2D.IDENTITY
         t.origin = positions[idx]

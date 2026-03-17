@@ -3,7 +3,6 @@ extends CanvasLayer
 var canvas_item
 var border
 var playfield:Node2D
-var tri_manager
 
 func _input(event):
     if event.is_action_pressed("toggle_fullscreen"):
@@ -54,6 +53,7 @@ func init_border():
 ## Constrain mouse to game viewport (call from _process)
 func constrain_mouse():
     if not get_window().has_focus(): return
+    if get_window().is_embedded(): return
 
     var root = get_tree().root
     var game_size = Vector2(root.content_scale_size)

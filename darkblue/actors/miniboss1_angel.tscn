@@ -1,24 +1,13 @@
 [gd_scene format=3 uid="uid://bqqhi3o6x5v3p"]
 
 [ext_resource type="Texture2D" uid="uid://dx4yc1j06nap7" path="res://darkblue/actors/angel.png" id="1_mfutx"]
+[ext_resource type="Script" uid="uid://cllx4h5h8ipa1" path="res://darkblue/actors/miniboss1_angel.gd" id="2_angel"]
 
-[sub_resource type="GDScript" id="GDScript_3hwg8"]
-resource_name = "enemy10"
-script/source = "@tool
-extends Vessel2D
-
-static var IDLE_ANM:Array = range( 10 )
-
-func init():
-    animation = IDLE_ANM
-    animationSpeed = 1.0
-"
-
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
-script = SubResource("GDScript_3hwg8")
-hp = 200
+[node name="Angel" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
+script = ExtResource("2_angel")
+hp = 100
 r = 64.0
-bounty = 100
+bounty = 500
 sprite_texture = ExtResource("1_mfutx")
 frame_width = 50
 frame_height = 64

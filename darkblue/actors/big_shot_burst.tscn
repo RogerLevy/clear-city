@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bxthdmg3diyb7"]
 
-[ext_resource type="Script" path="res://darkblue/actors/big_shot_burst.gd" id="1"]
+[ext_resource type="Script" uid="uid://bspni26si5y21" path="res://darkblue/actors/big_shot_burst.gd" id="1"]
 
-[node name="BigShotBurst" type="Node2D"]
+[node name="BigShotBurst" type="Node2D" unique_id=1546866709]
 script = ExtResource("1")

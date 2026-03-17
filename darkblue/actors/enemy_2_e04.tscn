@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq2ciasunnax4"]
 
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_uthcf"]
-[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2.tscn" id="2_dp7kd"]
+[ext_resource type="PackedScene" uid="uid://d11bd30wwp8ls" path="res://darkblue/actors/enemy2__elderbeak.tscn" id="2_dp7kd"]
 [ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="3_p7gmb"]
 
 [sub_resource type="Curve2D" id="Curve2D_efeo1"]

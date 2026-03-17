@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdeehanax7b4v"]
+
+[ext_resource type="Script" uid="uid://bqajeab4bsmjl" path="res://darkblue/actors/laser_cannon_burst.gd" id="1_sgxsb"]
+
+[node name="LaserCannonBurst" type="Node2D" unique_id=1546866709]
+script = ExtResource("1_sgxsb")

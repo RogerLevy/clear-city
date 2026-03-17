@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://tri_manager_scene"]
+[gd_scene format=3 uid="uid://dytl5c6lml251"]
 
-[ext_resource type="Script" uid="uid://tri_manager_script" path="res://darkblue/actors/tri_manager.gd" id="1_mgr"]
+[ext_resource type="Script" uid="uid://ovo1hovbko6b" path="res://darkblue/actors/tri_manager.gd" id="1_mgr"]
 
-[node name="TriManager" type="Node2D"]
+[node name="TriManager" type="Node2D" unique_id=1915770035]
 script = ExtResource("1_mgr")

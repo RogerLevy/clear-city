@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(cd \"D:/Proton Drive/My files/Work/Synced-Dev/godot-dev/CLEAR-CITY\" && sed -i 's/g\\\\.get\\(\"tri_manager\"\\)/g.tri_manager/g' darkblue/actors/ship.gd darkblue/scripts/vessel_2d.gd)"
     ]
   }
 }

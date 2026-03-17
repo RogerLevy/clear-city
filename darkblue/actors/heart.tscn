@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ba6uy87d0tkkd"]
+
+[ext_resource type="PackedScene" uid="uid://bp2d703t1yrgl" path="res://common/actor_2d.tscn" id="1_h6phr"]
+[ext_resource type="Script" uid="uid://c8un574kfxiwi" path="res://darkblue/actors/heart.gd" id="2_l4r86"]
+[ext_resource type="Texture2D" uid="uid://cnbgsfvlt4blx" path="res://darkblue/actors/heart.png" id="3_f7t0o"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="4_l4r86"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h6phr"]
+radius = 13.0
+
+[node name="Heart" unique_id=544839953 instance=ExtResource("1_h6phr")]
+position = Vector2(59, 40)
+script = ExtResource("2_l4r86")
+sprite_texture = ExtResource("3_f7t0o")
+frame_width = 32
+frame_height = 32
+time_counter = 0.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=46284632]
+texture = ExtResource("3_f7t0o")
+hframes = 2
+vframes = 2
+
+[node name="Area2D" type="Area2D" parent="." index="1" unique_id=2052916711]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0" unique_id=1083686084]
+shape = SubResource("CircleShape2D_h6phr")
+
+[node name="SineMovement" type="Node" parent="." index="2" unique_id=180201005]
+script = ExtResource("4_l4r86")
+y_period = 4.0
+y_pixels = 6.0
+speed = 1.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"

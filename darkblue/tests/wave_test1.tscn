@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bs125uy2x2ncv"]
 
-[ext_resource type="Shader" uid="uid://04fvu25s4cav" path="res://darkblue/shaders/bgblur.gdshader" id="1_mc12d"]
+[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="1_mc12d"]
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="1_ojoi7"]
 [ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="3_mc12d"]
 [ext_resource type="PackedScene" uid="uid://dv7l1cl73olw3" path="res://darkblue/actors/enemy2_e01.tscn" id="3_ojoi7"]

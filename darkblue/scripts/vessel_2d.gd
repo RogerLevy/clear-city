@@ -2,6 +2,8 @@
 class_name Vessel2D
 extends Actor2D
 
+signal died
+
 # Common properties for ships, enemies, and other combat entities
 
 @export var hp: int = 1          # health points
@@ -30,15 +32,16 @@ func damage(amount: int):
         die()
 
 func die():
+    died.emit()
     # Spawn death effect
     var playfield = g.get("playfield")
     if playfield:
         DeathCircle.spawn(playfield, global_position, r, Color( "d1d1b2" ), clampf(16.0 / r, 0.5, 1.5) )
         FloatingText.spawn(playfield, global_position, str(bounty), bounty_font)
     # Spawn tris
-    var tm = g.get("tri_manager")
+    var tm = g.tri_manager
     if tm:
         for i in bounty:
             var angle = randf() * TAU
-            tm.spawn(global_position, Vector2.from_angle(angle) * 40)
+            tm.spawn(global_position, Vector2.from_angle(angle) * 35)
     queue_free()

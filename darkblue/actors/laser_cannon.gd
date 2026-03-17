@@ -17,7 +17,7 @@ var can_damage: bool = false
 var prev_rotation: float = 0.0  # for swept collision
 var blocked: bool = false  # laser stopped by high-HP enemy
 var blocked_length: float = 0.0  # length to blocked enemy
-var debug_draw: bool = true  # draw collision shape in red
+var debug_draw: bool = false  # draw collision shape in red
 
 # Custom easing curves from original Forth code
 func exp3_ease_in(t: float) -> float:

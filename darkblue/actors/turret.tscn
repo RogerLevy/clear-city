@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c70cb3gw1su8f" path="res://darkblue/actors/turret.gd" id="2_c7gc6"]
 [ext_resource type="Texture2D" uid="uid://iv2o2mshilxv" path="res://darkblue/actors/turret.png" id="2_uj4cd"]
 [ext_resource type="AudioStream" uid="uid://7bqgnkhtn65s" path="res://darkblue/sfx/shoot.wav" id="3_ud5ui"]
+[ext_resource type="AudioStream" uid="uid://dghda68smvhqo" path="res://darkblue/sfx/snd-04.wav" id="4_simpf"]
 
 [node name="CharacterBody2D" unique_id=544839953 instance=ExtResource("1_7mknv")]
 position = Vector2(48, 52)
@@ -12,7 +13,7 @@ orbit_radius = 32.0
 mouse_lerp_speed = 0.5
 shot_speed = 800.0
 snd_shoot = ExtResource("3_ud5ui")
-snd_charge = null
+snd_charge = ExtResource("4_simpf")
 snd_bigshot = null
 snd_laser = null
 
