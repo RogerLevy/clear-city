@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dkovie0rmn7g7"]
+
+[ext_resource type="Script" uid="uid://dyeaccvlciuuj" path="res://darkblue/actors/enemy_shmoundabout.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dqcwswyk06axv" path="res://darkblue/actors/enemy30.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+
+[node name="EnemyShmoundabout" type="CharacterBody2D" unique_id=1559805894 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 11.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 23
+frame_height = 23
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1601347381]
+texture = ExtResource("2_tex")
+hframes = 11
+vframes = 5
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2051241480]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1120985228]
+shape = SubResource("CircleShape2D_1")

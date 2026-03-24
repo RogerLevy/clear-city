@@ -5,8 +5,8 @@ extends Vessel2D
 var flash_ctr: int = -1          # <0 = normal, >=0 = recovering (invincibility frames)
 var tri_cooldown: int = -1       # separate cooldown for tri collection
 var paralysis: int = 0           # prevents input when >0
-
-@onready var turret = $Turret    # child node placed in editor
+var _tri_accumulator: int = 0    # accumulated tris for display
+var _tri_display_timer: float = 0.0  # time since last tri collection
 
 # === Tweaks ===
 @export var sbp: int = 5         # screen bounce paralysis length
@@ -79,7 +79,7 @@ func attract_tris():
     if not tm: return
     tm.attract_trapped(global_position, 300.0)
     if tri_cooldown < 0:
-        tm.attract_to(global_position, 50.0, 300.0)
+        tm.attract_to(global_position, 35.0, 200.0)
 
 func check_tris():
     if dead or Engine.is_editor_hint(): return
@@ -96,6 +96,13 @@ func check_tris():
             g.sfx(snd_collect, 0.2, "Collect")
             _collect_snd_cooldown = 3
         g.energy += collected
+        _tri_accumulator += collected
+        _tri_display_timer = 0.0
+    elif _tri_accumulator > 0:
+        _tri_display_timer += get_physics_process_delta_time()
+        if _tri_display_timer >= 0.2:
+            FloatingText.spawn(get_parent(), global_position, "+" + str(_tri_accumulator), damage_font, 16, Color("0f0"), self)
+            _tri_accumulator = 0
 
 func screen_bounce(damping: float) -> bool:
     var screen_size = get_viewport().get_visible_rect().size
@@ -127,7 +134,7 @@ func screen_bounce(damping: float) -> bool:
 func damage(amount: int):
     if amount == 0: return
     g.sfx(snd_damage)
-    FloatingText.spawn(get_parent(), global_position, str(amount), damage_font, 16, Color("f00"))
+    FloatingText.spawn(get_parent(), global_position, "-" + str(amount), damage_font, 16, Color("f00"), self)
 
     g.energy -= amount
     if g.energy <= 0:
@@ -219,12 +226,16 @@ func slowdown_playfield():
 
 # === Collision handlers (connect via Area2D signals) ===
 func check_overlapping_hazards():
-    for area in $Area2D.get_overlapping_areas():
+    # Check smaller hitbox for enemies
+    for area in $EnemyHitbox.get_overlapping_areas():
         var actor = area.get_parent()
         if actor.is_in_group("enemies"):
             hit_enemy(actor)
             return
-        elif actor.is_in_group("enemy_projectiles"):
+    # Check main hitbox for projectiles
+    for area in $Area2D.get_overlapping_areas():
+        var actor = area.get_parent()
+        if actor.is_in_group("enemy_projectiles"):
             hit_orb(actor)
             return
 
@@ -232,10 +243,14 @@ func _on_area_entered(area: Area2D):
     if recovering(): return
     var actor = area.get_parent()
 
+    if actor.is_in_group("enemy_projectiles"):
+        hit_orb(actor)
+
+func _on_enemy_hitbox_entered(area: Area2D):
+    if recovering(): return
+    var actor = area.get_parent()
     if actor.is_in_group("enemies"):
         hit_enemy(actor)
-    elif actor.is_in_group("enemy_projectiles"):
-        hit_orb(actor)
     #elif actor.is_in_group("resources"):
         #hit_tri(actor)
 
@@ -260,5 +275,5 @@ func hit_orb(orb):
 
 func _ready():
     super._ready()
-    g.energy = 1000000
+    if Engine.is_editor_hint(): return
     g.p1 = self

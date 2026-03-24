@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bsmftx1s21a64"]
+
+[ext_resource type="Script" uid="uid://dpl8elbf0bjt2" path="res://darkblue/actors/enemy_helmaton.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://06o6mmxh7ami" path="res://darkblue/actors/enemy11.png" id="2_tex"]
+
+[node name="EnemyHelmaton" type="CharacterBody2D" unique_id=437085887 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 15.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 31
+frame_height = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=803050227]
+texture = ExtResource("2_tex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=40071880]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=615089573]
+polygon = PackedVector2Array(-12, 6, -12, 2, -8, -8, 3, -13, -1, -4, 11, -10, 14, -3, 1, 2, 1, 7, -9, 13)

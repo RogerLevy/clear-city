@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(cd \"D:/Proton Drive/My files/Work/Synced-Dev/godot-dev/CLEAR-CITY\" && sed -i 's/g\\\\.get\\(\"tri_manager\"\\)/g.tri_manager/g' darkblue/actors/ship.gd darkblue/scripts/vessel_2d.gd)"
+      "Bash(cd \"D:/Proton Drive/My files/Work/Synced-Dev/godot-dev/CLEAR-CITY\" && sed -i 's/g\\\\.get\\(\"tri_manager\"\\)/g.tri_manager/g' darkblue/actors/ship.gd darkblue/scripts/vessel_2d.gd)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -rn \"orb\\\\|enemy_projectile\" darkblue/actors/*.gd)",
+      "Bash(mv \"darkblue/effects/lcd_response.gd\" \"darkblue/effects/lcd_effect.gd\")",
+      "Bash(mv \"darkblue/effects/lcd_response.gdshader\" \"darkblue/effects/lcd_effect.gdshader\")",
+      "Bash(mv \"darkblue/effects/lcd_response.tscn\" \"darkblue/effects/lcd_effect.tscn\")",
+      "Bash(mv \"darkblue/effects/lcd_response.gd.uid\" \"darkblue/effects/lcd_effect.gd.uid\")",
+      "Bash(mv \"darkblue/effects/lcd_response.gdshader.uid\" \"darkblue/effects/lcd_effect.gdshader.uid\")"
     ]
   }
 }

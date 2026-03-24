@@ -23,11 +23,8 @@ func _physics_process(_delta):
 func screen_bounce():
     var screen_size = get_viewport().get_visible_rect().size
 
-    # Check all edges - bounce once only
-    if global_position.x < r and velocity.x < 0:
-        velocity.x *= -1
-        has_bounced = true
-    elif global_position.x > screen_size.x - r and velocity.x > 0:
+    # Check all edges - bounce once only (not left edge)
+    if global_position.x > screen_size.x - r and velocity.x > 0:
         velocity.x *= -1
         has_bounced = true
     elif global_position.y < r and velocity.y < 0:

@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://22npfcgym3or"]
+
+[ext_resource type="Script" uid="uid://1m8bvsoxc6pj" path="res://common/beat_config.gd" id="1_v3e81"]
+[ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_5mtd5"]
+[ext_resource type="Script" uid="uid://b1wppt5vfddg2" path="res://common/offscreen_cleaner.gd" id="3_8eh7t"]
+[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="4_ru72m"]
+[ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="5_5yh3n"]
+[ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="6_pxpwh"]
+[ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_ljlxs"]
+[ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="8_s6qv7"]
+[ext_resource type="Shader" uid="uid://croxek4pewu5e" path="res://common/replace_transparency.gdshader" id="9_qeuiq"]
+[ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="10_o8efe"]
+[ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="11_ys410"]
+[ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="12_gx8og"]
+[ext_resource type="PackedScene" uid="uid://dm6lftq1nh71k" path="res://darkblue/actors/cage.tscn" id="14_dobwu"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="15_bkwtn"]
+[ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="17_r378q"]
+[ext_resource type="PackedScene" uid="uid://n6hikm3jorqj" path="res://darkblue/actors/tri.tscn" id="18_ht6nd"]
+[ext_resource type="PackedScene" uid="uid://b12fu1t2iu3ry" path="res://darkblue/effects/post_proc_stack.tscn" id="20_ht6nd"]
+[ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="28_0vmvm"]
+[ext_resource type="Texture2D" uid="uid://egjltigjtje8" path="res://darkblue/actors/lightning.png" id="29_0as4c"]
+[ext_resource type="Texture2D" uid="uid://bwlkwqjyobdqd" path="res://darkblue/actors/reticule.png" id="30_lh7ti"]
+[ext_resource type="Texture2D" uid="uid://jsad3mw4hgri" path="res://darkblue/cutscenes/mc-001.png" id="31_yhk1s"]
+
+[sub_resource type="GDScript" id="GDScript_5y6s7"]
+script/source = "extends Node2D
+
+func _ready():
+    g.tri_manager = %TriManager
+    g.playfield = %Playfield
+    g.p1 = %Ship
+    g.energy = 0
+    g._status_text = get_node_or_null(\"%EnergyStatusText\")
+    var viewport = %PixelatedViewport/SubViewport/PlayfieldContainer
+    g.playfield.reparent.call_deferred(viewport)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqy2i"]
+shader = ExtResource("4_ru72m")
+shader_parameter/radius = 5.0000002375
+shader_parameter/expansion = 0.0
+shader_parameter/dither_strength = 1.0
+
+[sub_resource type="GDScript" id="GDScript_2ntwe"]
+script/source = "extends Node
+func _ready():
+    var newsize = Vector2i(525, 350)
+    get_window().content_scale_size = newsize
+    if( DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED ):
+        get_window().size = newsize * 2
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1"]
+viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxhko"]
+shader = ExtResource("9_qeuiq")
+
+[sub_resource type="GDScript" id="GDScript_3he2n"]
+script/source = "extends Sprite2D
+
+func _ready():    
+    Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+func _physics_process(_delta):
+    position = g.mouse_pos()
+"
+
+[node name="IntroTest1" type="Node2D" unique_id=287075061]
+script = SubResource("GDScript_5y6s7")
+metadata/_edit_lock_ = true
+
+[node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
+script = ExtResource("1_v3e81")
+bpm = 143.0
+metronome_sound = ExtResource("2_5mtd5")
+
+[node name="OffscreenCleaner" type="Node" parent="." unique_id=1795284918]
+script = ExtResource("3_8eh7t")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1605552771]
+material = SubResource("ShaderMaterial_gqy2i")
+scale = Vector2(1.1453633, 1.0222665)
+texture = ExtResource("5_5yh3n")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="GuideRect" type="Control" parent="." unique_id=588328765]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 525.0
+offset_bottom = 430.0
+mouse_filter = 2
+script = ExtResource("8_s6qv7")
+width = 525
+height = 430
+metadata/_custom_type_script = "uid://bagke2prhjpih"
+metadata/_edit_lock_ = true
+
+[node name="WindowInit" type="Node" parent="." unique_id=1914668296]
+script = SubResource("GDScript_2ntwe")
+
+[node name="PixelatedViewport" type="Sprite2D" parent="." unique_id=812505540]
+unique_name_in_owner = true
+texture_filter = 1
+texture = SubResource("ViewportTexture_1")
+centered = false
+
+[node name="SubViewport" type="SubViewport" parent="PixelatedViewport" unique_id=571273759]
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(525, 350)
+
+[node name="Starfield" type="Node2D" parent="PixelatedViewport/SubViewport" unique_id=1633305215]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5019608)
+script = ExtResource("6_pxpwh")
+star_texture = ExtResource("7_ljlxs")
+metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
+
+[node name="PlayfieldContainer" type="Node2D" parent="PixelatedViewport/SubViewport" unique_id=1301454149]
+
+[node name="StatusPanel" type="Control" parent="PixelatedViewport/SubViewport" unique_id=1964749212]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -73.0
+offset_right = 36.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StatusBacking" type="Polygon2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=1864582996]
+material = SubResource("ShaderMaterial_oxhko")
+color = Color(0, 0, 0, 0.5019608)
+polygon = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
+
+[node name="StatusEnergyText" type="Node2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=186846421]
+unique_name_in_owner = true
+self_modulate = Color(0.81960785, 0.81960785, 0.69803923, 1)
+position = Vector2(36, 39)
+script = ExtResource("10_o8efe")
+text = "12345678"
+font_texture = ExtResource("11_ys410")
+justify = 1
+
+[node name="StatusBorder" type="Line2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=456746751]
+points = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
+closed = true
+width = 1.0
+default_color = Color(0.81960785, 0.81960785, 0.69803923, 1)
+
+[node name="Playfield" type="Node2D" parent="." unique_id=768111580]
+unique_name_in_owner = true
+
+[node name="TriManager" parent="Playfield" unique_id=1191973005 instance=ExtResource("12_gx8og")]
+unique_name_in_owner = true
+
+[node name="Tris" type="Node2D" parent="Playfield" unique_id=962751424]
+unique_name_in_owner = true
+
+[node name="Cage" parent="Playfield" unique_id=491937604 instance=ExtResource("14_dobwu")]
+position = Vector2(118.99999, 186)
+
+[node name="Ship" parent="Playfield/Cage" unique_id=1525402565 instance=ExtResource("28_0vmvm")]
+unique_name_in_owner = true
+position = Vector2(1.0000076, -1)
+sprite_texture = null
+frame_width = 16
+frame_height = 16
+
+[node name="SineMovement" type="Node" parent="Playfield/Cage" unique_id=1688525146]
+script = ExtResource("15_bkwtn")
+y_pixels = 10.0
+speed = 0.5
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Lightning" type="Sprite2D" parent="Playfield" unique_id=290236609]
+unique_name_in_owner = true
+visible = false
+position = Vector2(336, 264)
+texture = ExtResource("29_0as4c")
+
+[node name="BurstSequence" type="Node2D" parent="Playfield" unique_id=1040235223]
+position = Vector2(312, 142)
+script = ExtResource("17_r378q")
+scene = ExtResource("18_ht6nd")
+count = 360
+time_stagger_frames = 3
+random_angles = true
+infinite = true
+running = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Mc001" type="Sprite2D" parent="." unique_id=1468793365]
+visible = false
+position = Vector2(128, 192)
+texture = ExtResource("31_yhk1s")
+
+[node name="PostProcStack" parent="." unique_id=577433371 instance=ExtResource("20_ht6nd")]
+
+[node name="Reticule" type="Sprite2D" parent="." unique_id=2117237723]
+texture = ExtResource("30_lh7ti")
+script = SubResource("GDScript_3he2n")

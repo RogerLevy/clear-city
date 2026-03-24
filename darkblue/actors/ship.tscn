@@ -5,7 +5,6 @@
 [ext_resource type="AudioStream" uid="uid://43xbklxtmm5g" path="res://darkblue/sfx/snd-03.wav" id="2_8d7bb"]
 [ext_resource type="AudioStream" uid="uid://dp8emfbwkitlc" path="res://darkblue/sfx/snd-07.wav" id="3_abl7j"]
 [ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="4_eykgk"]
-[ext_resource type="PackedScene" uid="uid://5r1g237ymi0y" path="res://darkblue/actors/turret.tscn" id="6_abl7j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 13.0
@@ -21,6 +20,9 @@ tags = {
 "title": "Sound 07",
 "tracknumber": "7"
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
+radius = 6.0
 
 [node name="Ship" type="CharacterBody2D" unique_id=1525402565 groups=["player"]]
 position = Vector2(88, 80)
@@ -50,8 +52,11 @@ shape = SubResource("CircleShape2D_1")
 stream = SubResource("AudioStreamOggVorbis_0tmkx")
 playback_type = 2
 
-[node name="Turret" parent="." unique_id=544839953 instance=ExtResource("6_abl7j")]
-position = Vector2(-30.60001, -16.400002)
-orbit_radius = 24.0
+[node name="EnemyHitbox" type="Area2D" parent="." unique_id=1014828445]
+collision_mask = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1990704610]
+shape = SubResource("CircleShape2D_enemy")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
+[connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_entered"]

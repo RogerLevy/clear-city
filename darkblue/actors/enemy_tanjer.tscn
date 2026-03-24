@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dtae2eox7voas"]
+
+[ext_resource type="Script" uid="uid://bwnxkix1xijhw" path="res://darkblue/actors/enemy_tanjer.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://h1tp3bu2s450" path="res://darkblue/actors/enemy17.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 11.0
+
+[node name="EnemyTanjer" type="CharacterBody2D" unique_id=1510764566 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 11.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 29
+frame_height = 22
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1200117610]
+texture = ExtResource("2_tex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=605203146]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=573802233]
+shape = SubResource("CircleShape2D_1")

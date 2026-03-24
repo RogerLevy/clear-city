@@ -6,6 +6,7 @@
 resource_name = "enemy10"
 script/source = "@tool
 extends Vessel2D
+class_name EnemyQuadraton
 
 static var IDLE_ANM:Array = range( 10 )
 

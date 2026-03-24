@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://j2urqjikc3ab"]
+
+[ext_resource type="Script" uid="uid://d3nfvtuber5rj" path="res://darkblue/actors/enemy7__pentagon.gd" id="1_ar03w"]
+[ext_resource type="Texture2D" uid="uid://xnog2iw1enjp" path="res://darkblue/actors/enemy7.png" id="2_ar03w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ar03w"]
+radius = 6.0
+
+[node name="enemy7" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
+position = Vector2(200, 120)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ar03w")
+r = 16.0
+sprite_texture = ExtResource("2_ar03w")
+frame_width = 26
+frame_height = 26
+time_counter = 425.88333333327466
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]
+unique_name_in_owner = true
+texture = ExtResource("2_ar03w")
+hframes = 24
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=868001190]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=669374108]
+shape = SubResource("CircleShape2D_ar03w")

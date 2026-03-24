@@ -106,13 +106,12 @@ func _physics_process(delta: float) -> void:
             remove_tri(i)
             continue
 
-        # Screen bounce (once only)
-        if bounced[i] == 0:
-            var vel: Vector2 = velocities[i]
-            if (px < TRI_RADIUS and vel.x < 0.0) or (px > bounce_max_x and vel.x > 0.0):
-                velocities[i].x = -vel.x
-                bounced[i] = 1
-            elif (py < TRI_RADIUS and vel.y < 0.0) or (py > bounce_max_y and vel.y > 0.0):
+        # Screen bounce (once only, except right edge always bounces)
+        var vel: Vector2 = velocities[i]
+        if px > bounce_max_x and vel.x > 0.0:
+            velocities[i].x = -vel.x
+        elif bounced[i] == 0:
+            if (py < TRI_RADIUS and vel.y < 0.0) or (py > bounce_max_y and vel.y > 0.0):
                 velocities[i].y = -vel.y
                 bounced[i] = 1
 

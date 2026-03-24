@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://2ah680dvvgcb"]
+
+[ext_resource type="Script" uid="uid://djc7grcm7q7ni" path="res://darkblue/actors/enemy_zib_zob.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dypv6nieur87g" path="res://darkblue/actors/enemy34.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 13.152946
+
+[node name="EnemyZibZob" type="CharacterBody2D" unique_id=613987524 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 19.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 39
+frame_height = 39
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1347404268]
+texture = ExtResource("2_tex")
+hframes = 10
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1250189168]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1532776174]
+shape = SubResource("CircleShape2D_1")

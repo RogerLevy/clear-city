@@ -21,25 +21,25 @@ func init():
 
 func _physics_process(_delta):
     position += velocity * _delta
-    if not has_bounced:
-        screen_bounce()
-    a += a + animationSpeed
-    if a > 360: a -= 360
-    s.frame = a * (360/72)
+    screen_bounce()
+    a += animationSpeed
+    if a >= 360: a -= 360
+    s.frame = int(a / 360.0 * 72.0)
 
 func screen_bounce():
     var screen_size = get_viewport().get_visible_rect().size
 
-    # Check all edges - bounce once only
-    if global_position.x < r and velocity.x < 0:
+    # Right edge always bounces
+    if global_position.x > screen_size.x - r and velocity.x > 0:
         velocity.x *= -1
-        has_bounced = true
-    elif global_position.x > screen_size.x - r and velocity.x > 0:
-        velocity.x *= -1
-        has_bounced = true
-    elif global_position.y < r and velocity.y < 0:
-        velocity.y *= -1
-        has_bounced = true
-    elif global_position.y > screen_size.y - r and velocity.y > 0:
-        velocity.y *= -1
-        has_bounced = true
+    # Other edges bounce once only
+    elif not has_bounced:
+        if global_position.x < r and velocity.x < 0:
+            velocity.x *= -1
+            has_bounced = true
+        elif global_position.y < r and velocity.y < 0:
+            velocity.y *= -1
+            has_bounced = true
+        elif global_position.y > screen_size.y - r and velocity.y > 0:
+            velocity.y *= -1
+            has_bounced = true

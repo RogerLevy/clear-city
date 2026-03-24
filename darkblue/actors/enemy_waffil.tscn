@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b6jp6tsc3077u"]
+
+[ext_resource type="Script" uid="uid://prxr4wt6r7g6" path="res://darkblue/actors/enemy_waffil.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ie5yjlms4d7k" path="res://darkblue/actors/enemy15.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 8.062258
+
+[node name="EnemyWaffil" type="CharacterBody2D" unique_id=750061394 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 14.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 27
+frame_height = 27
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1173815284]
+texture = ExtResource("2_tex")
+hframes = 9
+vframes = 5
+
+[node name="Area2D" type="Area2D" parent="." unique_id=276702574]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1720095668]
+shape = SubResource("CircleShape2D_1")

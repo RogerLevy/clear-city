@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b1huf2qier8nq"]
+
+[ext_resource type="Script" uid="uid://cvwywtbytnx7u" path="res://darkblue/actors/enemy_ogulus.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dlrrj44lnjkww" path="res://darkblue/actors/enemy21.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 13.0
+
+[node name="EnemyOgulus" type="CharacterBody2D" unique_id=1615984284 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 16.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 32
+frame_height = 35
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1774485680]
+texture = ExtResource("2_tex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=326331612]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=897382546]
+shape = SubResource("CircleShape2D_1")

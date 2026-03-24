@@ -114,7 +114,7 @@ func handle_shooting(ship):
 
     elif Input.is_action_just_released("shoot"):
         # Fire charged shot on release
-        if charge_level == 2 and g.energy >= 120:
+        if charge_level == 2 and g.energy >= 100:
             fire_laser_cannon(ship)
         elif charge_level == 1 and g.energy >= 30:
             fire_big_shot(ship)
@@ -163,7 +163,7 @@ func fire_pea():
     var shot = g.spawn("shot", null, get_parent().global_position)
     if shot:
         shot.velocity = Vector2.from_angle(current_angle) * shot_speed
-    FloatingText.spawn(g.playfield, get_parent().global_position, "1", charge_shot_font, 16, Color("f00"))
+    FloatingText.spawn(g.playfield, get_parent().global_position, "-1", charge_shot_font, 16, Color("f00"), get_parent())
 
 func fire_big_shot(ship):
     g.energy -= 29
@@ -178,7 +178,7 @@ func fire_big_shot(ship):
     var beam = g.spawn("big_shot_beam", null, ship.global_position)
     beam.velocity = Vector2.from_angle(current_angle) * shot_speed
 
-    FloatingText.spawn(g.playfield, get_parent().global_position, str(29), charge_shot_font, 16, Color("f00"))
+    FloatingText.spawn(g.playfield, get_parent().global_position, "-29", charge_shot_font, 16, Color("f00"), get_parent())
 
 func fire_laser_cannon(ship):
     g.energy -= 99
@@ -196,11 +196,11 @@ func fire_laser_cannon(ship):
     laser.turret = self
     laser.finished.connect(func(): laser_active = false)
         
-    FloatingText.spawn(g.playfield, get_parent().global_position, str(99), charge_shot_font, 16, Color("f00"))
+    FloatingText.spawn(g.playfield, get_parent().global_position, "-99", charge_shot_font, 16, Color("f00"), get_parent())
 
-func _draw():
-    # Debug: show charge counter (un-rotated)
-    if charge > 0:
-        draw_set_transform(Vector2.ZERO, -rotation)
-        draw_string(ThemeDB.fallback_font, Vector2(20, -30), str(charge), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
-        draw_set_transform(Vector2.ZERO, 0)
+#func _draw():
+#    # Debug: show charge counter (un-rotated)
+#    if charge > 0:
+#        draw_set_transform(Vector2.ZERO, -rotation)
+#        draw_string(ThemeDB.fallback_font, Vector2(20, -30), str(charge), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
+#        draw_set_transform(Vector2.ZERO, 0)

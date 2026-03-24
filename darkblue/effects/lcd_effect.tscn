@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://msbui6bm3ky"]
+
+[ext_resource type="Script" uid="uid://btadivsxymskk" path="res://darkblue/effects/lcd_effect.gd" id="1_lcd"]
+
+[node name="LCDEffect" type="Node2D" unique_id=657086523]
+script = ExtResource("1_lcd")

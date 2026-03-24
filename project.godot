@@ -42,13 +42,13 @@ gdscript/warnings/enable=false
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=640
+window/size/viewport_width=525
+window/size/viewport_height=350
 window/size/mode=3
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
-window/size/mode.editor=0
+window/size/mode.editor=3
 window/vsync/vsync_mode.editor=1
 
 [editor]
@@ -58,7 +58,7 @@ movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest3-pla
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/scene_palette/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
+enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/scene_palette/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
 
 [global_group]
 
@@ -136,6 +136,11 @@ shoot={
 cancel_charge={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+ui_reload={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194336,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

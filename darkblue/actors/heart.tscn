@@ -11,6 +11,7 @@ radius = 13.0
 [node name="Heart" unique_id=544839953 instance=ExtResource("1_h6phr")]
 position = Vector2(59, 40)
 script = ExtResource("2_l4r86")
+move_speed = null
 sprite_texture = ExtResource("3_f7t0o")
 frame_width = 32
 frame_height = 32
@@ -18,8 +19,7 @@ time_counter = 0.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=46284632]
 texture = ExtResource("3_f7t0o")
-hframes = 2
-vframes = 2
+hframes = 1
 
 [node name="Area2D" type="Area2D" parent="." index="1" unique_id=2052916711]
 
@@ -28,7 +28,6 @@ shape = SubResource("CircleShape2D_h6phr")
 
 [node name="SineMovement" type="Node" parent="." index="2" unique_id=180201005]
 script = ExtResource("4_l4r86")
-y_period = 4.0
+y_period = 0.75
 y_pixels = 6.0
-speed = 1.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"

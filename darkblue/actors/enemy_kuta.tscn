@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dmwjxw66ll0uc"]
+
+[ext_resource type="Script" uid="uid://c3qqofb61gnxg" path="res://darkblue/actors/enemy_kuta.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b57lytm2hfnir" path="res://darkblue/actors/enemy18.png" id="2_tex"]
+
+[node name="EnemyKuta" type="CharacterBody2D" unique_id=859610107 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+sprite_texture = ExtResource("2_tex")
+frame_width = 24
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=151485917]
+texture = ExtResource("2_tex")
+hframes = 10
+vframes = 4
+
+[node name="Area2D" type="Area2D" parent="." unique_id=524768537]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1673886384]
+polygon = PackedVector2Array(-9, 0, -3, -5, 3, -5, 9, 0, 9, 3, 3, 5, -3, 5, -9, 3)

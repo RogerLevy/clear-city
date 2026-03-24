@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://qknqiwrxk0lq"]
+
+[ext_resource type="Script" uid="uid://drim6t6aytptf" path="res://darkblue/actors/enemy_blyxalon.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b5lbp0q1mjtiu" path="res://darkblue/actors/enemy27.png" id="2_tex"]
+
+[node name="EnemyBlyxalon" type="CharacterBody2D" unique_id=139782058 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 12.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 25
+frame_height = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1314489429]
+texture = ExtResource("2_tex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1884967696]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=506361375]
+polygon = PackedVector2Array(-2, 10, -9, -9, 10, -9, 3, 10)

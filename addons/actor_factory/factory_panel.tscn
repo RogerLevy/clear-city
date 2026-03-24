@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/actor_factory/factory_panel.gd" id="1_panel"]
+
+[node name="FactoryPanel" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+script = ExtResource("1_panel")
+
+[node name="Title" type="Label" parent="."]
+text = "Actor Factory"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="."]
+
+[node name="TextureLabel" type="Label" parent="."]
+text = "Sprite Texture"
+
+[node name="TexturePicker" type="EditorResourcePicker" parent="."]
+unique_name_in_owner = true
+
+[node name="ClassNameLabel" type="Label" parent="."]
+text = "Class Name"
+
+[node name="ClassNameEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
+placeholder_text = "EnemySlug"
+
+[node name="BaseClassLabel" type="Label" parent="."]
+text = "Base Class"
+
+[node name="BaseClassOption" type="OptionButton" parent="."]
+unique_name_in_owner = true
+
+[node name="FrameLabel" type="Label" parent="."]
+text = "Frame Size"
+
+[node name="FrameContainer" type="HBoxContainer" parent="."]
+
+[node name="FrameWidthSpin" type="SpinBox" parent="FrameContainer"]
+unique_name_in_owner = true
+min_value = 1.0
+max_value = 512.0
+value = 16.0
+
+[node name="X" type="Label" parent="FrameContainer"]
+text = "x"
+
+[node name="FrameHeightSpin" type="SpinBox" parent="FrameContainer"]
+unique_name_in_owner = true
+min_value = 1.0
+max_value = 512.0
+value = 16.0
+
+[node name="Sep2" type="HSeparator" parent="."]
+
+[node name="CreateButton" type="Button" parent="."]
+unique_name_in_owner = true
+text = "Create Actor"
+
+[node name="StatusLabel" type="Label" parent="."]
+unique_name_in_owner = true
+horizontal_alignment = 1
+autowrap_mode = 2

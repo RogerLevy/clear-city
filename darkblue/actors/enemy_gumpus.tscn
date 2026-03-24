@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://j780f2a0p0vv"]
+
+[ext_resource type="Script" uid="uid://dbh71vjv11hng" path="res://darkblue/actors/enemy_gumpus.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xngh2agfjl0p" path="res://darkblue/actors/enemy25.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 9.0
+
+[node name="EnemyGumpus" type="CharacterBody2D" unique_id=1674632822 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 11.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 23
+frame_height = 23
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=951157883]
+texture = ExtResource("2_tex")
+hframes = 11
+vframes = 3
+
+[node name="Area2D" type="Area2D" parent="." unique_id=139387709]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1220304884]
+shape = SubResource("CircleShape2D_1")

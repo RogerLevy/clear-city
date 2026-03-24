@@ -3,11 +3,10 @@ extends Node2D
 var radius: float = 0.0
 var max_radius: float = 25.0
 var expand_time: float = 0.15
-var color: Color = Color(0.82, 0.82, 0.7, 1.0)
+var color: Color = g.COLOR_MAIN
 var tween: Tween
 
 func _ready():
-    print("asdfasdfasdf")
     tween = create_tween()
     # Expand
     tween.tween_method(set_radius, 0.0, max_radius, expand_time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)

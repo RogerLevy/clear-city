@@ -4,12 +4,17 @@ uniform float radius : hint_range(0.0, 20.0) = 10.0;
 uniform float expansion : hint_range(0.0, 100.0) = 20.0;
 uniform float dither_strength : hint_range(0.0, 1.0) = 0.3;
 
+varying vec4 modulate;
+ 
+render_mode blend_add; 
+
 // Pseudo-random noise function for dithering
 float random(vec2 uv) {
     return fract(sin(dot(uv.xy, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
 void vertex() {
+    modulate = COLOR;
     VERTEX += (UV * 2.0 - 1.0) * expansion;
 }
 
@@ -32,6 +37,10 @@ void fragment() {
     // (1.0 / 255.0) is the size of one 8-bit color step
     float noise = (random(FRAGCOORD.xy) - 0.5) * (1.0 / 255.0) * dither_strength;
     final_color.rgb += noise;
-    
-    COLOR = final_color;
+
+    // Increase saturation as alpha decreases
+    float boost = 1.0 - modulate.a;
+    final_color.rgb = pow(final_color.rgb, vec3(1.0 + boost * 3.0));
+
+    COLOR = final_color * modulate;
 }

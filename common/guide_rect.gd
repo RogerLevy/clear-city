@@ -21,6 +21,6 @@ func _ready():
     set_meta("_edit_lock_", true)
     size = Vector2(width, height)
     queue_redraw()
-        
-func _draw():
-    draw_rect(Rect2(Vector2.ZERO, Vector2(width, height)), Color.RED, false)
+        #
+#func _draw():
+    #draw_rect(Rect2(Vector2.ZERO, Vector2(width, height)), Color.RED, false)

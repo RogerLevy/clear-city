@@ -5,7 +5,7 @@ extends Node2D
 var direction: float = 0.0  # Base direction in radians
 var spread: float = deg_to_rad(60)  # Spread angle
 var particle_count: int = 5
-var color: Color = Color("d1d1b2")
+var color: Color = g.COLOR_MAIN
 
 var particles: Array = []  # Array of {pos, vel, life, max_life}
 var initial_speed: float = 120.0  # pixels per second
@@ -45,7 +45,7 @@ func _draw():
         if p.life > 0:
             draw_rect(Rect2(p.pos, Vector2(1, 1)), color)
 
-static func spawn(parent: Node, pos: Vector2, dir: float, count: int = 5, col: Color = Color("d1d1b2") ) -> Node2D:
+static func spawn(parent: Node, pos: Vector2, dir: float, count: int = 5, col: Color = g.COLOR_MAIN ) -> Node2D:
     var effect = load("res://darkblue/effects/hit_sparks.tscn").instantiate()
     effect.global_position = pos
     effect.direction = dir

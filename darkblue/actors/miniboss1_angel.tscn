@@ -7,7 +7,7 @@
 script = ExtResource("2_angel")
 hp = 100
 r = 64.0
-bounty = 500
+bounty = 200
 sprite_texture = ExtResource("1_mfutx")
 frame_width = 50
 frame_height = 64

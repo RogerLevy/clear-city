@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cs58qojttu7dt"]
+
+[ext_resource type="Script" uid="uid://cc3qkcjgnxug0" path="res://darkblue/actors/enemy_jug_jug.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ck1repfesu8fa" path="res://darkblue/actors/enemy24.png" id="2_tex"]
+
+[node name="EnemyJugJug" type="CharacterBody2D" unique_id=413227638 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 11.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 23
+frame_height = 22
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=473321098]
+texture = ExtResource("2_tex")
+hframes = 10
+vframes = 3
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1248128250]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1875812938]
+polygon = PackedVector2Array(-9, 8, -4, -8, 5, -8, 10, 8, 0, 6)

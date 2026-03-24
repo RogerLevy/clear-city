@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://b12fu1t2iu3ry"]
+
+[ext_resource type="Shader" uid="uid://btqgwjb4m20vi" path="res://darkblue/effects/lcd_invert.gdshader" id="1_ybtkv"]
+[ext_resource type="PackedScene" path="res://darkblue/effects/ghosting.tscn" id="2_0kyt3"]
+[ext_resource type="PackedScene" path="res://darkblue/effects/lcd_effect.tscn" id="3_lcd"]
+[ext_resource type="Shader" uid="uid://bhfmpgtjvej0p" path="res://darkblue/effects/light_effect.gdshader" id="4_light"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_obtg6"]
+shader = ExtResource("1_ybtkv")
+shader_parameter/inversion = 0.0
+shader_parameter/tilt_strength = 0.11600000551
+shader_parameter/tilt_center = 0.6800000323
+shader_parameter/color_dark = Color(0.13333334, 0.13333334, 0.54509807, 1)
+shader_parameter/color_mid = Color(0.19380866, 0.22104552, 0.3027561, 1)
+shader_parameter/color_light = Color(0.7490196, 0.78039217, 0.6509804, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_light"]
+shader = ExtResource("4_light")
+
+[sub_resource type="Gradient" id="Gradient_417bh"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.21311475, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.16996294, 0.16996294, 0.16996294, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5tw3s"]
+gradient = SubResource("Gradient_417bh")
+width = 768
+height = 768
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8418803, 0.16239317)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ht6nd"]
+blend_mode = 2
+
+[node name="PostProcStack" type="Node2D" unique_id=577433371]
+
+[node name="GhostEffect" parent="." unique_id=1484726150 instance=ExtResource("2_0kyt3")]
+visible = false
+texture_filter = 1
+ghost_amount = 0.3
+
+[node name="LCDEffect" parent="." unique_id=1219698695 instance=ExtResource("3_lcd")]
+fade_in_speed = 0.461
+fade_out_speed = 0.605
+grille_gap_alpha = 0.809
+
+[node name="LCDInversionEffect" type="ColorRect" parent="." unique_id=1278291405]
+material = SubResource("ShaderMaterial_obtg6")
+custom_minimum_size = Vector2(9999, 9999)
+offset_right = 9999.0
+offset_bottom = 9999.0
+
+[node name="LightEffect" type="TextureRect" parent="." unique_id=1857341615]
+material = SubResource("ShaderMaterial_light")
+custom_minimum_size = Vector2(535, 450)
+offset_left = -118.0
+offset_top = -208.0
+offset_right = 650.0
+offset_bottom = 560.0
+texture = SubResource("GradientTexture2D_5tw3s")
+
+[node name="DarkenEffect" type="ColorRect" parent="." unique_id=570308716]
+visible = false
+material = SubResource("CanvasItemMaterial_ht6nd")
+custom_minimum_size = Vector2(9999, 9999)
+offset_right = 9999.0
+offset_bottom = 9999.0
+color = Color(0.8862745, 0.8862745, 0.8862745, 0.70980394)

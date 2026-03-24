@@ -6,7 +6,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_efeo1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 184.55556, -136, 97, 0, -97, 0, 24, -16, 0, 0, 0, 0, -201.33334, -208)
+"points": PackedVector2Array(0, 0, 0, 0, 184.55556, -136, 97, 0, -97, 0, 24, -16, 0, 0, 0, 0, -257.25928, -280)
 }
 point_count = 3
 
@@ -92,8 +92,8 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(2, 0, 2, 2),
-"points": PackedFloat32Array(5.4704742, 0, 0, 0.9666667, -0.9117457, 207.87904, -1.2666667, -0.28788757, 0, 0, 231.75821, -0.66663665, -0.29442358, 1.547143, 0.68330383, 496.36142, -1.2333333, 0, 0, 0),
-"times": PackedFloat32Array(0.2, 2.4333334, 4.4333334, 8.333333)
+"points": PackedFloat32Array(5.4704742, 0, 0, 0.9666667, -0.9117457, 207.87904, -1.2666667, -0.28788757, 0, 0, 231.75821, -0.66663665, -0.29442358, 1.547143, 0.68330383, 612.5, -0.62850857, -62.86142, 0, 0),
+"times": PackedFloat32Array(0.2, 2.4333334, 4.4333334, 9.6237)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_acxwa"]
@@ -135,5 +135,5 @@ y_pixels = 20.0
 amount = -0.5
 
 [node name="enemy2" parent="." unique_id=1198562410 instance=ExtResource("2_vn3cm")]
-position = Vector2(528, 48)
+position = Vector2(-104.00003, -96)
 metadata/_edit_lock_ = true

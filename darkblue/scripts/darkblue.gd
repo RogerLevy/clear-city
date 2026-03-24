@@ -1,5 +1,9 @@
 extends "res://common/common.gd"
 
+signal enemy_died(enemy: Node, position: Vector2)
+
+const COLOR_MAIN: Color = Color("d1d1b2")
+
 var p1: Node2D           # player ship reference
 var tri_manager
 var energy: int = 100    # player energy/health
@@ -12,15 +16,19 @@ var _p1_prev_pos: Vector2
 var _status_text: BitmapText
 var _display_energy: float = 100.0  # rolls towards actual energy
 
+var scroll_speed:Vector2 = Vector2(-50,0):
+    get:
+        return scroll_speed
+    set(value):
+        scroll_speed = value
+        
 func _ready():
     super._ready()
     _status_text = get_tree().current_scene.get_node_or_null("%EnergyStatusText")
     #if OS.has_feature("editor"):
         #set_deferred( "energy", 1000000 )
 
-func process_mouse():
-    if get_window().is_embedded():
-        return
+func follow_mouse():
     if move_mouse_with_player and p1 and get_window().has_focus():
         var pos = p1.global_position.round()
         var delta_pos = pos - _p1_prev_pos
@@ -28,13 +36,15 @@ func process_mouse():
             var root = get_tree().root
             root.warp_mouse(root.get_mouse_position() + delta_pos)
         _p1_prev_pos = pos
+
+func process_mouse():
+    if get_window().is_embedded():
+        return
+    #follow_mouse()
     constrain_mouse()
 
 func process_status():
-    # DEBUG: show actual energy directly
     if not _status_text: return
-    _status_text.text = "%d" % energy
-    return
     # Roll display energy towards actual energy (faster when difference is larger)
     var diff = energy - _display_energy
     var roll_speed = absf(diff) * 0.1 + 1.0  # proportional + 1/frame minimum
@@ -47,6 +57,11 @@ func process_status():
 func _process(_delta):
     process_mouse()
     process_status()
+
+func _input(event):
+    super._input(event)
+    if event.is_action_pressed("ui_reload"):
+        get_tree().reload_current_scene()
 
 func constrain_mouse():
     super.constrain_mouse()

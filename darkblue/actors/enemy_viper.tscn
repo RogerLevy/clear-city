@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bcyrw7jaqf4r8"]
+
+[ext_resource type="Script" uid="uid://ckbp0k2ftxq7k" path="res://darkblue/actors/enemy_viper.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://fj3ka4e6uo1j" path="res://darkblue/actors/enemy22.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 8.0
+
+[node name="EnemyViper" type="CharacterBody2D" unique_id=210850136 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 10.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 21
+frame_height = 23
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=11661978]
+texture = ExtResource("2_tex")
+hframes = 12
+vframes = 3
+
+[node name="Area2D" type="Area2D" parent="." unique_id=625371601]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1394923536]
+shape = SubResource("CircleShape2D_1")

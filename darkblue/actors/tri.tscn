@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cvr6x63qxn7ba" path="res://darkblue/actors/tri_sprite.gd" id="1_ld6sf"]
 [ext_resource type="Texture2D" uid="uid://bhdjx3npvqj23" path="res://darkblue/actors/tri_sheet.png" id="2_ld6sf"]
+[ext_resource type="Shader" path="res://darkblue/actors/tri_sprite.gdshader" id="3_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tri"]
+shader = ExtResource("3_shader")
 
 [node name="Tri" type="CharacterBody2D" unique_id=14285508 groups=["resources"]]
 position = Vector2(56, 56)
@@ -11,5 +15,6 @@ script = ExtResource("1_ld6sf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1051925014]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tri")
 texture = ExtResource("2_ld6sf")
 hframes = 72

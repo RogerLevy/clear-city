@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ghosting_effect"]
+
+[ext_resource type="Script" path="res://darkblue/effects/ghosting.gd" id="1_ghost"]
+
+[node name="GhostEffect" type="Node2D"]
+script = ExtResource("1_ghost")
+ghost_amount = 0.7

@@ -1,24 +1,11 @@
 [gd_scene format=3 uid="uid://b8htk744rdnqj"]
 
 [ext_resource type="Texture2D" uid="uid://cd1fcmngdhrv4" path="res://darkblue/actors/enemy10.png" id="1_a2lfy"]
-
-[sub_resource type="GDScript" id="GDScript_3hwg8"]
-resource_name = "enemy10"
-script/source = "@tool
-extends Vessel2D
-
-static var IDLE_ANM:Array = range( 14 )  
-
-func init():
-    animation = IDLE_ANM
-    animationSpeed = 1.0/3
-"
+[ext_resource type="Script" uid="uid://dscqofd4b3qf2" path="res://darkblue/actors/enemy_frigus.gd" id="1_j7snv"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
-script = SubResource("GDScript_3hwg8")
-sprite_texture = ExtResource("1_a2lfy")
-frame_width = 19
-frame_height = 17
+position = Vector2(48, 40)
+script = ExtResource("1_j7snv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]
 unique_name_in_owner = true

@@ -10,7 +10,7 @@ var turret: Node2D = null
 var width: float = 1.0
 var max_width: float = 100.0
 var length: float = 2000.0
-var color: Color = Color(0.82, 0.82, 0.7, 1.0)
+var color: Color = g.COLOR_MAIN
 
 var damaged_enemies: Dictionary = {}  # track who we've hit
 var can_damage: bool = false
@@ -75,7 +75,7 @@ func check_hits():
         var enemy_r = enemy.get("r") if enemy.get("r") else 16.0
         if is_in_beam(enemy.global_position, enemy_r):
             if enemy.has_method("damage"):
-                var dmg = 100 if width >= max_width else int(width)
+                var dmg = 100 if width >= max_width else 2
                 enemy.damage(dmg)
                 damaged_enemies[enemy] = true
                 spawn_sparks(enemy)

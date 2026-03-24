@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://brhofblyhc60k"]
+
+[ext_resource type="Script" uid="uid://bxucxhtjvfcma" path="res://darkblue/actors/enemy_stanex.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dpnb7adsde345" path="res://darkblue/actors/enemy31.png" id="2_tex"]
+
+[node name="EnemyStanex" type="CharacterBody2D" unique_id=1961522387 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 8.5
+sprite_texture = ExtResource("2_tex")
+frame_width = 17
+frame_height = 33
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1484144567]
+texture = ExtResource("2_tex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1105435539]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=94194526]
+polygon = PackedVector2Array(-5, -6, 0, -14, 6, -6, 2, 1, 6, 7, 0, 15, -6, 7, -1, 1)
