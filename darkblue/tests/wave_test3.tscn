@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://d1voudrjubp2" path="res://darkblue/actors/enemy2__elderbeak.gd" id="20_4a321"]
 [ext_resource type="Texture2D" uid="uid://bwlkwqjyobdqd" path="res://darkblue/actors/reticule.png" id="21_cfphb"]
 [ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="22_3v83u"]
+[ext_resource type="Script" uid="uid://15a3uljo3ida" path="res://common/sequence_start.gd" id="22_dgkbr"]
 [ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="22_oxhko"]
 [ext_resource type="Script" uid="uid://cllx4h5h8ipa1" path="res://darkblue/actors/miniboss1_angel.gd" id="23_54y72"]
 [ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="23_ea0w2"]
@@ -397,8 +398,8 @@ metadata/_edit_lock_ = true
 [node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
 script = ExtResource("1_580qk")
 bpm = 143.0
-start_from_beat = 28.0
-target_sequence = NodePath("../Playfield/Level001Sequence")
+start_from_beat = 32.0
+target_sequence = NodePath("../Playfield/WaveTest3Sequence")
 metronome_enabled = true
 metronome_sound = ExtResource("2_fayap")
 
@@ -480,17 +481,17 @@ unique_name_in_owner = true
 [node name="Tris" type="Node2D" parent="Playfield" unique_id=962751424]
 unique_name_in_owner = true
 
-[node name="Level001Sequence" type="Node2D" parent="Playfield" unique_id=1464437363]
+[node name="WaveTest3Sequence" type="Node2D" parent="Playfield" unique_id=1464437363]
 script = ExtResource("8_oee1l")
 running = true
 stick_around = true
 
-[node name="WaveSwarm001" type="Node2D" parent="Playfield/Level001Sequence" unique_id=1994722393]
+[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=1994722393]
 visible = false
 script = ExtResource("8_oee1l")
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 
-[node name="PentagonBurst1" type="Node2D" parent="Playfield/Level001Sequence/WaveSwarm001" unique_id=1458149180]
+[node name="PentagonBurst1" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveBurstTest1" unique_id=1458149180]
 position = Vector2(549, 189)
 script = ExtResource("15_anun7")
 scene = ExtResource("15_4a321")
@@ -502,7 +503,7 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="PentagonBurst2" type="Node2D" parent="Playfield/Level001Sequence/WaveSwarm001" unique_id=1704027045]
+[node name="PentagonBurst2" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveBurstTest1" unique_id=1704027045]
 position = Vector2(549, 119)
 script = ExtResource("15_anun7")
 scene = ExtResource("15_4a321")
@@ -514,7 +515,7 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="PentagonBurst3" type="Node2D" parent="Playfield/Level001Sequence/WaveSwarm001" unique_id=936158383]
+[node name="PentagonBurst3" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveBurstTest1" unique_id=936158383]
 position = Vector2(549, 263)
 script = ExtResource("15_anun7")
 scene = ExtResource("15_4a321")
@@ -526,7 +527,7 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="HeartOn24Killed" type="Node2D" parent="Playfield/Level001Sequence/WaveSwarm001" unique_id=1946769396]
+[node name="HeartOn24Killed" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveBurstTest1" unique_id=1946769396]
 script = ExtResource("22_oxhko")
 condition = 1
 target_class = ExtResource("18_k0fey")
@@ -535,90 +536,94 @@ action = 1
 drop_scene = ExtResource("24_ea0w2")
 running = true
 
-[node name="WaveEasy001" type="Node2D" parent="Playfield/Level001Sequence" unique_id=19577533]
+[node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=19577533]
 visible = false
 script = ExtResource("8_oee1l")
 
-[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=1316925420]
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=1316925420]
 libraries/ = SubResource("AnimationLibrary_fhmn5")
 
-[node name="enemy2-e02-1" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=1059565042 instance=ExtResource("9_3v83u")]
+[node name="enemy2-e02-1" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=1059565042 instance=ExtResource("9_3v83u")]
 position = Vector2(212, -128)
 
-[node name="enemy2-e02-2" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=2119177072 instance=ExtResource("9_3v83u")]
+[node name="enemy2-e02-2" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=2119177072 instance=ExtResource("9_3v83u")]
 position = Vector2(212, -64)
 
-[node name="enemy2-e02-3" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=517138493 instance=ExtResource("9_3v83u")]
+[node name="enemy2-e02-3" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=517138493 instance=ExtResource("9_3v83u")]
 position = Vector2(212, 0)
 
-[node name="enemy2-e02-4" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=1916199662 instance=ExtResource("9_3v83u")]
+[node name="enemy2-e02-4" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=1916199662 instance=ExtResource("9_3v83u")]
 position = Vector2(212, 64)
 
-[node name="HeartOn100" type="Node2D" parent="Playfield/Level001Sequence/WaveEasy001" unique_id=279255823]
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAnimTest1" unique_id=279255823]
 script = ExtResource("22_oxhko")
 target_class = ExtResource("20_4a321")
 drop_scene = ExtResource("24_ea0w2")
 running = true
 
-[node name="WaveTest001" type="Node2D" parent="Playfield/Level001Sequence" unique_id=1235966571]
+[node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=1235966571]
 script = ExtResource("8_oee1l")
 
-[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1596294550]
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1596294550]
 libraries/ = SubResource("AnimationLibrary_4l4sq")
 
-[node name="Sequence" type="Node2D" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1422750971]
+[node name="Sequence" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1422750971]
 position = Vector2(54, 0)
 script = ExtResource("8_oee1l")
 autoplay_name = &"sequence_2"
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 
-[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/Level001Sequence/WaveTest001/Sequence" unique_id=2020946565]
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveTest3Sequence/WaveAnimTest2/Sequence" unique_id=2020946565]
 libraries/ = SubResource("AnimationLibrary_4l4sq")
 
-[node name="enemy2-e03-1" parent="Playfield/Level001Sequence/WaveTest001/Sequence" unique_id=1337668934 instance=ExtResource("10_ea0w2")]
+[node name="enemy2-e03-1" parent="Playfield/WaveTest3Sequence/WaveAnimTest2/Sequence" unique_id=1337668934 instance=ExtResource("10_ea0w2")]
 position = Vector2(-16, -24)
 
-[node name="enemy2-e03-2" parent="Playfield/Level001Sequence/WaveTest001/Sequence" unique_id=215721961 instance=ExtResource("10_ea0w2")]
+[node name="enemy2-e03-2" parent="Playfield/WaveTest3Sequence/WaveAnimTest2/Sequence" unique_id=215721961 instance=ExtResource("10_ea0w2")]
 position = Vector2(-16, 24)
 
-[node name="enemy2-e04-1" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1094319328 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-1" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1094319328 instance=ExtResource("11_l5s1p")]
 position = Vector2(214, -128)
 
-[node name="enemy2-e04-2" parent="Playfield/Level001Sequence/WaveTest001" unique_id=411941233 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-2" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=411941233 instance=ExtResource("11_l5s1p")]
 position = Vector2(214, -64)
 
-[node name="enemy2-e04-3" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1391711958 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-3" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1391711958 instance=ExtResource("11_l5s1p")]
 position = Vector2(214, 0)
 
-[node name="enemy2-e04-4" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1972696847 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-4" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1972696847 instance=ExtResource("11_l5s1p")]
 position = Vector2(214, 64)
 
-[node name="enemy2-e04-8" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1736508581 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-8" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1736508581 instance=ExtResource("11_l5s1p")]
 position = Vector2(278, 64)
 
-[node name="enemy2-e04-7" parent="Playfield/Level001Sequence/WaveTest001" unique_id=753610822 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-7" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=753610822 instance=ExtResource("11_l5s1p")]
 position = Vector2(278, 0)
 
-[node name="enemy2-e04-6" parent="Playfield/Level001Sequence/WaveTest001" unique_id=931418090 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-6" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=931418090 instance=ExtResource("11_l5s1p")]
 position = Vector2(278, -64)
 
-[node name="enemy2-e04-5" parent="Playfield/Level001Sequence/WaveTest001" unique_id=1920150194 instance=ExtResource("11_l5s1p")]
+[node name="enemy2-e04-5" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=1920150194 instance=ExtResource("11_l5s1p")]
 position = Vector2(278, -128)
 
-[node name="HeartOn100" type="Node2D" parent="Playfield/Level001Sequence/WaveTest001" unique_id=474514253]
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAnimTest2" unique_id=474514253]
 script = ExtResource("22_oxhko")
 target_class = ExtResource("20_4a321")
 action = 1
 drop_scene = ExtResource("24_ea0w2")
 running = true
 
-[node name="WaveAngels001pre" type="Node2D" parent="Playfield/Level001Sequence" unique_id=94369381]
+[node name="SequenceStart" type="Node" parent="Playfield/WaveTest3Sequence" unique_id=1615107265]
+script = ExtResource("22_dgkbr")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+
+[node name="WaveAngelTest1pre" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=94369381]
 visible = false
 script = ExtResource("8_oee1l")
 stick_around = true
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 
-[node name="EnemyMovement" type="AnimationPlayer" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=447413219]
+[node name="EnemyMovement" type="AnimationPlayer" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=447413219]
 root_node = NodePath(".")
 libraries/ = SubResource("AnimationLibrary_fayap")
 libraries/testy = SubResource("AnimationLibrary_vvrwg")
@@ -626,107 +631,107 @@ autoplay = &"testy/default"
 script = ExtResource("12_oxhko")
 metadata/_custom_type_script = "uid://5qw6botosf7p"
 
-[node name="Path" type="Path2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement" unique_id=459419434]
+[node name="Path" type="Path2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement" unique_id=459419434]
 position = Vector2(373, 168)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_efeo1")
 
-[node name="PathFollow2D-1" type="PathFollow2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path" unique_id=989409510]
+[node name="PathFollow2D-1" type="PathFollow2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path" unique_id=989409510]
 position = Vector2(-22.370361, -224)
 rotates = false
 cubic_interp = false
 loop = false
 metadata/_edit_lock_ = true
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path/PathFollow2D-1" unique_id=1795476604]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path/PathFollow2D-1" unique_id=1795476604]
 remote_path = NodePath("../../../../Angel")
 update_rotation = false
 update_scale = false
 
-[node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path/PathFollow2D-1/RemoteTransform2D" unique_id=1288960595]
+[node name="SineMovement" type="Node" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path/PathFollow2D-1/RemoteTransform2D" unique_id=1288960595]
 script = ExtResource("13_54y72")
 y_period = 4.0
 y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
-[node name="Path2" type="Path2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement" unique_id=1917052384]
+[node name="Path2" type="Path2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement" unique_id=1917052384]
 position = Vector2(373, 176)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_580qk")
 
-[node name="PathFollow2D-2" type="PathFollow2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path2" unique_id=1963029312]
+[node name="PathFollow2D-2" type="PathFollow2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path2" unique_id=1963029312]
 position = Vector2(218.11113, -128)
 rotates = false
 cubic_interp = false
 loop = false
 metadata/_edit_lock_ = true
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path2/PathFollow2D-2" unique_id=1897024153]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path2/PathFollow2D-2" unique_id=1897024153]
 remote_path = NodePath("../../../../Angel2")
 update_rotation = false
 update_scale = false
 
-[node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path2/PathFollow2D-2/RemoteTransform2D" unique_id=1103809284]
+[node name="SineMovement" type="Node" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path2/PathFollow2D-2/RemoteTransform2D" unique_id=1103809284]
 script = ExtResource("13_54y72")
 y_period = 4.0
 y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
-[node name="Path3" type="Path2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement" unique_id=34017776]
+[node name="Path3" type="Path2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement" unique_id=34017776]
 position = Vector2(357, 168)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_fayap")
 
-[node name="PathFollow2D-3" type="PathFollow2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path3" unique_id=1122402518]
+[node name="PathFollow2D-3" type="PathFollow2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path3" unique_id=1122402518]
 position = Vector2(-154.49536, -229)
 rotates = false
 cubic_interp = false
 loop = false
 metadata/_edit_lock_ = true
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path3/PathFollow2D-3" unique_id=280208047]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path3/PathFollow2D-3" unique_id=280208047]
 remote_path = NodePath("../../../../Angel3")
 update_rotation = false
 update_scale = false
 
-[node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path3/PathFollow2D-3/RemoteTransform2D" unique_id=74368330]
+[node name="SineMovement" type="Node" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path3/PathFollow2D-3/RemoteTransform2D" unique_id=74368330]
 script = ExtResource("13_54y72")
 y_period = 4.0
 y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
-[node name="Path4" type="Path2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement" unique_id=1048647166]
+[node name="Path4" type="Path2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement" unique_id=1048647166]
 position = Vector2(373, 192)
 scale = Vector2(1.4304636, 1)
 curve = SubResource("Curve2D_tpyys")
 
-[node name="PathFollow2D-4" type="PathFollow2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path4" unique_id=1392862639]
+[node name="PathFollow2D-4" type="PathFollow2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path4" unique_id=1392862639]
 position = Vector2(-22.370361, 248)
 rotates = false
 cubic_interp = false
 loop = false
 metadata/_edit_lock_ = true
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path4/PathFollow2D-4" unique_id=1334758348]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path4/PathFollow2D-4" unique_id=1334758348]
 remote_path = NodePath("../../../../Angel4")
 update_rotation = false
 update_scale = false
 
-[node name="SineMovement" type="Node" parent="Playfield/Level001Sequence/WaveAngels001pre/EnemyMovement/Path4/PathFollow2D-4/RemoteTransform2D" unique_id=1088425274]
+[node name="SineMovement" type="Node" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/EnemyMovement/Path4/PathFollow2D-4/RemoteTransform2D" unique_id=1088425274]
 script = ExtResource("13_54y72")
 y_period = 4.0
 y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
-[node name="Angel" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=1198562410 instance=ExtResource("14_dfwl2")]
+[node name="Angel" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=1198562410 instance=ExtResource("14_dfwl2")]
 position = Vector2(341, -56)
 metadata/_edit_lock_ = true
 
-[node name="Burst2D" type="Node2D" parent="Playfield/Level001Sequence/WaveAngels001pre/Angel" unique_id=709231741]
+[node name="Burst2D" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel" unique_id=709231741]
 position = Vector2(0, -48)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
@@ -740,11 +745,11 @@ infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="Angel2" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=77380210 instance=ExtResource("14_dfwl2")]
+[node name="Angel2" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=77380210 instance=ExtResource("14_dfwl2")]
 position = Vector2(685, 48)
 metadata/_edit_lock_ = true
 
-[node name="Burst2D2" type="Node2D" parent="Playfield/Level001Sequence/WaveAngels001pre/Angel2" unique_id=1025655285]
+[node name="Burst2D2" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel2" unique_id=1025655285]
 position = Vector2(0, -48)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
@@ -758,11 +763,11 @@ infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="Angel3" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=965186642 instance=ExtResource("14_dfwl2")]
+[node name="Angel3" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=965186642 instance=ExtResource("14_dfwl2")]
 position = Vector2(136.00002, -61)
 metadata/_edit_lock_ = true
 
-[node name="Burst2D3" type="Node2D" parent="Playfield/Level001Sequence/WaveAngels001pre/Angel3" unique_id=1805654862]
+[node name="Burst2D3" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel3" unique_id=1805654862]
 position = Vector2(0, -48)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
@@ -776,11 +781,11 @@ infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="Angel4" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=2121312625 instance=ExtResource("14_dfwl2")]
+[node name="Angel4" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=2121312625 instance=ExtResource("14_dfwl2")]
 position = Vector2(341, 440)
 metadata/_edit_lock_ = true
 
-[node name="Burst2D4" type="Node2D" parent="Playfield/Level001Sequence/WaveAngels001pre/Angel4" unique_id=1170336880]
+[node name="Burst2D4" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel4" unique_id=1170336880]
 position = Vector2(0, -48)
 script = ExtResource("15_anun7")
 scene = ExtResource("16_4a321")
@@ -794,7 +799,7 @@ infinite = true
 open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="HeartOn100" type="Node2D" parent="Playfield/Level001Sequence/WaveAngels001pre" unique_id=998192730]
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveTest3Sequence/WaveAngelTest1pre" unique_id=998192730]
 script = ExtResource("22_oxhko")
 target_class = ExtResource("23_54y72")
 action = 1
@@ -829,7 +834,7 @@ texture = ExtResource("30_anun7")
 texture = ExtResource("21_cfphb")
 script = SubResource("GDScript_3he2n")
 
-[editable path="Playfield/Level001Sequence/WaveAngels001pre/Angel"]
-[editable path="Playfield/Level001Sequence/WaveAngels001pre/Angel2"]
-[editable path="Playfield/Level001Sequence/WaveAngels001pre/Angel3"]
-[editable path="Playfield/Level001Sequence/WaveAngels001pre/Angel4"]
+[editable path="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel"]
+[editable path="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel2"]
+[editable path="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel3"]
+[editable path="Playfield/WaveTest3Sequence/WaveAngelTest1pre/Angel4"]

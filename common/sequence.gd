@@ -237,11 +237,26 @@ func _ready():
             break
 
     # Build sequence list and hide them
-    _sequence_list = []
+    # Check for SequenceStart marker - skip all Sequence siblings before it
+    var skip_until_after_start := false
     for child in get_children():
+        if child is SequenceStart:
+            skip_until_after_start = true
+            break
+
+    _sequence_list = []
+    var found_start := false
+    for child in get_children():
+        if child is SequenceStart:
+            found_start = true
+            continue
         if child is Sequence:
+            if skip_until_after_start and not found_start:
+                # Skip this sequence - it's before SequenceStart
+                child.visible = false
+                child.process_mode = Node.PROCESS_MODE_DISABLED
+                continue
             _sequence_list.append(child)
-            print_debug("Sequence._ready: ", name, " _anim=", _anim, " has_animation=", has_animation, " _sequence_list=", _sequence_list.map(func(s): return s.name))
             child.visible = false
             child.process_mode = Node.PROCESS_MODE_DISABLED
 

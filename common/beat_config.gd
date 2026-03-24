@@ -10,9 +10,27 @@ extends Node
 @export var auto_start: bool = true
 @export var music: AudioStreamWAV  ## WAV only for sample-accurate timing
 
+var _warning_pending := false
+
 @export_group("Debug")
-@export var start_from_beat: float = 0.0  ## Start playback from this beat (for testing)
+@export var start_from_beat: float = 0.0:  ## Start playback from this beat (for testing)
+    set(value):
+        start_from_beat = value
+        if value > 0:
+            _schedule_warning_check()
+
 @export var target_sequence: NodePath  ## Sequence to start (seeks animation to start_from_beat)
+
+func _schedule_warning_check():
+    if _warning_pending:
+        return
+    _warning_pending = true
+    call_deferred("_do_warning_check")
+
+func _do_warning_check():
+    _warning_pending = false
+    _check_start_from_beat_warning()
+    
 @export var metronome_enabled: bool = false
 @export var metronome_sound: AudioStreamWAV  ## WAV only for sample-accurate timing
 
@@ -25,11 +43,33 @@ func _ready():
     # Store target sequence for Sequence to check
     if target_sequence:
         beat.target_sequence = get_node_or_null(target_sequence)
+
+
     if auto_start:
         if music:
             beat.play_music(music, start_from_beat)
         else:
             beat.start(start_from_beat)
+
+func _check_start_from_beat_warning():
+    var target = get_node_or_null(target_sequence) if target_sequence else null
+    if not target:
+        OS.alert("start_from_beat is set but no target_sequence is specified.\n\nTo skip to a specific sequence, add a SequenceStart node as a child - all sibling Sequences before it will be skipped.", "BeatConfig Warning")
+        return
+
+    # Check for animation ourselves since Sequence isn't @tool
+    var has_anim := false
+    for child in target.get_children():
+        if child is AnimationPlayer and child.has_animation(&"sequence"):
+            has_anim = true
+            break
+
+    if not has_anim:
+        # Check if SequenceStart is already present
+        for child in target.get_children():
+            if child is SequenceStart:
+                return  # Already has SequenceStart, no warning needed
+        OS.alert("start_from_beat requires an animation on the target sequence '%s'.\n\nTo skip to a specific sequence, add a SequenceStart node as a child - all sibling Sequences before it will be skipped.\n\nNote: Music will still start from the specified beat." % target.name, "BeatConfig Warning")
 
 func _apply_config():
     beat.bpm = bpm
