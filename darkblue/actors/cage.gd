@@ -9,7 +9,7 @@ extends Node2D
 @export var color: Color = g.COLOR_MAIN
 
 func _draw():
-    draw_arc(Vector2.ZERO, radius, 0, TAU, 64, color, 4.0)
+    draw_arc(Vector2.ZERO, radius, 0, TAU, 65, color, 4.0)
 
 func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():

@@ -108,7 +108,6 @@ autoplay_name = &"in-and-out1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2063353101]
 libraries/ = SubResource("AnimationLibrary_acxwa")
-speed_scale = 1.667
 
 [node name="Path" type="Path2D" parent="." unique_id=459419434]
 position = Vector2(264, 184)
@@ -135,5 +134,8 @@ y_pixels = 20.0
 amount = -0.5
 
 [node name="enemy2" parent="." unique_id=1198562410 instance=ExtResource("2_vn3cm")]
-position = Vector2(-104.00003, -96)
+position = Vector2(528, 48)
+snd_damage = null
+snd_death = null
+stats = {}
 metadata/_edit_lock_ = true

@@ -12,11 +12,25 @@ static var IDLE_ANM:Array = range( 10 )
 
 func init():
     animation = IDLE_ANM
-    animationPos = randi() % IDLE_ANM.size() 
+    animationPos = randi() % IDLE_ANM.size()
     animationSpeed = musical_anim_speed( IDLE_ANM, 0.5 )
-    
-func _physics_process( _delta ):
-    super._physics_process( _delta )
+
+#var _path: Array[Vector2] = []
+#const PATH_MAX = 120
+
+#func _physics_process( _delta ):
+    #super._physics_process( _delta )
+    #_path.append(global_position)
+    #if _path.size() > PATH_MAX:
+        #_path.pop_front()
+    #queue_redraw()
+
+#func _draw():
+    #if _path.size() < 2: return
+    #for i in range(1, _path.size()):
+        #var a = _path[i-1] - global_position 
+        #var b = _path[i] - global_position
+        #draw_line(a, b, g.COLOR_MAIN, 1.0)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0myeb"]
@@ -26,7 +40,8 @@ radius = 8.0
 collision_layer = 0
 collision_mask = 0
 script = SubResource("GDScript_3hwg8")
-bounty = 30
+atk = 30
+bounty = 20
 sprite_texture = ExtResource("1_0myeb")
 frame_width = 22
 frame_height = 22

@@ -19,17 +19,19 @@ extends Node2D
 class_name Sequence
 
 @export var timing_mode: TimingMode.Mode = TimingMode.Mode.DEFAULT
-@export var running: bool = false
+@export var autostart: bool = false  ## If true, start immediately with parent instead of sequentially
+var running: bool = false  # Runtime state - true while sequence is active
 var _sequence_list: Array[Sequence] = []  # Cached list of sequence children, captured at _ready()
+var _independent_list: Array[Sequence] = []  # Independent sequences to start with parent
 var _current_index: int = -1               # Index into _sequence_list, not raw child index
 @export var duration: float = -1    # -1 = duration depends on child sequences or AnimationPlayer if present
 var _timer: Timer
 var _duration_override: bool = false
 var _anim: AnimationPlayer
 @export var autoplay_name: StringName = &"sequence"
-@export var open_ended: bool = false  # If true, completion is code- or animation-controlled only
-@export var important: bool = false   # On completion: false = free when no running Sequence children, true = free when no Sequence children
-@export var stick_around: bool = false  # If true, don't free on completion
+@export var open_ended: bool = false  ## If true, completion is code- or animation-controlled only
+@export var important: bool = false   ## On completion: false = free when no running Sequence children, true = free when no Sequence children
+@export var stick_around: bool = false  ## If true, don't free on completion
 var sequences_launched: int = 0
 var _pending_free: bool = false
 var _seeking: bool = false
@@ -68,12 +70,12 @@ func _connect_animation_finished():
     if _anim:
         _anim.animation_finished.connect( _on_animation_finished, CONNECT_ONE_SHOT )
 
-func launch_sequence( seq:Sequence ):
+func launch_sequence( seq:Sequence, is_independent: bool = false ):
     sequences_launched += 1
     seq.visible = true
     seq.process_mode = Node.PROCESS_MODE_INHERIT
-    #get_parent().add_child.call_deferred( seq )
-    seq.sequence_completed.connect( _on_child_sequence_completed.bind(seq), CONNECT_ONE_SHOT )
+    if not seq.sequence_completed.is_connected(_on_child_sequence_completed):
+        seq.sequence_completed.connect( _on_child_sequence_completed.bind(seq, is_independent), CONNECT_ONE_SHOT )
     seq.call_deferred( "start" )
 
 func launch( name ):
@@ -86,8 +88,19 @@ func launch( name ):
 func sequence_children() -> Array[Node]:
     return get_children().filter(func(c): return c is Sequence)
 
+## Returns true if a child sequence runs independently (doesn't block parent)
+func _is_independent(seq: Sequence) -> bool:
+    if seq.autostart: return true  # Explicitly marked to start with parent
+    if seq.duration == -1:
+        # Check if it has an animation that would make it complete
+        for child in seq.get_children():
+            if child is AnimationPlayer and child.has_animation(seq.autoplay_name):
+                return false
+        return true
+    return false
+
 func running_sequence_children() -> Array[Node]:
-    return sequence_children().filter(func(c): return c.running)
+    return sequence_children().filter(func(c): return c.running and not _is_independent(c))
 
 func can_free() -> bool:
     if important:
@@ -97,7 +110,6 @@ func can_free() -> bool:
 
 func try_free():
     if _pending_free and can_free():
-        print_debug("*** queue_free sequence ***")
         queue_free()
 
 func complete():
@@ -128,19 +140,18 @@ func next():
         return
 
     _current_index += 1
-    print_debug("next() _current_index=", _current_index, " _sequence_list.size()=", _sequence_list.size(), " anim_pos=", anim_pos)
+    print_debug(name, ".next() index=", _current_index, "/", _sequence_list.size())
     if _current_index >= _sequence_list.size():
-        print_debug("next() past end of sequence list")
         if not _duration_override and not open_ended:
             _complete()
         return
     var seq = _sequence_list[_current_index]
-    print_debug(name, " next() launching seq=", seq.name if seq else "null")
     if is_instance_valid(seq):
+        print_debug(name, " launching ", seq.name)
         launch_sequence(seq)
 
-func _on_child_sequence_completed( _seq: Sequence ):
-    if running and not has_animation:
+func _on_child_sequence_completed( _seq: Sequence, is_independent: bool = false ):
+    if running and not has_animation and not is_independent:
         next()
     try_free()
 
@@ -162,10 +173,21 @@ func _on_timeout():
 
 func start():
     running = true
+    print_debug(name, ".start() has_animation=", has_animation, " duration=", duration, " autoplay_name=", autoplay_name)
 
-    # Apply timing scale to animation player
-    if _anim:
-        _anim.speed_scale = 1.0 / _get_time_scale()
+    # Launch independent sequences (they don't block, just run alongside)
+    for seq in _independent_list:
+        launch_sequence(seq, true)
+
+    # Apply timing scale and restart all child AnimationPlayers
+    # Skip RelativeAnimationPlayer - it handles its own timing
+    var time_scale = _get_time_scale()
+    for child in get_children():
+        if child is AnimationPlayer and not child is RelativeAnimationPlayer:
+            child.speed_scale /= time_scale
+            # Restart whatever animation was playing (via autoplay)
+            if child.autoplay and child.has_animation(child.autoplay):
+                child.play(child.autoplay)
 
     if duration >= 0:
         _duration_override = true
@@ -226,33 +248,37 @@ func start_from_beat(from_beat: float):
 func _ready():
     add_to_group("sequences")
 
-    # Always run if the sequence is the scene root
-    if get_parent() == get_tree().root:
-        running = true
-    
-    # Find AnimationPlayer child
+    # Stop all child AnimationPlayers (they may have autoplay) and find the sequence animation
     for child in get_children():
-        if child is AnimationPlayer and child.get_node(child.root_node) == self:
-            _anim = child
-            break
+        if child is AnimationPlayer:
+            child.stop()  # Stop any autoplay immediately
+            if child.has_animation(autoplay_name):
+                _anim = child
 
     # Build sequence list and hide them
     # Check for SequenceStart marker - skip all Sequence siblings before it
     var skip_until_after_start := false
     for child in get_children():
-        if child is SequenceStart:
+        if child is SequenceStart and child.process_mode != PROCESS_MODE_DISABLED:
             skip_until_after_start = true
             break
 
     _sequence_list = []
+    _independent_list = []
     var found_start := false
     for child in get_children():
-        if child is SequenceStart:
+        if child is SequenceStart and child.process_mode != PROCESS_MODE_DISABLED:
             found_start = true
             continue
         if child is Sequence:
+            # First check if before SequenceStart - disable regardless of independent
             if skip_until_after_start and not found_start:
-                # Skip this sequence - it's before SequenceStart
+                child.visible = false
+                child.process_mode = Node.PROCESS_MODE_DISABLED
+                continue
+            # Independent sequences run on their own, not in sequence list
+            if _is_independent(child):
+                _independent_list.append(child)
                 child.visible = false
                 child.process_mode = Node.PROCESS_MODE_DISABLED
                 continue
@@ -260,10 +286,16 @@ func _ready():
             child.visible = false
             child.process_mode = Node.PROCESS_MODE_DISABLED
 
-    if not running:
-        stop()
+    print_debug(name, " _sequence_list=", _sequence_list.map(func(s): return s.name), " _independent_list=", _independent_list.map(func(s): return s.name))
+
+    # Auto-start only if no Sequence ancestor (children are launched by ancestor)
+    var ancestor = get_parent()
+    while ancestor and not ancestor is Sequence:
+        ancestor = ancestor.get_parent()
+    if ancestor is Sequence:
+        stop()  # Will be launched by ancestor sequence
     else:
-        # Defer start to ensure BeatConfig._ready() has run first
+        # Top-level sequence - defer start to ensure BeatConfig._ready() has run first
         call_deferred("_deferred_start")
 
 func _end_seeking():
@@ -271,8 +303,14 @@ func _end_seeking():
     print_debug("_end_seeking, anim_pos=", _anim.current_animation_position if _anim else -1)
 
 func _deferred_start():
-    print_debug("Sequence._deferred_start: target=", beat.target_sequence, " self=", self, " from_beat=", beat.started_from_beat)
     if beat.target_sequence == self and beat.started_from_beat > 0:
         start_from_beat(beat.started_from_beat)
     else:
-        start()
+        # For musical timing, wait for first beat_hit to sync
+        if beat.resolve_timing_mode(timing_mode) == TimingMode.Mode.MUSICAL:
+            beat.beat_hit.connect(_on_first_beat, CONNECT_ONE_SHOT)
+        else:
+            start()
+
+func _on_first_beat(_beat_num: int):
+    start()

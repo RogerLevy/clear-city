@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bnt20j4vjl3ix"]
+
+[ext_resource type="Script" uid="uid://cniyudn44uoy5" path="res://darkblue/actors/enemy_king.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://udgfsq3xfhbv" path="res://darkblue/actors/enemy_king.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+
+[node name="King" type="CharacterBody2D" unique_id=411130584 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 10.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 20
+frame_height = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1926033081]
+texture = ExtResource("2_tex")
+hframes = 2
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1368908336]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1806385269]
+shape = SubResource("CircleShape2D_1")

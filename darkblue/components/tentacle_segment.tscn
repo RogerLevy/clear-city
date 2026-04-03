@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://3tdf0d4j2o8s"]
+
+[ext_resource type="Script" uid="uid://cq3ednfsjdiqi" path="res://darkblue/components/tentacle_controller.gd" id="1_4ambs"]
+[ext_resource type="Script" uid="uid://7is33wfpbar5" path="res://darkblue/components/tentacle_segment.gd" id="1_w54fy"]
+
+[node name="TentacleController" type="Node2D" unique_id=349311538]
+script = ExtResource("1_4ambs")
+
+[node name="Segment" type="Node2D" parent="." unique_id=459597198]
+position = Vector2(121, 107)
+script = ExtResource("1_w54fy")
+
+[node name="Segment" type="Node2D" parent="Segment" unique_id=663160391]
+position = Vector2(32, 0)
+script = ExtResource("1_w54fy")
+
+[node name="Segment" type="Node2D" parent="Segment/Segment" unique_id=90065514]
+position = Vector2(32, 0)
+script = ExtResource("1_w54fy")
+
+[node name="Segment" type="Node2D" parent="Segment/Segment/Segment" unique_id=4686115]
+position = Vector2(32, 0)
+script = ExtResource("1_w54fy")

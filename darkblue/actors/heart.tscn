@@ -11,7 +11,6 @@ radius = 13.0
 [node name="Heart" unique_id=544839953 instance=ExtResource("1_h6phr")]
 position = Vector2(59, 40)
 script = ExtResource("2_l4r86")
-move_speed = null
 sprite_texture = ExtResource("3_f7t0o")
 frame_width = 32
 frame_height = 32

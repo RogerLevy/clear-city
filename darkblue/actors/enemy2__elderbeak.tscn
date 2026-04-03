@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1voudrjubp2" path="res://darkblue/actors/enemy2__elderbeak.gd" id="1_dq65a"]
 [ext_resource type="Texture2D" uid="uid://b20gvpstw2ofd" path="res://darkblue/actors/enemy2.png" id="2_26v3i"]
+[ext_resource type="Script" uid="uid://cc5tsj0x0m1di" path="res://darkblue/components/shoot_at_player.gd" id="3_rkv7c"]
 
 [node name="enemy2" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
 position = Vector2(200, 120)
@@ -10,7 +11,9 @@ collision_mask = 0
 script = ExtResource("1_dq65a")
 hp = 2
 r = 16.0
-bounty = 30
+atk = 30
+bounty = 60
+stats = null
 sprite_texture = ExtResource("2_26v3i")
 frame_width = 41
 frame_height = 27
@@ -29,3 +32,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1603414630]
 polygon = PackedVector2Array(-17, -5, -17, 3, -3, 6, 1, 12, 12, 9, 18, 0, 12, -11, 2, -14, -3, -7)
+
+[node name="ShootAtPlayer" type="Node" parent="." unique_id=1371313404]
+script = ExtResource("3_rkv7c")
+metadata/_custom_type_script = "uid://cc5tsj0x0m1di"

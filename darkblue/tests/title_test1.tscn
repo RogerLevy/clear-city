@@ -50,7 +50,6 @@ metadata/_edit_lock_ = true
 [node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
 script = ExtResource("1_tvbwl")
 bpm = 143.0
-start_from_beat = 28.0
 metronome_enabled = true
 metronome_sound = ExtResource("2_imgda")
 

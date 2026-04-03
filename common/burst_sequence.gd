@@ -18,6 +18,7 @@ var _spawns: Array = []
 var _spawn_index: int = 0
 var _frame_wait: int = 0
 var _time_wait: float = 0.0
+var _elapsed: float = 0.0
 
 func start():
     open_ended = true  # Prevent auto-complete from next() since we have no child sequences
@@ -50,10 +51,17 @@ func _setup_burst():
         _spawn_index = 1
         _frame_wait = time_stagger_frames
         _time_wait = time_stagger * _get_time_scale()
+        _elapsed = 0.0
 
 func _physics_process(delta):
     if frozen or not running: return
-    
+    if _spawns.is_empty(): return
+
+    _elapsed += delta
+    # Don't spawn if duration is ending this frame
+    if _duration_override and _elapsed >= duration * _get_time_scale():
+        return
+
     var infinite = self.infinite
     if not infinite and _spawn_index >= _spawns.size():
         return

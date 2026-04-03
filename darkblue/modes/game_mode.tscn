@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://byy7wvfqvk2y1"]
+
+[ext_resource type="Script" uid="uid://d1kvv0xes5qp0" path="res://darkblue/scripts/stage_config.gd" id="1_8dg4j"]
+[ext_resource type="Script" uid="uid://1m8bvsoxc6pj" path="res://common/beat_config.gd" id="1_cilcj"]
+[ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_hj3p8"]
+[ext_resource type="Script" uid="uid://b1wppt5vfddg2" path="res://common/offscreen_cleaner.gd" id="3_jl3py"]
+[ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="4_22fp8"]
+[ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="5_w6k5e"]
+[ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="6_w7nun"]
+[ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_f8eaa"]
+[ext_resource type="Shader" uid="uid://croxek4pewu5e" path="res://common/replace_transparency.gdshader" id="8_3c5oa"]
+[ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="9_0qp6m"]
+[ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="10_v1ibh"]
+[ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="11_kuxv1"]
+[ext_resource type="Script" uid="uid://b1aqqi5fgmdpy" path="res://darkblue/scripts/playfield.gd" id="12_en8bo"]
+[ext_resource type="PackedScene" path="res://darkblue/effects/ghosting.tscn" id="13_0r518"]
+[ext_resource type="Shader" uid="uid://btqgwjb4m20vi" path="res://darkblue/effects/lcd_invert.gdshader" id="13_p84ta"]
+[ext_resource type="PackedScene" uid="uid://msbui6bm3ky" path="res://darkblue/effects/lcd_effect.tscn" id="14_8dg4j"]
+[ext_resource type="Shader" uid="uid://bhfmpgtjvej0p" path="res://darkblue/effects/light_effect.gdshader" id="14_br0ij"]
+[ext_resource type="Texture2D" uid="uid://egjltigjtje8" path="res://darkblue/actors/lightning.png" id="15_k28rq"]
+[ext_resource type="Texture2D" uid="uid://bwlkwqjyobdqd" path="res://darkblue/actors/reticule.png" id="20_p1ml6"]
+
+[sub_resource type="GDScript" id="GDScript_5y6s7"]
+script/source = "extends Node2D
+
+func _ready():
+    var g = get_node(\"/root/g\")
+    var playfield = %Playfield
+    var viewport = %PixelatedViewport/SubViewport/PlayfieldContainer
+    playfield.reparent.call_deferred(viewport)
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqy2i"]
+shader = ExtResource("4_22fp8")
+shader_parameter/radius = 5.0000002375
+shader_parameter/expansion = 0.0
+shader_parameter/dither_strength = 1.0
+
+[sub_resource type="GDScript" id="GDScript_2ntwe"]
+script/source = "extends Node
+func _ready():
+    var newsize = Vector2i(525, 350)
+    get_window().content_scale_size = newsize
+    if( DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED ):
+        get_window().size = newsize * 2
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1"]
+viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxhko"]
+shader = ExtResource("8_3c5oa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_obtg6"]
+shader = ExtResource("13_p84ta")
+shader_parameter/inversion = 0.0
+shader_parameter/tilt_strength = 0.11600000551
+shader_parameter/tilt_center = 0.6800000323
+shader_parameter/color_dark = Color(0.13333334, 0.13333334, 0.54509807, 1)
+shader_parameter/color_mid = Color(0.19380866, 0.22104552, 0.3027561, 1)
+shader_parameter/color_light = Color(0.7490196, 0.78039217, 0.6509804, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_light"]
+shader = ExtResource("14_br0ij")
+
+[sub_resource type="Gradient" id="Gradient_417bh"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.21311475, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.16996294, 0.16996294, 0.16996294, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5tw3s"]
+gradient = SubResource("Gradient_417bh")
+width = 768
+height = 768
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8418803, 0.16239317)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ht6nd"]
+blend_mode = 2
+
+[sub_resource type="GDScript" id="GDScript_3he2n"]
+script/source = "extends Sprite2D
+
+var g
+
+func _ready():
+    g = get_node(\"/root/g\")
+    Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+func _physics_process(_delta):
+    position = g.mouse_pos()
+"
+
+[node name="GameMode2" type="Node2D" unique_id=287075061]
+script = SubResource("GDScript_5y6s7")
+metadata/_edit_lock_ = true
+
+[node name="StageConfig" type="Node" parent="." unique_id=58167012]
+script = ExtResource("1_8dg4j")
+metadata/_custom_type_script = "uid://d1kvv0xes5qp0"
+metadata/_favorite = true
+
+[node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
+script = ExtResource("1_cilcj")
+bpm = 143.0
+metronome_sound = ExtResource("2_hj3p8")
+metadata/_favorite = true
+
+[node name="OffscreenCleaner" type="Node" parent="." unique_id=1795284918]
+script = ExtResource("3_jl3py")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=1605552771]
+material = SubResource("ShaderMaterial_gqy2i")
+scale = Vector2(1.1453633, 1.0222665)
+texture = ExtResource("5_w6k5e")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="WindowInit" type="Node" parent="." unique_id=1914668296]
+script = SubResource("GDScript_2ntwe")
+
+[node name="Starfield" type="Node2D" parent="." unique_id=1633305215]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5019608)
+script = ExtResource("6_w7nun")
+star_texture = ExtResource("7_f8eaa")
+metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
+
+[node name="PixelatedViewport" type="Sprite2D" parent="." unique_id=812505540]
+unique_name_in_owner = true
+texture_filter = 1
+texture = SubResource("ViewportTexture_1")
+centered = false
+
+[node name="SubViewport" type="SubViewport" parent="PixelatedViewport" unique_id=571273759]
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(525, 350)
+
+[node name="PlayfieldContainer" type="Node2D" parent="PixelatedViewport/SubViewport" unique_id=1301454149]
+
+[node name="StatusPanel" type="Control" parent="PixelatedViewport/SubViewport" unique_id=1964749212]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -73.0
+offset_right = 36.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StatusBacking" type="Polygon2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=1864582996]
+material = SubResource("ShaderMaterial_oxhko")
+color = Color(0, 0, 0, 0.5019608)
+polygon = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
+
+[node name="EnergyStatusText" type="Node2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=186846421]
+unique_name_in_owner = true
+self_modulate = Color(0.81960785, 0.81960785, 0.69803923, 1)
+position = Vector2(36, 39)
+script = ExtResource("9_0qp6m")
+text = "12345678"
+font_texture = ExtResource("10_v1ibh")
+justify = 1
+
+[node name="StatusBorder" type="Line2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=456746751]
+points = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
+closed = true
+width = 1.0
+default_color = Color(0.81960785, 0.81960785, 0.69803923, 1)
+
+[node name="Playfield" type="Node2D" parent="." unique_id=768111580]
+unique_name_in_owner = true
+script = ExtResource("12_en8bo")
+metadata/_favorite = true
+
+[node name="TriManager" parent="Playfield" unique_id=1191973005 instance=ExtResource("11_kuxv1")]
+unique_name_in_owner = true
+
+[node name="Tris" type="Node2D" parent="Playfield" unique_id=962751424]
+unique_name_in_owner = true
+
+[node name="Lightning" type="Sprite2D" parent="Playfield" unique_id=290236609]
+unique_name_in_owner = true
+visible = false
+position = Vector2(336, 264)
+texture = ExtResource("15_k28rq")
+
+[node name="PostProcStack" type="Node2D" parent="." unique_id=577433371]
+metadata/_edit_lock_ = true
+
+[node name="GhostEffect" parent="PostProcStack" unique_id=1484726150 instance=ExtResource("13_0r518")]
+visible = false
+texture_filter = 1
+ghost_amount = 0.3
+metadata/_edit_lock_ = true
+
+[node name="LCDEffect" parent="PostProcStack" unique_id=1219698695 instance=ExtResource("14_8dg4j")]
+unique_name_in_owner = true
+fade_in_speed = 0.461
+fade_out_speed = 0.605
+grille_gap_alpha = 0.809
+metadata/_edit_lock_ = true
+
+[node name="LCDInversionEffect" type="ColorRect" parent="PostProcStack" unique_id=1278291405]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_obtg6")
+custom_minimum_size = Vector2(9999, 9999)
+offset_right = 9999.0
+offset_bottom = 9999.0
+metadata/_edit_lock_ = true
+
+[node name="VignetteEffect" type="TextureRect" parent="PostProcStack" unique_id=1857341615]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_light")
+custom_minimum_size = Vector2(535, 450)
+offset_left = -118.0
+offset_top = -208.0
+offset_right = 650.0
+offset_bottom = 560.0
+texture = SubResource("GradientTexture2D_5tw3s")
+metadata/_edit_lock_ = true
+
+[node name="DarkenEffect" type="ColorRect" parent="PostProcStack" unique_id=570308716]
+unique_name_in_owner = true
+visible = false
+z_index = 4096
+material = SubResource("CanvasItemMaterial_ht6nd")
+custom_minimum_size = Vector2(9999, 9999)
+offset_right = 9999.0
+offset_bottom = 9999.0
+color = Color(0.8862745, 0.8862745, 0.8862745, 0.70980394)
+metadata/_edit_lock_ = true
+
+[node name="Reticule" type="Sprite2D" parent="." unique_id=2117237723]
+texture = ExtResource("20_p1ml6")
+script = SubResource("GDScript_3he2n")

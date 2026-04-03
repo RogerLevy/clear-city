@@ -1,0 +1,822 @@
+[gd_scene format=3 uid="uid://bk5pbdvu2shdk"]
+
+[ext_resource type="PackedScene" uid="uid://byy7wvfqvk2y1" path="res://darkblue/modes/game_mode.tscn" id="1_1dai1"]
+[ext_resource type="AudioStream" uid="uid://l7am6sy7a58m" path="res://darkblue/music/darkblue-reprise-test.wav" id="2_8kiry"]
+[ext_resource type="Script" uid="uid://b0a8alnoonhop" path="res://darkblue/tests/wave_test5_enemy_stats.gd" id="2_q2raj"]
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="2_xqpnn"]
+[ext_resource type="Script" uid="uid://15a3uljo3ida" path="res://common/sequence_start.gd" id="3_8kiry"]
+[ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="4_03yix"]
+[ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="4_q2raj"]
+[ext_resource type="PackedScene" uid="uid://j2urqjikc3ab" path="res://darkblue/actors/enemy7__pentagon.tscn" id="5_q2raj"]
+[ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="6_dtnyh"]
+[ext_resource type="Script" uid="uid://d3nfvtuber5rj" path="res://darkblue/actors/enemy7__pentagon.gd" id="7_kqnss"]
+[ext_resource type="PackedScene" uid="uid://ba6uy87d0tkkd" path="res://darkblue/actors/heart.tscn" id="8_5fe5q"]
+[ext_resource type="PackedScene" uid="uid://cbxaen0wlpqoa" path="res://darkblue/actors/enemy2_e02.tscn" id="9_0qwgy"]
+[ext_resource type="Script" uid="uid://d1voudrjubp2" path="res://darkblue/actors/enemy2__elderbeak.gd" id="10_b35vq"]
+[ext_resource type="PackedScene" uid="uid://dtwv1bbjf3uji" path="res://darkblue/actors/enemy2_e03.tscn" id="11_q1r5n"]
+[ext_resource type="PackedScene" uid="uid://cq2ciasunnax4" path="res://darkblue/actors/enemy_2_e04.tscn" id="12_666f7"]
+[ext_resource type="Script" uid="uid://5qw6botosf7p" path="res://common/relative_animation_player.gd" id="13_kiw3i"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="14_62gn7"]
+[ext_resource type="PackedScene" uid="uid://c8u04r4sfcn04" path="res://darkblue/actors/enemy_angel.tscn" id="15_angel"]
+[ext_resource type="PackedScene" uid="uid://drq7l6mcaf5dn" path="res://darkblue/actors/enemy4__quadraton.tscn" id="16_wq7tw"]
+[ext_resource type="Script" uid="uid://ce2ivrisnhcei" path="res://darkblue/actors/enemy_angel.gd" id="17_032ri"]
+[ext_resource type="PackedScene" uid="uid://d335uo0lcqgyw" path="res://darkblue/actors/shrimpy.tscn" id="18_1dai1"]
+[ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="18_jv8ac"]
+[ext_resource type="PackedScene" uid="uid://5r1g237ymi0y" path="res://darkblue/actors/turret.tscn" id="19_wwc3f"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_q2raj"]
+viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="Animation" id="Animation_2wvjl"]
+resource_name = "sequence"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 2.5, 4.500001, 6.500001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4kjrw"]
+_data = {
+&"sequence": SubResource("Animation_2wvjl")
+}
+
+[sub_resource type="Animation" id="Animation_gp5rv"]
+resource_name = "sequence"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.54, 4.04, 4.5399995, 5.0399995, 5.5399995, 6.0399995, 6.5319676, 7.04),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3he2n"]
+resource_name = "sequence_2"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ifrg"]
+_data = {
+&"sequence": SubResource("Animation_gp5rv"),
+&"sequence_2": SubResource("Animation_3he2n")
+}
+
+[sub_resource type="Animation" id="Animation_8kiry"]
+resource_name = "sequence"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_03yix"]
+resource_name = "sequence_2"
+length = 16.0
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q2raj"]
+_data = {
+&"sequence": SubResource("Animation_8kiry"),
+&"sequence_2": SubResource("Animation_03yix")
+}
+
+[sub_resource type="Animation" id="Animation_580qk"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Path/PathFollow2D-1/RemoteTransform2D/SineMovement:speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Path3/PathFollow2D-3:progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [411.69]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Path/PathFollow2D-1:progress")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [514.58527]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Path2/PathFollow2D-2:progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [521.73645]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Path4/PathFollow2D-4:progress")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [506.1963]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_drsj0"]
+_data = {
+&"RESET": SubResource("Animation_580qk")
+}
+
+[sub_resource type="Animation" id="Animation_dfwl2"]
+length = 68.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Path/PathFollow2D-1:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 60, 68),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 199.0, 199.0, 518.08057]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Path/PathFollow2D-1/RemoteTransform2D/SineMovement:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.6666667, 0, 0, 0, 1, -0.16666667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 4.25, 5.25)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Path2/PathFollow2D-2:progress")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4, 60, 68),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 180.0, 180.0, 521.73645]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Path2/PathFollow2D-2/RemoteTransform2D/SineMovement:speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4.75, 5.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Path3/PathFollow2D-3:progress")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 4, 60, 68),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 170.0, 170.0, 468.65463]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Path3/PathFollow2D-3/RemoteTransform2D/SineMovement:speed")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../Path4/PathFollow2D-4:progress")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 4, 60, 68),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 200.0, 200.0, 520.1821]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../Path4/PathFollow2D-4/RemoteTransform2D/SineMovement:speed")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 4.5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../Angel/Burst2D")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../Angel2/Burst2D2")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../Angel3/Burst2D3")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../Angel4/Burst2D4")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5d3rs"]
+_data = {
+&"sequence": SubResource("Animation_dfwl2")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_5grnv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -22.370361, -224, 0, 0, 0, 0, -22.370361, -24, 0, 0, 0, 0, -340.4491, -23)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_7h3t4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 218.11113, -128, 0, 0, 0, 0, 39.148148, -88, 0, 0, 0, 0, -299.2037, -90)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_pycnv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -154.49536, -229, 0, 0, 0, 0, -78.296295, -80, 0, 0, 0, 0, -379.59723, -80)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_nboch"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -22.370361, 248, 0, 0, 0, 0, -22.370361, 48, 0, 0, 0, 0, -342.54633, 46)
+}
+point_count = 3
+
+[node name="GameMode" unique_id=287075061 instance=ExtResource("1_1dai1")]
+
+[node name="StageConfig" parent="." index="0" unique_id=58167012]
+enemy_stats = ExtResource("2_q2raj")
+
+[node name="BeatConfig" parent="." index="1" unique_id=1389375741]
+music = ExtResource("2_8kiry")
+
+[node name="PixelatedViewport" parent="." index="6" unique_id=812505540]
+texture = SubResource("ViewportTexture_q2raj")
+
+[node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=2092535520]
+script = ExtResource("2_xqpnn")
+autostart = true
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1839355543]
+visible = false
+script = ExtResource("4_q2raj")
+duration = 32.0
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="PentagonBurst1" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="0" unique_id=936514834]
+position = Vector2(549, 189)
+script = ExtResource("4_03yix")
+scene = ExtResource("5_q2raj")
+count = 1
+angle_offset = 180.0
+time_stagger = 1.0
+infinite = true
+timing_mode = 2
+duration = 8.0
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="PentagonBurst2" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="1" unique_id=1183544102]
+position = Vector2(549, 119)
+script = ExtResource("4_03yix")
+scene = ExtResource("5_q2raj")
+count = 1
+angle_offset = 180.0
+time_stagger = 1.0
+infinite = true
+timing_mode = 2
+duration = 8.0
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="PentagonBurst3" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="2" unique_id=1376499423]
+position = Vector2(549, 263)
+script = ExtResource("4_03yix")
+scene = ExtResource("5_q2raj")
+count = 1
+angle_offset = 180.0
+time_stagger = 1.0
+infinite = true
+timing_mode = 2
+duration = 8.0
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="HeartOn24Killed" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="3" unique_id=1311552890]
+script = ExtResource("6_dtnyh")
+condition = 1
+target_class = ExtResource("7_kqnss")
+kill_count = 24
+action = 1
+drop_scene = ExtResource("8_5fe5q")
+autostart = true
+
+[node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=1800127356]
+visible = false
+script = ExtResource("4_q2raj")
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveAnimTest1" index="0" unique_id=1330802968]
+libraries/ = SubResource("AnimationLibrary_4kjrw")
+
+[node name="enemy2-e02-1" parent="Playfield/WaveSequence/WaveAnimTest1" index="1" unique_id=931418090 instance=ExtResource("9_0qwgy")]
+position = Vector2(212, -128)
+
+[node name="enemy2-e02-2" parent="Playfield/WaveSequence/WaveAnimTest1" index="2" unique_id=1660702998 instance=ExtResource("9_0qwgy")]
+position = Vector2(212, -64)
+
+[node name="enemy2-e02-3" parent="Playfield/WaveSequence/WaveAnimTest1" index="3" unique_id=1182566683 instance=ExtResource("9_0qwgy")]
+position = Vector2(212, 0)
+
+[node name="enemy2-e02-4" parent="Playfield/WaveSequence/WaveAnimTest1" index="4" unique_id=913922590 instance=ExtResource("9_0qwgy")]
+position = Vector2(212, 64)
+
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest1" index="5" unique_id=1283839821]
+script = ExtResource("6_dtnyh")
+target_class = ExtResource("10_b35vq")
+drop_scene = ExtResource("8_5fe5q")
+autostart = true
+
+[node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1651965941]
+visible = false
+script = ExtResource("4_q2raj")
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveAnimTest2" index="0" unique_id=702105343]
+libraries/ = SubResource("AnimationLibrary_8ifrg")
+
+[node name="Sequence" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest2" index="1" unique_id=1328868775]
+position = Vector2(54, 0)
+script = ExtResource("2_xqpnn")
+duration = 8.0
+autoplay_name = &"sequence_2"
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveAnimTest2/Sequence" index="0" unique_id=616989062]
+libraries/ = SubResource("AnimationLibrary_q2raj")
+
+[node name="enemy2-e03-1" parent="Playfield/WaveSequence/WaveAnimTest2/Sequence" index="1" unique_id=1337668934 instance=ExtResource("11_q1r5n")]
+position = Vector2(-16, -24)
+
+[node name="enemy2-e03-2" parent="Playfield/WaveSequence/WaveAnimTest2/Sequence" index="2" unique_id=1288951620 instance=ExtResource("11_q1r5n")]
+position = Vector2(-16, 24)
+
+[node name="enemy2-e04-1" parent="Playfield/WaveSequence/WaveAnimTest2" index="2" unique_id=246284836 instance=ExtResource("12_666f7")]
+position = Vector2(214, -128)
+
+[node name="enemy2-e04-2" parent="Playfield/WaveSequence/WaveAnimTest2" index="3" unique_id=47287134 instance=ExtResource("12_666f7")]
+position = Vector2(214, -64)
+
+[node name="enemy2-e04-3" parent="Playfield/WaveSequence/WaveAnimTest2" index="4" unique_id=1293791319 instance=ExtResource("12_666f7")]
+position = Vector2(214, 0)
+
+[node name="enemy2-e04-4" parent="Playfield/WaveSequence/WaveAnimTest2" index="5" unique_id=1982604740 instance=ExtResource("12_666f7")]
+position = Vector2(214, 64)
+
+[node name="enemy2-e04-8" parent="Playfield/WaveSequence/WaveAnimTest2" index="6" unique_id=1056234234 instance=ExtResource("12_666f7")]
+position = Vector2(278, 64)
+
+[node name="enemy2-e04-7" parent="Playfield/WaveSequence/WaveAnimTest2" index="7" unique_id=386772503 instance=ExtResource("12_666f7")]
+position = Vector2(278, 0)
+
+[node name="enemy2-e04-6" parent="Playfield/WaveSequence/WaveAnimTest2" index="8" unique_id=617641363 instance=ExtResource("12_666f7")]
+position = Vector2(278, -64)
+
+[node name="enemy2-e04-5" parent="Playfield/WaveSequence/WaveAnimTest2" index="9" unique_id=952868493 instance=ExtResource("12_666f7")]
+position = Vector2(278, -128)
+
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest2" index="10" unique_id=181050719]
+script = ExtResource("6_dtnyh")
+target_class = ExtResource("10_b35vq")
+action = 1
+drop_scene = ExtResource("8_5fe5q")
+autostart = true
+
+[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="3" unique_id=1247839593]
+script = ExtResource("3_8kiry")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+
+[node name="WaveAngelTest1" type="Node2D" parent="Playfield/WaveSequence" index="4" unique_id=1710358194]
+visible = false
+script = ExtResource("4_q2raj")
+autoplay_name = &"testy/sequence"
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="EnemyMovement" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveAngelTest1" index="0" unique_id=620174785]
+root_node = NodePath(".")
+libraries/ = SubResource("AnimationLibrary_drsj0")
+libraries/testy = SubResource("AnimationLibrary_5d3rs")
+autoplay = &"testy/sequence"
+script = ExtResource("13_kiw3i")
+metadata/_custom_type_script = "uid://5qw6botosf7p"
+
+[node name="Path" type="Path2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="1" unique_id=71667840]
+position = Vector2(373, 168)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_5grnv")
+
+[node name="PathFollow2D-1" type="PathFollow2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path" index="0" unique_id=245555614]
+position = Vector2(-336.95383, -23.010988)
+progress = 514.58527
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path/PathFollow2D-1" index="0" unique_id=984564796]
+remote_path = NodePath("../../../Angel")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Playfield/WaveSequence/WaveAngelTest1/Path/PathFollow2D-1/RemoteTransform2D" index="0" unique_id=2052612315]
+script = ExtResource("14_62gn7")
+y_period = 4.0
+y_pixels = 10.0
+speed = 0.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Path2" type="Path2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="2" unique_id=1072647936]
+position = Vector2(373, 176)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_7h3t4")
+
+[node name="PathFollow2D-2" type="PathFollow2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path2" index="0" unique_id=254943559]
+position = Vector2(-299.2037, -90)
+progress = 521.73645
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path2/PathFollow2D-2" index="0" unique_id=706736122]
+remote_path = NodePath("../../../Angel2")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Playfield/WaveSequence/WaveAngelTest1/Path2/PathFollow2D-2/RemoteTransform2D" index="0" unique_id=1665524392]
+script = ExtResource("14_62gn7")
+y_period = 4.0
+y_pixels = 10.0
+speed = 0.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Path3" type="Path2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="3" unique_id=1760416346]
+position = Vector2(357, 168)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_pycnv")
+
+[node name="PathFollow2D-3" type="PathFollow2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path3" index="0" unique_id=1705328812]
+position = Vector2(-322.6326, -80)
+progress = 411.69
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path3/PathFollow2D-3" index="0" unique_id=663595875]
+remote_path = NodePath("../../../Angel3")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Playfield/WaveSequence/WaveAngelTest1/Path3/PathFollow2D-3/RemoteTransform2D" index="0" unique_id=600500629]
+script = ExtResource("14_62gn7")
+y_period = 4.0
+y_pixels = 10.0
+speed = 0.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Path4" type="Path2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="4" unique_id=863610831]
+position = Vector2(373, 192)
+scale = Vector2(1.4304636, 1)
+curve = SubResource("Curve2D_nboch")
+
+[node name="PathFollow2D-4" type="PathFollow2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path4" index="0" unique_id=794752835]
+position = Vector2(-328.5608, 46.08736)
+progress = 506.1963
+rotates = false
+cubic_interp = false
+loop = false
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Playfield/WaveSequence/WaveAngelTest1/Path4/PathFollow2D-4" index="0" unique_id=389754388]
+remote_path = NodePath("../../../Angel4")
+update_rotation = false
+update_scale = false
+
+[node name="SineMovement" type="Node" parent="Playfield/WaveSequence/WaveAngelTest1/Path4/PathFollow2D-4/RemoteTransform2D" index="0" unique_id=23185715]
+script = ExtResource("14_62gn7")
+y_period = 4.0
+y_pixels = 10.0
+speed = 0.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Angel" parent="Playfield/WaveSequence/WaveAngelTest1" index="5" unique_id=1198562410 instance=ExtResource("15_angel")]
+position = Vector2(-109.00018, 144.98901)
+metadata/_edit_lock_ = true
+
+[node name="Burst2D" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel" index="0" unique_id=1690718281]
+position = Vector2(0, -48)
+script = ExtResource("4_03yix")
+scene = ExtResource("16_wq7tw")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Angel2" parent="Playfield/WaveSequence/WaveAngelTest1" index="6" unique_id=36322529 instance=ExtResource("15_angel")]
+position = Vector2(-55, 86)
+metadata/_edit_lock_ = true
+
+[node name="Burst2D2" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel2" index="0" unique_id=1071375513]
+position = Vector2(0, -48)
+script = ExtResource("4_03yix")
+scene = ExtResource("16_wq7tw")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Angel3" parent="Playfield/WaveSequence/WaveAngelTest1" index="7" unique_id=1663051665 instance=ExtResource("15_angel")]
+position = Vector2(-104.51416, 88)
+metadata/_edit_lock_ = true
+
+[node name="Burst2D3" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel3" index="0" unique_id=522450964]
+position = Vector2(0, -48)
+script = ExtResource("4_03yix")
+scene = ExtResource("16_wq7tw")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Angel4" parent="Playfield/WaveSequence/WaveAngelTest1" index="8" unique_id=419047630 instance=ExtResource("15_angel")]
+position = Vector2(-96.99423, 238.08736)
+metadata/_edit_lock_ = true
+
+[node name="Burst2D4" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel4" index="0" unique_id=277132104]
+position = Vector2(0, -48)
+script = ExtResource("4_03yix")
+scene = ExtResource("16_wq7tw")
+count = 8
+force = 50.0
+angle_offset = 135.0
+angle_spread = 90.0
+time_stagger = 4.0
+random_angles = true
+infinite = true
+open_ended = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="9" unique_id=1081217484]
+script = ExtResource("6_dtnyh")
+target_class = ExtResource("17_032ri")
+action = 1
+drop_scene = ExtResource("8_5fe5q")
+autostart = true
+
+[node name="WaveHard1" type="Node2D" parent="Playfield/WaveSequence" index="5" unique_id=1490974110]
+script = ExtResource("4_q2raj")
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="Ship" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=1525402565 instance=ExtResource("18_jv8ac")]
+unique_name_in_owner = true
+position = Vector2(49, 189)
+atk = 1
+snd_death = null
+sprite_texture = null
+frame_width = 16
+frame_height = 16
+
+[node name="Turret" parent="Playfield/Ship" index="4" unique_id=544839953 instance=ExtResource("19_wwc3f")]
+position = Vector2(-30.60001, -16.400002)
+orbit_radius = 24.0
+
+[node name="Ship2" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="4" unique_id=1409908959 instance=ExtResource("18_1dai1")]
+process_mode = 4
+visible = false
+position = Vector2(186, 458)
+snd_death = null
+
+[node name="Turret" parent="Playfield/Ship2" index="4" unique_id=1651281245 instance=ExtResource("19_wwc3f")]
+position = Vector2(-118.600006, -96.399994)
+orbit_radius = 24.0
+
+[editable path="Playfield/WaveSequence/WaveAngelTest1/Angel"]
+[editable path="Playfield/WaveSequence/WaveAngelTest1/Angel2"]
+[editable path="Playfield/WaveSequence/WaveAngelTest1/Angel3"]
+[editable path="Playfield/WaveSequence/WaveAngelTest1/Angel4"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvr6x63qxn7ba" path="res://darkblue/actors/tri_sprite.gd" id="1_ld6sf"]
 [ext_resource type="Texture2D" uid="uid://bhdjx3npvqj23" path="res://darkblue/actors/tri_sheet.png" id="2_ld6sf"]
-[ext_resource type="Shader" path="res://darkblue/actors/tri_sprite.gdshader" id="3_shader"]
+[ext_resource type="Shader" uid="uid://d3q1ks1gkpy1r" path="res://darkblue/actors/tri_sprite.gdshader" id="3_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tri"]
 shader = ExtResource("3_shader")

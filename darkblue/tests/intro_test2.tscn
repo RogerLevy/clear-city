@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://c2hew4dqn2u7n"]
+
+[ext_resource type="PackedScene" uid="uid://byy7wvfqvk2y1" path="res://darkblue/modes/game_mode.tscn" id="1_yhkkg"]
+[ext_resource type="PackedScene" uid="uid://dm6lftq1nh71k" path="res://darkblue/actors/cage.tscn" id="2_l6ni6"]
+[ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="3_kgbgm"]
+[ext_resource type="PackedScene" uid="uid://bs7o0yymjycq5" path="res://darkblue/components/tentacle_test.tscn" id="4_nv8do"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="4_uwq18"]
+[ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="5_0dxqn"]
+[ext_resource type="PackedScene" uid="uid://n6hikm3jorqj" path="res://darkblue/actors/tri.tscn" id="6_4i140"]
+[ext_resource type="Texture2D" uid="uid://jsad3mw4hgri" path="res://darkblue/cutscenes/mc-001.png" id="7_njeno"]
+[ext_resource type="PackedScene" uid="uid://cg4fu1gn04mlp" path="res://darkblue/actors/enemy_bryson.tscn" id="8_kj0pn"]
+[ext_resource type="PackedScene" uid="uid://daajo7vmlnohr" path="res://darkblue/actors/enemy_ding_dong.tscn" id="9_nv8do"]
+[ext_resource type="PackedScene" uid="uid://ct260gidkv141" path="res://darkblue/actors/enemy_dolly.tscn" id="10_4c6iu"]
+[ext_resource type="PackedScene" uid="uid://c48blijmmmhu8" path="res://darkblue/actors/enemy_doris.tscn" id="11_sqhww"]
+[ext_resource type="PackedScene" uid="uid://bs3j6qtlaotp8" path="res://darkblue/actors/enemy_billy.tscn" id="12_swgoy"]
+[ext_resource type="PackedScene" uid="uid://qknqiwrxk0lq" path="res://darkblue/actors/enemy_blyxalon.tscn" id="13_y5kyx"]
+[ext_resource type="PackedScene" uid="uid://cn635ybymxnnt" path="res://darkblue/actors/enemy_ganglion.tscn" id="14_yu2e0"]
+[ext_resource type="PackedScene" uid="uid://j780f2a0p0vv" path="res://darkblue/actors/enemy_gumpus.tscn" id="15_fmnm5"]
+[ext_resource type="PackedScene" uid="uid://bsmftx1s21a64" path="res://darkblue/actors/enemy_helmaton.tscn" id="16_vnx1q"]
+[ext_resource type="PackedScene" uid="uid://b5vxibops7kfm" path="res://darkblue/actors/enemy_jollyboy.tscn" id="17_c1x50"]
+[ext_resource type="PackedScene" uid="uid://cs58qojttu7dt" path="res://darkblue/actors/enemy_jug_jug.tscn" id="18_78vw3"]
+[ext_resource type="PackedScene" uid="uid://dmwjxw66ll0uc" path="res://darkblue/actors/enemy_kuta.tscn" id="19_8ntbd"]
+[ext_resource type="PackedScene" path="res://darkblue/actors/enemy_nyxalon.tscn" id="20_3yywv"]
+[ext_resource type="PackedScene" uid="uid://b1huf2qier8nq" path="res://darkblue/actors/enemy_ogulus.tscn" id="21_f2cp7"]
+[ext_resource type="PackedScene" uid="uid://c3v6lsfjtn2t0" path="res://darkblue/actors/enemy_saton.tscn" id="22_xm10l"]
+[ext_resource type="PackedScene" uid="uid://dkovie0rmn7g7" path="res://darkblue/actors/enemy_shmoundabout.tscn" id="23_2e6cm"]
+[ext_resource type="PackedScene" uid="uid://w0bd765k6lnt" path="res://darkblue/actors/enemy_shrim.tscn" id="24_0h1fm"]
+[ext_resource type="PackedScene" uid="uid://b8k123u1d423f" path="res://darkblue/actors/enemy_spintor.tscn" id="25_4ncwe"]
+[ext_resource type="PackedScene" uid="uid://brhofblyhc60k" path="res://darkblue/actors/enemy_stanex.tscn" id="26_r805g"]
+[ext_resource type="PackedScene" uid="uid://dtae2eox7voas" path="res://darkblue/actors/enemy_tanjer.tscn" id="27_5rpqs"]
+[ext_resource type="PackedScene" uid="uid://bcyrw7jaqf4r8" path="res://darkblue/actors/enemy_viper.tscn" id="28_yktrx"]
+[ext_resource type="PackedScene" uid="uid://b6jp6tsc3077u" path="res://darkblue/actors/enemy_waffil.tscn" id="29_vb54m"]
+[ext_resource type="PackedScene" uid="uid://cdemu31t1pbc2" path="res://darkblue/actors/enemy_zdo.tscn" id="30_bgf0a"]
+[ext_resource type="PackedScene" uid="uid://2ah680dvvgcb" path="res://darkblue/actors/enemy_zib_zob.tscn" id="31_ofqsa"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nv8do"]
+viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="GDScript" id="GDScript_yhkkg"]
+script/source = "extends Node2D
+
+func random_outside(margin: float) -> Vector2:
+    var size := get_viewport().get_visible_rect().size
+    var edge := randi() % 4
+    match edge:
+        0: return Vector2(-margin, randf() * size.y)          # left
+        1: return Vector2(size.x + margin, randf() * size.y)  # right
+        2: return Vector2(randf() * size.x, -margin)          # top
+        _: return Vector2(randf() * size.x, size.y + margin)  # bottom
+
+func _physics_process(delta: float) -> void:
+    #position.x = randf_range( 0, float(get_viewport().get_visible_rect().size.x) )
+    #position.y = randf_range( 0, float(get_viewport().get_visible_rect().size.y) )
+    position = random_outside( 10 )
+    
+func _ready():
+    add_to_group(\"do_not_cull\")
+    
+"
+
+[node name="GameMode" unique_id=287075061 instance=ExtResource("1_yhkkg")]
+
+[node name="PixelatedViewport" parent="." index="5" unique_id=812505540]
+texture = SubResource("ViewportTexture_nv8do")
+
+[node name="Troupe" type="Node" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=1117278662]
+unique_name_in_owner = true
+
+[node name="FromScreenEdges" type="Node2D" parent="Playfield/Troupe" index="0" unique_id=183440395]
+position = Vector2(119, 186)
+script = SubResource("GDScript_yhkkg")
+
+[node name="FloatManyTris" type="Node2D" parent="Playfield/Troupe/FromScreenEdges" index="0" unique_id=1946010786]
+script = ExtResource("5_0dxqn")
+scene = ExtResource("6_4i140")
+count = 360
+force = 39.0
+force_range = 2.0
+time_stagger_frames = 3
+random_angles = true
+infinite = true
+running = true
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="Cage" parent="Playfield/Troupe" index="1" unique_id=1212765162 instance=ExtResource("2_l6ni6")]
+position = Vector2(119, 186)
+
+[node name="Ship" parent="Playfield/Troupe/Cage" index="0" unique_id=1525402565 instance=ExtResource("3_kgbgm")]
+unique_name_in_owner = true
+position = Vector2(1.0000076, -1)
+atk = 1
+sprite_texture = null
+frame_width = 16
+frame_height = 16
+
+[node name="SineMovement" type="Node" parent="Playfield/Troupe/Cage" index="1" unique_id=1813195124]
+script = ExtResource("4_uwq18")
+y_pixels = 10.0
+speed = 0.5
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="Mc001" type="Sprite2D" parent="Playfield/Troupe" index="2" unique_id=1107326465]
+position = Vector2(128, 224)
+texture = ExtResource("7_njeno")
+
+[node name="EnemyBryson" parent="Playfield/Troupe" index="3" unique_id=1202649749 instance=ExtResource("8_kj0pn")]
+position = Vector2(335, 157)
+
+[node name="EnemyDingDong" parent="Playfield/Troupe" index="4" unique_id=2118877828 instance=ExtResource("9_nv8do")]
+position = Vector2(398, 163)
+
+[node name="EnemyDolly" parent="Playfield/Troupe" index="5" unique_id=902874916 instance=ExtResource("10_4c6iu")]
+position = Vector2(367, 134)
+
+[node name="EnemyDoris" parent="Playfield/Troupe" index="6" unique_id=493765550 instance=ExtResource("11_sqhww")]
+position = Vector2(264, 139)
+
+[node name="EnemyBilly" parent="Playfield/Troupe" index="7" unique_id=318152386 instance=ExtResource("12_swgoy")]
+position = Vector2(373, 251)
+
+[node name="EnemyBlyxalon" parent="Playfield/Troupe" index="8" unique_id=139782058 instance=ExtResource("13_y5kyx")]
+position = Vector2(469, 124)
+
+[node name="EnemyGanglion" parent="Playfield/Troupe" index="9" unique_id=547318557 instance=ExtResource("14_yu2e0")]
+position = Vector2(292, 250)
+
+[node name="EnemyGumpus" parent="Playfield/Troupe" index="10" unique_id=1674632822 instance=ExtResource("15_fmnm5")]
+position = Vector2(493, 165)
+
+[node name="EnemyHelmaton" parent="Playfield/Troupe" index="11" unique_id=437085887 instance=ExtResource("16_vnx1q")]
+position = Vector2(344, 209)
+
+[node name="EnemyJollyboy" parent="Playfield/Troupe" index="12" unique_id=1138643053 instance=ExtResource("17_c1x50")]
+position = Vector2(252, 224)
+
+[node name="EnemyJugJug" parent="Playfield/Troupe" index="13" unique_id=413227638 instance=ExtResource("18_78vw3")]
+position = Vector2(331, 272)
+
+[node name="EnemyKuta" parent="Playfield/Troupe" index="14" unique_id=859610107 instance=ExtResource("19_8ntbd")]
+position = Vector2(297, 186)
+
+[node name="EnemyNyxalon" parent="Playfield/Troupe" index="15" unique_id=80790896 instance=ExtResource("20_3yywv")]
+position = Vector2(234, 46)
+
+[node name="EnemyOgulus" parent="Playfield/Troupe" index="16" unique_id=1615984284 instance=ExtResource("21_f2cp7")]
+position = Vector2(334, 64)
+
+[node name="EnemySaton" parent="Playfield/Troupe" index="17" unique_id=1857771113 instance=ExtResource("22_xm10l")]
+position = Vector2(442, 198)
+
+[node name="EnemyShmoundabout" parent="Playfield/Troupe" index="18" unique_id=1559805894 instance=ExtResource("23_2e6cm")]
+position = Vector2(411, 75)
+
+[node name="EnemyShrim" parent="Playfield/Troupe" index="19" unique_id=1021417876 instance=ExtResource("24_0h1fm")]
+position = Vector2(312, 111)
+
+[node name="EnemySpintor" parent="Playfield/Troupe" index="20" unique_id=1016287875 instance=ExtResource("25_4ncwe")]
+position = Vector2(210, 264)
+
+[node name="EnemyStanex" parent="Playfield/Troupe" index="21" unique_id=1961522387 instance=ExtResource("26_r805g")]
+position = Vector2(503, 84)
+
+[node name="EnemyTanjer" parent="Playfield/Troupe" index="22" unique_id=1510764566 instance=ExtResource("27_5rpqs")]
+position = Vector2(417, 121)
+
+[node name="EnemyViper" parent="Playfield/Troupe" index="23" unique_id=210850136 instance=ExtResource("28_yktrx")]
+position = Vector2(213, 103)
+
+[node name="EnemyWaffil" parent="Playfield/Troupe" index="24" unique_id=750061394 instance=ExtResource("29_vb54m")]
+position = Vector2(216, 184)
+
+[node name="EnemyZdo" parent="Playfield/Troupe" index="25" unique_id=523157792 instance=ExtResource("30_bgf0a")]
+position = Vector2(468, 56)
+
+[node name="EnemyZibZob" parent="Playfield/Troupe" index="26" unique_id=613987524 instance=ExtResource("31_ofqsa")]
+position = Vector2(401, 28)
+
+[node name="TentacleController" parent="Playfield/Troupe" index="27" unique_id=457703156 instance=ExtResource("4_nv8do")]
+position = Vector2(537, 271)
+rotation = 3.1415925
+range_factor = 1.0
+range_minimum = 1.0
+
+[node name="Reticule" parent="." index="8" unique_id=2117237723]
+process_mode = 4

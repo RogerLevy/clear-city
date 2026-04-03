@@ -2,6 +2,12 @@
 class_name Actor2D
 extends StateMachineCharacterBody2D
 
+const _RELOAD_TRIGGER = {} # Gets reset by Godot to {} every time you save a script while
+                            # game is running
+
+func immediate():
+    print("Hot-reload detected on: ", name)
+    
 @onready var sprite:Sprite2D
 
 @export var sprite_texture: Texture2D:

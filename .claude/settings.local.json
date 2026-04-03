@@ -9,7 +9,8 @@
       "Bash(mv \"darkblue/effects/lcd_response.gdshader\" \"darkblue/effects/lcd_effect.gdshader\")",
       "Bash(mv \"darkblue/effects/lcd_response.tscn\" \"darkblue/effects/lcd_effect.tscn\")",
       "Bash(mv \"darkblue/effects/lcd_response.gd.uid\" \"darkblue/effects/lcd_effect.gd.uid\")",
-      "Bash(mv \"darkblue/effects/lcd_response.gdshader.uid\" \"darkblue/effects/lcd_effect.gdshader.uid\")"
+      "Bash(mv \"darkblue/effects/lcd_response.gdshader.uid\" \"darkblue/effects/lcd_effect.gdshader.uid\")",
+      "Bash(cd:*)"
     ]
   }
 }

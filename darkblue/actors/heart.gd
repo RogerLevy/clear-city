@@ -33,7 +33,7 @@ func _on_area_entered(area: Area2D):
         collect()
 
 func collect():
-    g.sfx(snd_collect,0.7)
+    g.sfx(snd_collect,0.33)
     var tm = g.get("tri_manager")
     if tm:
         tm.trap_all()

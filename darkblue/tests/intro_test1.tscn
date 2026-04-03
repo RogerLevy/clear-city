@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="5_5yh3n"]
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="6_pxpwh"]
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_ljlxs"]
-[ext_resource type="Script" uid="uid://bagke2prhjpih" path="res://common/guide_rect.gd" id="8_s6qv7"]
 [ext_resource type="Shader" uid="uid://croxek4pewu5e" path="res://common/replace_transparency.gdshader" id="9_qeuiq"]
 [ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="10_o8efe"]
 [ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="11_ys410"]
@@ -85,20 +84,15 @@ texture = ExtResource("5_5yh3n")
 centered = false
 metadata/_edit_lock_ = true
 
-[node name="GuideRect" type="Control" parent="." unique_id=588328765]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 525.0
-offset_bottom = 430.0
-mouse_filter = 2
-script = ExtResource("8_s6qv7")
-width = 525
-height = 430
-metadata/_custom_type_script = "uid://bagke2prhjpih"
-metadata/_edit_lock_ = true
-
 [node name="WindowInit" type="Node" parent="." unique_id=1914668296]
 script = SubResource("GDScript_2ntwe")
+
+[node name="Starfield" type="Node2D" parent="." unique_id=1633305215]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5019608)
+script = ExtResource("6_pxpwh")
+star_texture = ExtResource("7_ljlxs")
+metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
 
 [node name="PixelatedViewport" type="Sprite2D" parent="." unique_id=812505540]
 unique_name_in_owner = true
@@ -111,13 +105,6 @@ transparent_bg = true
 snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(525, 350)
-
-[node name="Starfield" type="Node2D" parent="PixelatedViewport/SubViewport" unique_id=1633305215]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.5019608)
-script = ExtResource("6_pxpwh")
-star_texture = ExtResource("7_ljlxs")
-metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
 
 [node name="PlayfieldContainer" type="Node2D" parent="PixelatedViewport/SubViewport" unique_id=1301454149]
 
@@ -140,7 +127,7 @@ material = SubResource("ShaderMaterial_oxhko")
 color = Color(0, 0, 0, 0.5019608)
 polygon = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
 
-[node name="StatusEnergyText" type="Node2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=186846421]
+[node name="EnergyStatusText" type="Node2D" parent="PixelatedViewport/SubViewport/StatusPanel" unique_id=186846421]
 unique_name_in_owner = true
 self_modulate = Color(0.81960785, 0.81960785, 0.69803923, 1)
 position = Vector2(36, 39)
@@ -170,6 +157,7 @@ position = Vector2(118.99999, 186)
 [node name="Ship" parent="Playfield/Cage" unique_id=1525402565 instance=ExtResource("28_0vmvm")]
 unique_name_in_owner = true
 position = Vector2(1.0000076, -1)
+atk = 1
 sprite_texture = null
 frame_width = 16
 frame_height = 16

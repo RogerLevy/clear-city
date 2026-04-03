@@ -1,6 +1,9 @@
 extends Sequence
 class_name EncounterRule
 
+func _init():
+    open_ended = true  # Completion controlled by condition, not duration
+
 ## Condition
 enum Condition { ALL_KILLED, NUMBER_KILLED }
 @export var condition: Condition = Condition.ALL_KILLED
@@ -22,13 +25,12 @@ func start():
     if _started:
         return
     _started = true
-    open_ended = true
     _parent = get_parent()
+    # For ALL_KILLED, count initial targets BEFORE connecting signal
+    if condition == Condition.ALL_KILLED:
+        _count_initial_targets()
     g.enemy_died.connect(_on_enemy_died)
     super.start()
-    # For ALL_KILLED, count initial targets
-    if condition == Condition.ALL_KILLED:
-        call_deferred("_count_initial_targets")
 
 func _count_initial_targets():
     for node in get_tree().get_nodes_in_group("enemies"):

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://lh6012kohmi5" path="res://darkblue/actors/enemy6.png" id="2_tex"]
 
 [node name="EnemyZdo" type="CharacterBody2D" unique_id=523157792 groups=["enemies"]]
-position = Vector2(100, 100)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_script")

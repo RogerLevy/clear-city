@@ -4,6 +4,12 @@ signal enemy_died(enemy: Node, position: Vector2)
 
 const COLOR_MAIN: Color = Color("d1d1b2")
 
+func _init():
+    scene_manifest_path = "res://darkblue/scene_manifest.gd"
+
+func _should_include_in_manifest(path: String) -> bool:
+    return path.begins_with("res://common/") or path.begins_with("res://darkblue/")
+
 var p1: Node2D           # player ship reference
 var tri_manager
 var energy: int = 100    # player energy/health
@@ -13,7 +19,12 @@ var quantize_aim:bool = false
 var move_mouse_with_player:bool = true
 
 var _p1_prev_pos: Vector2
-var _status_text: BitmapText
+var _status_text_ref: BitmapText
+var _status_text: BitmapText:
+    get:
+        if not _status_text_ref and get_tree().current_scene:
+            _status_text_ref = get_tree().current_scene.get_node_or_null("%EnergyStatusText")
+        return _status_text_ref
 var _display_energy: float = 100.0  # rolls towards actual energy
 
 var scroll_speed:Vector2 = Vector2(-50,0):
@@ -24,7 +35,6 @@ var scroll_speed:Vector2 = Vector2(-50,0):
         
 func _ready():
     super._ready()
-    _status_text = get_tree().current_scene.get_node_or_null("%EnergyStatusText")
     #if OS.has_feature("editor"):
         #set_deferred( "energy", 1000000 )
 

@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://4xa7jgphdejj" path="res://darkblue/actors/enemy32-wip.png" id="2_tex"]
 
 [node name="EnemySpintor" type="CharacterBody2D" unique_id=1016287875 groups=["enemies"]]
-position = Vector2(100, 100)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_script")
 r = 11.5
+atk = 10
 sprite_texture = ExtResource("2_tex")
 frame_width = 23
 frame_height = 24

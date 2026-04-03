@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://befecr0yfwge6"]
-
-[ext_resource type="Script" uid="uid://c1rs57y4ukfr" path="res://darkblue/utilities/capture_tri.gd" id="1_i8e50"]
-
-[node name="Node2D" type="Node2D" unique_id=2146053960]
-script = ExtResource("1_i8e50")

@@ -34,7 +34,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
         # Spawn hit sparks at contact point - raycast from back of shot to enemy
         var playfield = g.get("playfield")
         if playfield:
-            var contact = g.find_contact_point(global_position, actor.global_position, global_position)
+            var contact = g.find_contact_point(global_position + Vector2(15,0), actor.global_position, global_position  + Vector2(15,0))
             HitSparks.spawn(playfield, contact, velocity.angle() + PI, 20)
         visible = false
         queue_free()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dof5vu0dkni4c"]
 
-[ext_resource type="Script" uid="uid://cjxkjw2hnykoe" path="res://darkblue/scripts/wave.gd" id="1_xcnew"]
+[ext_resource type="Script" uid="uid://cjxkjw2hnykoe" path="res://darkblue/scripts/wave_old.gd" id="1_xcnew"]
 [ext_resource type="PackedScene" uid="uid://cbxaen0wlpqoa" path="res://darkblue/actors/enemy2_e02.tscn" id="2_bcict"]
 
 [sub_resource type="Animation" id="Animation_2wvjl"]

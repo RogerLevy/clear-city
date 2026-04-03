@@ -89,15 +89,49 @@ func at( x, y = 0.0 ):
 # Scene Manager
 
 @export var scenes = {}
+var scene_manifest_path: String = "res://scene_manifest.gd"
 
 func load_all_scenes():
     print("Loading all scenes...")
-    _scan_directory("res://")
+    if OS.has_feature("editor"):
+        _scan_directory("res://")
+        _save_manifest()
+    else:
+        _load_from_manifest()
     print("Loaded %d scenes" % scenes.size())
-    
-    ## Debug: print all loaded scenes
-    #for scene_name in scenes.keys():
-        #print("  - %s" % scene_name)
+
+## Override in subclass to filter scenes for export manifest
+func _should_include_in_manifest(scene_path: String) -> bool:
+    return true
+
+func _save_manifest():
+    var file = FileAccess.open(scene_manifest_path, FileAccess.WRITE)
+    if not file:
+        print("Failed to write scene manifest")
+        return
+    file.store_line("# Auto-generated scene manifest - do not edit")
+    file.store_line("static func get_scenes() -> Dictionary:")
+    file.store_line("\treturn {")
+    var count := 0
+    for scene_name in scenes.keys():
+        var scene: PackedScene = scenes[scene_name]
+        if not _should_include_in_manifest(scene.resource_path):
+            continue
+        file.store_line("\t\t\"%s\": \"%s\"," % [scene_name, scene.resource_path])
+        count += 1
+    file.store_line("\t}")
+    print("Saved scene manifest with %d entries" % count)
+
+func _load_from_manifest():
+    var manifest = load(scene_manifest_path)
+    if not manifest:
+        print("Scene manifest not found: %s" % scene_manifest_path)
+        return
+    var paths: Dictionary = manifest.get_scenes()
+    for scene_name in paths.keys():
+        var scene_resource = load(paths[scene_name])
+        if scene_resource:
+            scenes[scene_name] = scene_resource
 
 func _scan_directory(path: String):
     #print("Scanning directory: %s" % path)

@@ -187,11 +187,12 @@ func shatter():
     queue_free()
 
 func expel(amount: int):
+    print("expel ", amount)
     var tm:TriManager = g.get("tri_manager")
     if not tm: return
     for i in amount:
         var angle = randf() * TAU
-        tm.spawn(global_position + Vector2.from_angle(angle) * 20, Vector2.from_angle(angle) * 35)
+        tm.spawn(global_position + Vector2.from_angle(angle) * 20, Vector2.from_angle(angle) * randf_range(39.0, 41.0))
 
 func slowdown_playfield():
     var actors = get_tree().get_nodes_in_group("actors")
@@ -256,20 +257,20 @@ func _on_enemy_hitbox_entered(area: Area2D):
 
 func hit_enemy(enemy):
     if recovering(): return
-    damage(30)
+    damage(enemy.atk)
     var knockback = (global_position - enemy.global_position).normalized() * 300
     velocity += knockback
 
 func hit_orb(orb):
     if recovering(): return
-    damage(5)
+    damage(orb.atk)
     var knockback = (global_position - orb.global_position).normalized() * 0.5
     velocity += knockback
     orb.queue_free()
 
 #func hit_tri(tri):
-    ##g.sfx(snd_collect, 0.5)
-    ##g.sfx(snd)
+    #g.sfx(snd_collect, 0.5)
+    #g.sfx(snd)
     #g.energy += 1
     #tri.queue_free()
 

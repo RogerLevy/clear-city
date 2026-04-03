@@ -75,7 +75,7 @@ func check_hits():
         var enemy_r = enemy.get("r") if enemy.get("r") else 16.0
         if is_in_beam(enemy.global_position, enemy_r):
             if enemy.has_method("damage"):
-                var dmg = 100 if width >= max_width else 2
+                var dmg = 100 # if width >= max_width else 2
                 enemy.damage(dmg)
                 damaged_enemies[enemy] = true
                 spawn_sparks(enemy)

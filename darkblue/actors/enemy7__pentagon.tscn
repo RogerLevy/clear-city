@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d3nfvtuber5rj" path="res://darkblue/actors/enemy7__pentagon.gd" id="1_ar03w"]
 [ext_resource type="Texture2D" uid="uid://xnog2iw1enjp" path="res://darkblue/actors/enemy7.png" id="2_ar03w"]
+[ext_resource type="Script" uid="uid://cc5tsj0x0m1di" path="res://darkblue/components/shoot_at_player.gd" id="3_pu3ma"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ar03w"]
 radius = 6.0
@@ -12,6 +13,8 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ar03w")
 r = 16.0
+atk = 30
+stats = null
 sprite_texture = ExtResource("2_ar03w")
 frame_width = 26
 frame_height = 26
@@ -29,3 +32,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=669374108]
 shape = SubResource("CircleShape2D_ar03w")
+
+[node name="ShootAtPlayer" type="Node" parent="." unique_id=1840956261]
+script = ExtResource("3_pu3ma")

@@ -15,7 +15,7 @@ func _process(delta):
         var id = body.get_instance_id()
         active_ids[id] = true
 
-        if not body.can_process() or not body.is_visible_in_tree() or body.velocity == Vector2.ZERO:
+        if not body.can_process() or not body.is_visible_in_tree() or body.velocity == Vector2.ZERO or body.is_in_group("do_not_cull"):
             _timers.erase(id)
             continue
 

@@ -10,7 +10,7 @@ var damage_cooldown: Dictionary = {}  # enemy -> frames until can damage again
 const DAMAGE_INTERVAL: int = 6  # frames between damage ticks
 
 func init():
-    atk = 3
+    atk = 10
     add_to_group("player_projectiles")
     rotation = velocity.angle()
     act(func():
@@ -45,7 +45,7 @@ func check_hits():
 func spawn_sparks(enemy):
     var playfield = g.get("playfield")
     if playfield:
-        var contact = g.find_contact_point(global_position, enemy.global_position, global_position)
+        var contact = g.find_contact_point(global_position + Vector2(30,0) , enemy.global_position, global_position + Vector2(30,0))
         HitSparks.spawn(playfield, contact, velocity.angle() + PI, 10)
 
 func cull():

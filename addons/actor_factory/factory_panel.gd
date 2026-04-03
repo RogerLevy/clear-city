@@ -29,11 +29,10 @@ func _on_texture_changed(resource: Resource):
         if tex:
             frame_width_spin.value = tex.get_width()
             frame_height_spin.value = tex.get_height()
-        if class_name_edit.text.is_empty():
-            # Auto-fill class name from texture filename
-            var path = resource.resource_path
-            var filename = path.get_file().get_basename()
-            class_name_edit.text = filename
+        # Auto-fill class name from texture filename
+        var path = resource.resource_path
+        var filename = path.get_file().get_basename()
+        class_name_edit.text = filename
 
 func to_snake_case(s: String) -> String:
     var result = ""

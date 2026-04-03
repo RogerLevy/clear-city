@@ -21,6 +21,8 @@ var tri_shader: Shader
 var tri_material: ShaderMaterial
 
 func _ready():
+    g.tri_manager = self
+
     positions.resize(MAX_TRIS)
     velocities.resize(MAX_TRIS)
     angles.resize(MAX_TRIS)

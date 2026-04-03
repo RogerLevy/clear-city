@@ -1,7 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bi1nbthe5wx5f"]
 
 [ext_resource type="Script" uid="uid://dtyjkiufsnhs8" path="res://darkblue/actors/laser_cannon.gd" id="1"]
 
-
-[node name="LaserCannon" type="Node2D"]
+[node name="LaserCannon" type="Node2D" unique_id=1823397442]
 script = ExtResource("1")

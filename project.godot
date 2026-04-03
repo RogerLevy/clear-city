@@ -15,12 +15,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="CLEAR-CITY"
-run/main_scene="uid://burslu1bh538"
+run/main_scene="uid://ck2hs02t8xhpa"
 config/use_hidden_project_data_directory=false
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.14117648, 0.79607844, 0.14117648, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
+run/main_scene.darkblue-inputlag-test=""
+run/main_scene.darkblue-visuals-test="uid://ck2hs02t8xhpa"
 
 [audio]
 
@@ -34,11 +36,30 @@ beat/metronome_sample="uid://dcjio1vuxp1v"
 [autoload]
 
 beat="*uid://bp8vsqr2b5bjf"
-g="*res://darkblue/scripts/darkblue.gd"
+enemies="*res://darkblue/scripts/enemies.gd"
+g="*uid://5780chgktfwu"
 
 [debug]
 
 gdscript/warnings/enable=false
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_local_constant=0
+gdscript/warnings/unused_private_class_variable=0
+gdscript/warnings/unused_signal=0
+gdscript/warnings/shadowed_variable=2
+gdscript/warnings/shadowed_variable_base_class=2
+gdscript/warnings/shadowed_global_identifier=2
+gdscript/warnings/standalone_expression=2
+gdscript/warnings/standalone_ternary=2
+gdscript/warnings/incompatible_ternary=2
+gdscript/warnings/unsafe_void_return=2
+gdscript/warnings/missing_await=2
+gdscript/warnings/assert_always_true=2
+gdscript/warnings/assert_always_false=2
+gdscript/warnings/narrowing_conversion=2
+gdscript/warnings/int_as_enum_without_cast=2
+gdscript/warnings/int_as_enum_without_match=2
+gdscript/warnings/empty_file=0
 
 [display]
 
@@ -58,7 +79,7 @@ movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest3-pla
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/scene_palette/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
+enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/anim_track_converter/plugin.cfg", "res://addons/favorites/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/node_disabler/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
 
 [global_group]
 
@@ -158,6 +179,8 @@ common/physics_jitter_fix=0.0
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/use_debanding=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true

@@ -1,16 +1,12 @@
-[gd_scene format=3 uid="uid://bqqhi3o6x5v3p"]
+[gd_scene format=3 uid="uid://c8u04r4sfcn04"]
 
+[ext_resource type="Script" uid="uid://ce2ivrisnhcei" path="res://darkblue/actors/enemy_angel.gd" id="1_i2d4e"]
 [ext_resource type="Texture2D" uid="uid://dx4yc1j06nap7" path="res://darkblue/actors/angel.png" id="1_mfutx"]
-[ext_resource type="Script" uid="uid://cllx4h5h8ipa1" path="res://darkblue/actors/miniboss1_angel.gd" id="2_angel"]
+[ext_resource type="AudioStream" uid="uid://b0ewoxxeppwhv" path="res://darkblue/sfx/oh2.wav" id="2_cajw2"]
 
 [node name="Angel" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
-script = ExtResource("2_angel")
-hp = 100
-r = 64.0
-bounty = 200
-sprite_texture = ExtResource("1_mfutx")
-frame_width = 50
-frame_height = 64
+script = ExtResource("1_i2d4e")
+snd_damage = ExtResource("2_cajw2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]
 unique_name_in_owner = true
