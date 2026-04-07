@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://byy7wvfqvk2y1" path="res://darkblue/modes/game_mode.tscn" id="1_2d4ec"]
 [ext_resource type="Script" uid="uid://b0a8alnoonhop" path="res://darkblue/tests/wave_test5_enemy_stats.gd" id="2_6hcyp"]
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="4_n2j6r"]
+[ext_resource type="PackedScene" uid="uid://dr1totk6x775p" path="res://darkblue/actors/enemy_saton_e01.tscn" id="5_2d4ec"]
 [ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="5_o4v11"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="6_pq440"]
 [ext_resource type="PackedScene" uid="uid://j2urqjikc3ab" path="res://darkblue/actors/enemy7__pentagon.tscn" id="7_kc7yv"]
@@ -23,8 +24,41 @@
 [ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="21_7jnju"]
 [ext_resource type="PackedScene" uid="uid://5r1g237ymi0y" path="res://darkblue/actors/turret.tscn" id="22_8csx5"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_30au0"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6hcyp"]
 viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="Animation" id="Animation_yfkek"]
+resource_name = "sequence"
+length = 32.0
+step = 1.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}, {
+"args": [],
+"method": &"next"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n2j6r"]
+_data = {
+&"sequence": SubResource("Animation_yfkek")
+}
 
 [sub_resource type="Animation" id="Animation_2wvjl"]
 resource_name = "sequence"
@@ -505,36 +539,143 @@ _data = {
 
 [node name="StageConfig" parent="." index="0" unique_id=58167012]
 enemy_stats = ExtResource("2_6hcyp")
+starting_energy = 20000
 
 [node name="BeatConfig" parent="." index="1" unique_id=1389375741]
 metronome_enabled = true
 
 [node name="PixelatedViewport" parent="." index="6" unique_id=812505540]
-texture = SubResource("ViewportTexture_30au0")
+texture = SubResource("ViewportTexture_6hcyp")
 
 [node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=2092535520]
 script = ExtResource("4_n2j6r")
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
+metadata/_favorite = true
 
-[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1839355543]
-visible = false
+[node name="WavePathMotionTest" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1239955528]
 script = ExtResource("5_o4v11")
 duration = 32.0
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 
-[node name="PentagonBurst1" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="0" unique_id=936514834]
-position = Vector2(549, 189)
-script = ExtResource("6_pq440")
-scene = ExtResource("7_kc7yv")
-count = 1
-angle_offset = 180.0
-time_stagger = 1.0
-infinite = true
-timing_mode = 2
-duration = 8.0
-metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WavePathMotionTest" index="0" unique_id=1348763960]
+libraries/ = SubResource("AnimationLibrary_n2j6r")
+
+[node name="EnemySaton_e01_1" parent="Playfield/WaveSequence/WavePathMotionTest" index="1" unique_id=917576875 instance=ExtResource("5_2d4ec")]
+process_mode = 4
+visible = false
+
+[node name="EnemySaton_e01_2" parent="Playfield/WaveSequence/WavePathMotionTest" index="2" unique_id=579228269 instance=ExtResource("5_2d4ec")]
+process_mode = 4
+visible = false
+position = Vector2(136, 0)
+
+[node name="EnemySaton_e01_3" parent="Playfield/WaveSequence/WavePathMotionTest" index="3" unique_id=382733794 instance=ExtResource("5_2d4ec")]
+process_mode = 4
+visible = false
+position = Vector2(68, 0)
+
+[node name="EnemySaton_e01_4" parent="Playfield/WaveSequence/WavePathMotionTest" index="4" unique_id=1208597614 instance=ExtResource("5_2d4ec")]
+process_mode = 4
+visible = false
+position = Vector2(-70, -1)
+
+[node name="PathMotion" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="0" unique_id=980667051]
+process_mode = 4
+visible = false
+
+[node name="Pause" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="1" unique_id=347603324]
+process_mode = 4
+visible = false
+
+[node name="PathMotion2" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="2" unique_id=985582945]
+process_mode = 4
+visible = false
+
+[node name="Pause2" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="3" unique_id=1206118270]
+process_mode = 4
+visible = false
+
+[node name="PathMotion3" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="4" unique_id=1243281553]
+process_mode = 4
+visible = false
+
+[node name="Pause3" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="5" unique_id=294093552]
+process_mode = 4
+visible = false
+
+[node name="PathMotion7" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="6" unique_id=1980179176]
+process_mode = 4
+visible = false
+
+[node name="Pause4" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="7" unique_id=1767510550]
+process_mode = 4
+visible = false
+
+[node name="PathMotion8" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="8" unique_id=559722546]
+process_mode = 4
+visible = false
+
+[node name="Pause5" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="9" unique_id=1412441332]
+process_mode = 4
+visible = false
+
+[node name="PathMotion9" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="10" unique_id=1732011806]
+process_mode = 4
+visible = false
+
+[node name="Pause6" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="11" unique_id=1951483398]
+process_mode = 4
+visible = false
+
+[node name="PathMotion10" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="12" unique_id=914008855]
+process_mode = 4
+visible = false
+
+[node name="PathMotion4" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="13" unique_id=955267102]
+process_mode = 4
+visible = false
+
+[node name="PathMotion6" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="14" unique_id=148295792]
+process_mode = 4
+visible = false
+
+[node name="PathMotion5" parent="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4" index="15" unique_id=1056788266]
+process_mode = 4
+visible = false
+
+[node name="SineMovementXY" type="Node" parent="Playfield/WaveSequence/WavePathMotionTest" index="5" unique_id=765877608]
+script = ExtResource("17_egvdw")
+x_period = 4.0
+x_pixels = 30.0
+y_pixels = 30.0
+speed = 0.5
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="1" unique_id=1247839593]
+script = ExtResource("15_24wc1")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+metadata/_favorite = true
+
+[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1839355543]
+script = ExtResource("5_o4v11")
+duration = 32.0
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+
+[node name="HeartOn24Killed" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="0" unique_id=1311552890]
+process_mode = 4
+visible = false
+script = ExtResource("8_6dqk4")
+condition = 1
+target_class = ExtResource("9_1gqgl")
+kill_count = 24
+action = 1
+drop_scene = ExtResource("10_uf64t")
+start_mode = 2
+open_ended = true
 
 [node name="PentagonBurst2" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="1" unique_id=1183544102]
+process_mode = 4
+visible = false
 position = Vector2(549, 119)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -546,7 +687,23 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="PentagonBurst3" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="2" unique_id=1376499423]
+[node name="PentagonBurst1" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="2" unique_id=936514834]
+process_mode = 4
+visible = false
+position = Vector2(549, 189)
+script = ExtResource("6_pq440")
+scene = ExtResource("7_kc7yv")
+count = 1
+angle_offset = 180.0
+time_stagger = 1.0
+infinite = true
+timing_mode = 2
+duration = 8.0
+metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="PentagonBurst3" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="3" unique_id=1376499423]
+process_mode = 4
+visible = false
 position = Vector2(549, 263)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -558,16 +715,8 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="HeartOn24Killed" type="Node2D" parent="Playfield/WaveSequence/WaveBurstTest1" index="3" unique_id=1311552890]
-script = ExtResource("8_6dqk4")
-condition = 1
-target_class = ExtResource("9_1gqgl")
-kill_count = 24
-action = 1
-drop_scene = ExtResource("10_uf64t")
-autostart = true
-
-[node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=1800127356]
+[node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveSequence" index="3" unique_id=1800127356]
+process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
@@ -576,24 +725,36 @@ metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 libraries/ = SubResource("AnimationLibrary_4kjrw")
 
 [node name="enemy2-e02-1" parent="Playfield/WaveSequence/WaveAnimTest1" index="1" unique_id=931418090 instance=ExtResource("11_3j3pj")]
+process_mode = 4
+visible = false
 position = Vector2(212, -128)
 
 [node name="enemy2-e02-2" parent="Playfield/WaveSequence/WaveAnimTest1" index="2" unique_id=1660702998 instance=ExtResource("11_3j3pj")]
+process_mode = 4
+visible = false
 position = Vector2(212, -64)
 
 [node name="enemy2-e02-3" parent="Playfield/WaveSequence/WaveAnimTest1" index="3" unique_id=1182566683 instance=ExtResource("11_3j3pj")]
+process_mode = 4
+visible = false
 position = Vector2(212, 0)
 
 [node name="enemy2-e02-4" parent="Playfield/WaveSequence/WaveAnimTest1" index="4" unique_id=913922590 instance=ExtResource("11_3j3pj")]
+process_mode = 4
+visible = false
 position = Vector2(212, 64)
 
 [node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest1" index="5" unique_id=1283839821]
+process_mode = 4
+visible = false
 script = ExtResource("8_6dqk4")
 target_class = ExtResource("12_djfvh")
 drop_scene = ExtResource("10_uf64t")
-autostart = true
+start_mode = 2
+open_ended = true
 
-[node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1651965941]
+[node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="4" unique_id=1651965941]
+process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
@@ -602,6 +763,8 @@ metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 libraries/ = SubResource("AnimationLibrary_8ifrg")
 
 [node name="Sequence" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest2" index="1" unique_id=1328868775]
+process_mode = 4
+visible = false
 position = Vector2(54, 0)
 script = ExtResource("4_n2j6r")
 duration = 8.0
@@ -612,43 +775,68 @@ metadata/_custom_type_script = "uid://dosix5nlpo73y"
 libraries/ = SubResource("AnimationLibrary_q2raj")
 
 [node name="enemy2-e03-1" parent="Playfield/WaveSequence/WaveAnimTest2/Sequence" index="1" unique_id=1337668934 instance=ExtResource("13_soywb")]
+process_mode = 4
+visible = false
 position = Vector2(-16, -24)
 
 [node name="enemy2-e03-2" parent="Playfield/WaveSequence/WaveAnimTest2/Sequence" index="2" unique_id=1288951620 instance=ExtResource("13_soywb")]
+process_mode = 4
+visible = false
 position = Vector2(-16, 24)
 
 [node name="enemy2-e04-1" parent="Playfield/WaveSequence/WaveAnimTest2" index="2" unique_id=246284836 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(214, -128)
 
 [node name="enemy2-e04-2" parent="Playfield/WaveSequence/WaveAnimTest2" index="3" unique_id=47287134 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(214, -64)
 
 [node name="enemy2-e04-3" parent="Playfield/WaveSequence/WaveAnimTest2" index="4" unique_id=1293791319 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(214, 0)
 
 [node name="enemy2-e04-4" parent="Playfield/WaveSequence/WaveAnimTest2" index="5" unique_id=1982604740 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(214, 64)
 
 [node name="enemy2-e04-8" parent="Playfield/WaveSequence/WaveAnimTest2" index="6" unique_id=1056234234 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(278, 64)
 
 [node name="enemy2-e04-7" parent="Playfield/WaveSequence/WaveAnimTest2" index="7" unique_id=386772503 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(278, 0)
 
 [node name="enemy2-e04-6" parent="Playfield/WaveSequence/WaveAnimTest2" index="8" unique_id=617641363 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(278, -64)
 
 [node name="enemy2-e04-5" parent="Playfield/WaveSequence/WaveAnimTest2" index="9" unique_id=952868493 instance=ExtResource("14_hvvfs")]
+process_mode = 4
+visible = false
 position = Vector2(278, -128)
 
 [node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAnimTest2" index="10" unique_id=181050719]
+process_mode = 4
+visible = false
 script = ExtResource("8_6dqk4")
 target_class = ExtResource("12_djfvh")
 action = 1
 drop_scene = ExtResource("10_uf64t")
-autostart = true
+start_mode = 2
+open_ended = true
 
-[node name="WaveAngelTest1" type="Node2D" parent="Playfield/WaveSequence" index="3" unique_id=1710358194]
+[node name="WaveAngelTest1" type="Node2D" parent="Playfield/WaveSequence" index="5" unique_id=1710358194]
+process_mode = 4
+visible = false
 script = ExtResource("5_o4v11")
 autoplay_name = &"testy/sequence"
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
@@ -761,8 +949,8 @@ y_pixels = 10.0
 speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
-[node name="Angel" parent="Playfield/WaveSequence/WaveAngelTest1" index="5" unique_id=1198562410 instance=ExtResource("18_8twpd")]
-position = Vector2(341, -56)
+[node name="Angel" parent="Playfield/WaveSequence/WaveAngelTest1" index="5" unique_id=1423960764 instance=ExtResource("18_8twpd")]
+position = Vector2(-109.00018, 144.98901)
 metadata/_edit_lock_ = true
 
 [node name="Burst2D" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel" index="0" unique_id=1690718281]
@@ -780,7 +968,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel2" parent="Playfield/WaveSequence/WaveAngelTest1" index="6" unique_id=36322529 instance=ExtResource("18_8twpd")]
-position = Vector2(685, 48)
+position = Vector2(-55, 86)
 metadata/_edit_lock_ = true
 
 [node name="Burst2D2" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel2" index="0" unique_id=1071375513]
@@ -798,7 +986,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel3" parent="Playfield/WaveSequence/WaveAngelTest1" index="7" unique_id=1663051665 instance=ExtResource("18_8twpd")]
-position = Vector2(136.00002, -61)
+position = Vector2(-104.51416, 88)
 metadata/_edit_lock_ = true
 
 [node name="Burst2D3" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel3" index="0" unique_id=522450964]
@@ -816,7 +1004,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel4" parent="Playfield/WaveSequence/WaveAngelTest1" index="8" unique_id=419047630 instance=ExtResource("18_8twpd")]
-position = Vector2(341, 440)
+position = Vector2(-96.99423, 238.08736)
 metadata/_edit_lock_ = true
 
 [node name="Burst2D4" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1/Angel4" index="0" unique_id=277132104]
@@ -834,17 +1022,17 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="HeartOn100" type="Node2D" parent="Playfield/WaveSequence/WaveAngelTest1" index="9" unique_id=1081217484]
+process_mode = 4
+visible = false
 script = ExtResource("8_6dqk4")
 target_class = ExtResource("20_ainwl")
 action = 1
 drop_scene = ExtResource("10_uf64t")
-autostart = true
+start_mode = 2
+open_ended = true
 
-[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="4" unique_id=1247839593]
-script = ExtResource("15_24wc1")
-metadata/_custom_type_script = "uid://15a3uljo3ida"
-
-[node name="WaveHard1" type="Node2D" parent="Playfield/WaveSequence" index="5" unique_id=1490974110]
+[node name="WaveHard1" type="Node2D" parent="Playfield/WaveSequence" index="6" unique_id=1490974110]
+process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
 duration = 64.0
@@ -856,43 +1044,79 @@ libraries/ = SubResource("AnimationLibrary_o4v11")
 speed_scale = 0.5
 
 [node name="enemy_king_e01_1" parent="Playfield/WaveSequence/WaveHard1" index="1" unique_id=802846673 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_2" parent="Playfield/WaveSequence/WaveHard1" index="2" unique_id=979967900 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_3" parent="Playfield/WaveSequence/WaveHard1" index="3" unique_id=798563467 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_4" parent="Playfield/WaveSequence/WaveHard1" index="4" unique_id=31722758 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_5" parent="Playfield/WaveSequence/WaveHard1" index="5" unique_id=391427794 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_6" parent="Playfield/WaveSequence/WaveHard1" index="6" unique_id=460561591 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_7" parent="Playfield/WaveSequence/WaveHard1" index="7" unique_id=1154413081 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_8" parent="Playfield/WaveSequence/WaveHard1" index="8" unique_id=1888220015 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_9" parent="Playfield/WaveSequence/WaveHard1" index="9" unique_id=850307551 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_10" parent="Playfield/WaveSequence/WaveHard1" index="10" unique_id=511223547 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_11" parent="Playfield/WaveSequence/WaveHard1" index="11" unique_id=1455800486 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_12" parent="Playfield/WaveSequence/WaveHard1" index="12" unique_id=1928457197 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_13" parent="Playfield/WaveSequence/WaveHard1" index="13" unique_id=1208927459 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_14" parent="Playfield/WaveSequence/WaveHard1" index="14" unique_id=1391203608 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_15" parent="Playfield/WaveSequence/WaveHard1" index="15" unique_id=1579544943 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="enemy_king_e01_16" parent="Playfield/WaveSequence/WaveHard1" index="16" unique_id=596524185 instance=ExtResource("21_6hcyp")]
+process_mode = 4
+visible = false
 
 [node name="Pentagons" type="Node2D" parent="Playfield/WaveSequence/WaveHard1" index="17" unique_id=247250380]
+process_mode = 4
+visible = false
 script = ExtResource("4_n2j6r")
-autostart = true
+start_mode = 2
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 
 [node name="PentagonBurst1" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="0" unique_id=86428804]
+process_mode = 4
+visible = false
 position = Vector2(549, 189)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -905,6 +1129,8 @@ duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="PentagonBurst2" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="1" unique_id=1774246574]
+process_mode = 4
+visible = false
 position = Vector2(549, 119)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -917,6 +1143,8 @@ duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="PentagonBurst3" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="2" unique_id=769252514]
+process_mode = 4
+visible = false
 position = Vector2(549, 263)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -929,6 +1157,8 @@ duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="PentagonBurst4" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="3" unique_id=404687475]
+process_mode = 4
+visible = false
 position = Vector2(549, 46)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -941,6 +1171,8 @@ duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="PentagonBurst5" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="4" unique_id=354677892]
+process_mode = 4
+visible = false
 position = Vector2(549, 330)
 script = ExtResource("6_pq440")
 scene = ExtResource("7_kc7yv")
@@ -953,13 +1185,16 @@ duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="HeartOn20Killed" type="Node2D" parent="Playfield/WaveSequence/WaveHard1/Pentagons" index="5" unique_id=1814239054]
+process_mode = 4
+visible = false
 script = ExtResource("8_6dqk4")
 condition = 1
 target_class = ExtResource("9_1gqgl")
 kill_count = 20
 action = 1
 drop_scene = ExtResource("10_uf64t")
-autostart = true
+start_mode = 2
+open_ended = true
 
 [node name="Ship" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=1525402565 instance=ExtResource("21_7jnju")]
 unique_name_in_owner = true
@@ -973,6 +1208,7 @@ frame_height = 16
 position = Vector2(-30.60001, -16.400002)
 orbit_radius = 24.0
 
+[editable path="Playfield/WaveSequence/WavePathMotionTest/EnemySaton_e01_4"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel2"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel3"]

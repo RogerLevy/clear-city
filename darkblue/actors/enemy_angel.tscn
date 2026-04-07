@@ -6,6 +6,7 @@
 
 [node name="Angel" type="CharacterBody2D" unique_id=1198562410 groups=["enemies"]]
 script = ExtResource("1_i2d4e")
+r = 50.0
 snd_damage = ExtResource("2_cajw2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=518478835]

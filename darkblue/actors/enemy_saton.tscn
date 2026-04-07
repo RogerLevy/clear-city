@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crbrfb800u0dq" path="res://darkblue/actors/enemy_saton.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dyupjkfwstrhd" path="res://darkblue/actors/enemy29.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://cc5tsj0x0m1di" path="res://darkblue/components/shoot_at_player.gd" id="3_r83sb"]
 
 [node name="EnemySaton" type="CharacterBody2D" unique_id=1857771113 groups=["enemies"]]
 collision_layer = 0
@@ -23,3 +24,13 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1422719625]
 polygon = PackedVector2Array(-7, -8, -2, -3, 3, -3, 8, -8, 7, -2, 11, 8, 1, 6, -9, 8, -6, -2)
+
+[node name="ShootAtPlayer" type="Node2D" parent="." unique_id=526985617]
+script = ExtResource("3_r83sb")
+beat_interval = 2.0
+time_offset = 1.0
+fire_mode = null
+fire_count = null
+start_mode = 2
+open_ended = true
+metadata/_custom_type_script = "uid://cc5tsj0x0m1di"

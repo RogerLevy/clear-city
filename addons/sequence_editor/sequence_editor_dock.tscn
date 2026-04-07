@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b7kxqm2h5wpnr"]
+
+[node name="Sequence" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="UpButton" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "^"
+tooltip_text = "Go up to parent sequence"
+
+[node name="DownButton" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "v"
+tooltip_text = "Drill into selected sequence"
+
+[node name="Tree" type="Tree" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+column_titles_visible = true
+hide_root = false

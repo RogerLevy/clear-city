@@ -1,3 +1,4 @@
+@tool
 extends Sequence
 class_name BurstSequence
 
@@ -21,7 +22,10 @@ var _time_wait: float = 0.0
 var _elapsed: float = 0.0
 
 func start():
-    open_ended = true  # Prevent auto-complete from next() since we have no child sequences
+    # Prevent auto-complete from next() since we have no child sequences
+    # But allow duration to control completion if set
+    if duration < 0:
+        open_ended = true
     super.start()
     _setup_burst()
 
@@ -73,7 +77,7 @@ func _physics_process(delta):
             _spawn_index += 1
             _frame_wait = time_stagger_frames
             if not infinite and _spawn_index >= _spawns.size():
-                auto_complete()
+                complete()
     elif time_stagger > 0:
         _time_wait -= delta
         if _time_wait <= 0:
@@ -81,12 +85,12 @@ func _physics_process(delta):
             _spawn_index += 1
             _time_wait += time_stagger * _get_time_scale()
             if not infinite and _spawn_index >= _spawns.size():
-                auto_complete()
+                complete()
     else:
         while _spawn_index < _spawns.size():
             _spawn_instance(_spawns[_spawn_index])
             _spawn_index += 1
-        auto_complete()
+        complete()
 
 func _spawn_instance(vel: Vector2):
     if not scene:

@@ -482,7 +482,7 @@ unique_name_in_owner = true
 
 [node name="WaveTest3Sequence" type="Node2D" parent="Playfield" unique_id=1464437363]
 script = ExtResource("8_oee1l")
-autostart = true
+start_mode = 2
 stick_around = true
 
 [node name="SequenceStart" type="Node" parent="Playfield/WaveTest3Sequence" unique_id=1615107265]
@@ -538,7 +538,7 @@ target_class = ExtResource("18_k0fey")
 kill_count = 24
 action = 1
 drop_scene = ExtResource("24_ea0w2")
-autostart = true
+start_mode = 2
 
 [node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=19577533]
 visible = false
@@ -563,7 +563,7 @@ position = Vector2(212, 64)
 script = ExtResource("22_oxhko")
 target_class = ExtResource("20_4a321")
 drop_scene = ExtResource("24_ea0w2")
-autostart = true
+start_mode = 2
 
 [node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=1235966571]
 script = ExtResource("8_oee1l")
@@ -615,7 +615,7 @@ script = ExtResource("22_oxhko")
 target_class = ExtResource("20_4a321")
 action = 1
 drop_scene = ExtResource("24_ea0w2")
-autostart = true
+start_mode = 2
 
 [node name="WaveAngelTest1pre" type="Node2D" parent="Playfield/WaveTest3Sequence" unique_id=94369381]
 visible = false
@@ -816,7 +816,7 @@ script = ExtResource("22_oxhko")
 target_class = ExtResource("23_54y72")
 action = 1
 drop_scene = ExtResource("24_ea0w2")
-autostart = true
+start_mode = 2
 
 [node name="Ship" parent="Playfield" unique_id=1525402565 instance=ExtResource("19_ktc8b")]
 unique_name_in_owner = true

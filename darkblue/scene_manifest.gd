@@ -37,6 +37,7 @@ static func get_scenes() -> Dictionary:
 		"enemy_nyxalon": "res://darkblue/actors/enemy_nyxalon.tscn",
 		"enemy_ogulus": "res://darkblue/actors/enemy_ogulus.tscn",
 		"enemy_saton": "res://darkblue/actors/enemy_saton.tscn",
+		"enemy_saton_e01": "res://darkblue/actors/enemy_saton_e01.tscn",
 		"enemy_shmoundabout": "res://darkblue/actors/enemy_shmoundabout.tscn",
 		"enemy_shrim": "res://darkblue/actors/enemy_shrim.tscn",
 		"enemy_spintor": "res://darkblue/actors/enemy_spintor.tscn",

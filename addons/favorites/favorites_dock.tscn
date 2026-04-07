@@ -1,37 +1,38 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dhj17oyclov8k"]
 
-[node name="FavoritesDock" type="Control"]
+[node name="Favorites" type="Control" unique_id=1000108034]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="."]
-anchors_preset = 15
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1989401435]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBox"]
+[node name="Label" type="Label" parent="VBox" unique_id=812770299]
 layout_mode = 2
 text = "Favorites"
 horizontal_alignment = 1
 
-[node name="HBox" type="HBoxContainer" parent="VBox"]
+[node name="HBox" type="HBoxContainer" parent="VBox" unique_id=1893291188]
 layout_mode = 2
 
-[node name="ToggleButton" type="Button" parent="VBox/HBox"]
+[node name="ToggleButton" type="Button" parent="VBox/HBox" unique_id=1677321740]
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 text = "Toggle Favorite"
 
-[node name="RefreshButton" type="Button" parent="VBox/HBox"]
+[node name="RefreshButton" type="Button" parent="VBox/HBox" unique_id=1833639069]
 layout_mode = 2
 text = "Refresh"
 
-[node name="ItemList" type="ItemList" parent="VBox"]
+[node name="ItemList" type="ItemList" parent="VBox" unique_id=1163573692]
 layout_mode = 2
 size_flags_vertical = 3

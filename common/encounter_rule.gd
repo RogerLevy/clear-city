@@ -1,3 +1,4 @@
+@tool
 extends Sequence
 class_name EncounterRule
 

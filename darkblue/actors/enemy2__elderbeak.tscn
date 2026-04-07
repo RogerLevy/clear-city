@@ -33,6 +33,8 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1603414630]
 polygon = PackedVector2Array(-17, -5, -17, 3, -3, 6, 1, 12, 12, 9, 18, 0, 12, -11, 2, -14, -3, -7)
 
-[node name="ShootAtPlayer" type="Node" parent="." unique_id=1371313404]
+[node name="ShootAtPlayer" type="Node2D" parent="." unique_id=1371313404]
 script = ExtResource("3_rkv7c")
+start_mode = 2
+open_ended = true
 metadata/_custom_type_script = "uid://cc5tsj0x0m1di"

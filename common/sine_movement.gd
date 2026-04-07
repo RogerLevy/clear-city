@@ -25,6 +25,13 @@ func _ready():
     _prev_y_pixels = y_pixels
     _prev_amount = amount
 
+## Call this when the parent is teleported to prevent jump artifacts
+func reset_tracking():
+    _previous_offset = Vector2(
+        sin(x_angle + deg_to_rad(x_phase)) * x_pixels * amount,
+        sin(y_angle + deg_to_rad(y_phase)) * y_pixels * amount
+    ) + _baseline_offset
+
 func _process(delta: float):
     if not enabled: return
     

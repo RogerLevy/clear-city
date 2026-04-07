@@ -42,6 +42,7 @@ signal beat_hit(beat_number: int)
 signal measure_hit(measure_number: int)
 signal bpm_changed(new_bpm: float)
 signal default_timing_mode_changed(mode: TimingMode.Mode)
+signal sequence_signal(signal_name: String)  ## Global signal for Sequence start_mode=ON_SIGNAL
 
 ## Global default timing mode (NORMAL or MUSICAL) - DEFAULT resolves to this
 @export var default_timing_mode: TimingMode.Mode = TimingMode.Mode.NORMAL:

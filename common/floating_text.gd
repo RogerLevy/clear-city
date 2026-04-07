@@ -3,7 +3,7 @@ extends Label
 
 @export var float_distance: float = 16.0
 @export var float_time: float = 0.25
-@export var hold_time: float = 0.33
+@export var hold_time: float = 0.66
 
 const SLOT_SPACING: float = 8.0
 const MAX_SLOTS: int = 8

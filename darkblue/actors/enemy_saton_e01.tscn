@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://dr1totk6x775p"]
+
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_oey0v"]
+[ext_resource type="Script" uid="uid://blhkdnhwle8oi" path="res://common/path_motion.gd" id="2_6mdpt"]
+[ext_resource type="Script" uid="uid://ct7snw7mgw0f3" path="res://common/pause.gd" id="3_bkeqy"]
+[ext_resource type="PackedScene" uid="uid://c3v6lsfjtn2t0" path="res://darkblue/actors/enemy_saton.tscn" id="4_87qxf"]
+
+[sub_resource type="Curve2D" id="Curve2D_pq440"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 153)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6hcyp"]
+_data = {
+"points": PackedVector2Array(-0.5, -27, 0.5, 27, 0, 155, 22.5, -0.5, -22.5, 0.5, -44, 196, 0, 25.5, 0, -25.5, -94, 149, -21, 1.5, 21, -1.5, -48, 104, 0.5, -28, -0.5, 28, 0, 154)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_n2j6r"]
+_data = {
+"points": PackedVector2Array(-0.5, -27, 0.5, 27, 0, 155, 0.5, -28, -0.5, 28, 0, 154, -24, -1.5, 24, 1.5, 45, 197, 0, 27.5, 0, -27.5, 93, 153, 24.5, 0.5, -24.5, -0.5, 46, 105, 1.5, -27.5, -1.5, 27.5, 0, 154)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_yfkek"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 155, 0, 0, 0, 0, 0, 164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kc7yv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 164, 0, 0, 0, 0, 0, 136)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o4v11"]
+_data = {
+"points": PackedVector2Array(-18.916668, -58, 18.916668, 58, 0, 136, -60.16667, -0.16666666, 60.16667, 0.16666666, 127, 159, 0, 0, 0, 0, 362, 159)
+}
+point_count = 3
+
+[node name="EnemySaton_e01_1" type="Node2D" unique_id=917576875]
+script = ExtResource("1_oey0v")
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="PathMotion" type="Node2D" parent="." unique_id=980667051 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in_curve = 0
+ease_out = 1.1
+ease_out_curve = 10
+duration = 3.5
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion" unique_id=1048969178]
+curve = SubResource("Curve2D_pq440")
+
+[node name="Pause" type="Node2D" parent="." unique_id=347603324]
+script = ExtResource("3_bkeqy")
+duration = 0.5
+
+[node name="PathMotion2" type="Node2D" parent="." unique_id=985582945 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion2" unique_id=796053523]
+curve = SubResource("Curve2D_6hcyp")
+
+[node name="Pause2" type="Node2D" parent="." unique_id=1206118270]
+script = ExtResource("3_bkeqy")
+duration = 1.0
+
+[node name="PathMotion3" type="Node2D" parent="." unique_id=1243281553 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion3" unique_id=1466551955]
+curve = SubResource("Curve2D_n2j6r")
+
+[node name="Pause3" type="Node2D" parent="." unique_id=294093552]
+script = ExtResource("3_bkeqy")
+duration = 1.0
+
+[node name="PathMotion7" type="Node2D" parent="." unique_id=1980179176 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion7" unique_id=1874503193]
+curve = SubResource("Curve2D_6hcyp")
+
+[node name="Pause4" type="Node2D" parent="." unique_id=1767510550]
+script = ExtResource("3_bkeqy")
+duration = 1.0
+
+[node name="PathMotion8" type="Node2D" parent="." unique_id=559722546 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion8" unique_id=1377412253]
+curve = SubResource("Curve2D_n2j6r")
+
+[node name="Pause5" type="Node2D" parent="." unique_id=1412441332]
+script = ExtResource("3_bkeqy")
+duration = 1.0
+
+[node name="PathMotion9" type="Node2D" parent="." unique_id=1732011806 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion9" unique_id=1147313293]
+curve = SubResource("Curve2D_6hcyp")
+
+[node name="Pause6" type="Node2D" parent="." unique_id=1951483398]
+script = ExtResource("3_bkeqy")
+duration = 1.0
+
+[node name="PathMotion10" type="Node2D" parent="." unique_id=914008855 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion10" unique_id=522924443]
+curve = SubResource("Curve2D_n2j6r")
+
+[node name="PathMotion4" type="Node2D" parent="." unique_id=955267102 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+duration = 0.25
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion4" unique_id=1424405761]
+curve = SubResource("Curve2D_yfkek")
+
+[node name="PathMotion6" type="Node2D" parent="." unique_id=148295792 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+ease_out = 1.0
+duration = 0.75
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion6" unique_id=651040626]
+curve = SubResource("Curve2D_kc7yv")
+
+[node name="PathMotion5" type="Node2D" parent="." unique_id=1056788266 node_paths=PackedStringArray("target")]
+position = Vector2(297, -21)
+script = ExtResource("2_6mdpt")
+target = NodePath("../EnemySaton")
+ease_in = 1.0
+duration = 7.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion5" unique_id=2042944494]
+curve = SubResource("Curve2D_o4v11")
+
+[node name="EnemySaton" parent="." unique_id=1857771113 instance=ExtResource("4_87qxf")]

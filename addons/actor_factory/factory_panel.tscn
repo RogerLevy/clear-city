@@ -1,63 +1,88 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://b7s72woulvesa"]
 
-[ext_resource type="Script" path="res://addons/actor_factory/factory_panel.gd" id="1_panel"]
+[ext_resource type="Script" uid="uid://d4d3lnx3w7he4" path="res://addons/actor_factory/factory_panel.gd" id="1_panel"]
 
-[node name="FactoryPanel" type="VBoxContainer"]
+[node name="Factory" type="VBoxContainer" unique_id=1934581472]
 custom_minimum_size = Vector2(200, 0)
 script = ExtResource("1_panel")
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=443606682]
+layout_mode = 2
 text = "Actor Factory"
 horizontal_alignment = 1
 
-[node name="Sep1" type="HSeparator" parent="."]
+[node name="Sep1" type="HSeparator" parent="." unique_id=1583546850]
+layout_mode = 2
 
-[node name="TextureLabel" type="Label" parent="."]
+[node name="TextureLabel" type="Label" parent="." unique_id=923732267]
+layout_mode = 2
 text = "Sprite Texture"
 
-[node name="TexturePicker" type="EditorResourcePicker" parent="."]
+[node name="TexturePicker" type="EditorResourcePicker" parent="." unique_id=1843263320]
 unique_name_in_owner = true
+layout_mode = 2
+base_type = "Texture2D"
 
-[node name="ClassNameLabel" type="Label" parent="."]
+[node name="ClassNameLabel" type="Label" parent="." unique_id=956821778]
+layout_mode = 2
 text = "Class Name"
 
-[node name="ClassNameEdit" type="LineEdit" parent="."]
+[node name="ClassNameEdit" type="LineEdit" parent="." unique_id=1713762107]
 unique_name_in_owner = true
+layout_mode = 2
 placeholder_text = "EnemySlug"
 
-[node name="BaseClassLabel" type="Label" parent="."]
+[node name="BaseClassLabel" type="Label" parent="." unique_id=1144314877]
+layout_mode = 2
 text = "Base Class"
 
-[node name="BaseClassOption" type="OptionButton" parent="."]
+[node name="BaseClassOption" type="OptionButton" parent="." unique_id=373370843]
 unique_name_in_owner = true
+layout_mode = 2
+selected = 1
+item_count = 3
+popup/item_0/text = "Actor2D"
+popup/item_0/id = 0
+popup/item_1/text = "Vessel2D"
+popup/item_1/id = 1
+popup/item_2/text = "StateMachineCharacterBody2D"
+popup/item_2/id = 2
 
-[node name="FrameLabel" type="Label" parent="."]
+[node name="FrameLabel" type="Label" parent="." unique_id=1660993374]
+layout_mode = 2
 text = "Frame Size"
 
-[node name="FrameContainer" type="HBoxContainer" parent="."]
+[node name="FrameContainer" type="HBoxContainer" parent="." unique_id=145938489]
+layout_mode = 2
 
-[node name="FrameWidthSpin" type="SpinBox" parent="FrameContainer"]
+[node name="FrameWidthSpin" type="SpinBox" parent="FrameContainer" unique_id=267994621]
 unique_name_in_owner = true
+layout_mode = 2
 min_value = 1.0
 max_value = 512.0
 value = 16.0
 
-[node name="X" type="Label" parent="FrameContainer"]
+[node name="X" type="Label" parent="FrameContainer" unique_id=1589991833]
+layout_mode = 2
 text = "x"
 
-[node name="FrameHeightSpin" type="SpinBox" parent="FrameContainer"]
+[node name="FrameHeightSpin" type="SpinBox" parent="FrameContainer" unique_id=1427638282]
 unique_name_in_owner = true
+layout_mode = 2
 min_value = 1.0
 max_value = 512.0
 value = 16.0
 
-[node name="Sep2" type="HSeparator" parent="."]
+[node name="Sep2" type="HSeparator" parent="." unique_id=1267759140]
+layout_mode = 2
 
-[node name="CreateButton" type="Button" parent="."]
+[node name="CreateButton" type="Button" parent="." unique_id=735300394]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Create Actor"
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="." unique_id=1279676862]
 unique_name_in_owner = true
+layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 2

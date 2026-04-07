@@ -457,7 +457,7 @@ texture = SubResource("ViewportTexture_q2raj")
 
 [node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=2092535520]
 script = ExtResource("2_xqpnn")
-autostart = true
+start_mode = 2
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 
 [node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1839355543]
@@ -509,7 +509,7 @@ target_class = ExtResource("7_kqnss")
 kill_count = 24
 action = 1
 drop_scene = ExtResource("8_5fe5q")
-autostart = true
+start_mode = 2
 
 [node name="WaveAnimTest1" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=1800127356]
 visible = false
@@ -535,7 +535,7 @@ position = Vector2(212, 64)
 script = ExtResource("6_dtnyh")
 target_class = ExtResource("10_b35vq")
 drop_scene = ExtResource("8_5fe5q")
-autostart = true
+start_mode = 2
 
 [node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1651965941]
 visible = false
@@ -590,7 +590,7 @@ script = ExtResource("6_dtnyh")
 target_class = ExtResource("10_b35vq")
 action = 1
 drop_scene = ExtResource("8_5fe5q")
-autostart = true
+start_mode = 2
 
 [node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="3" unique_id=1247839593]
 script = ExtResource("3_8kiry")
@@ -787,7 +787,7 @@ script = ExtResource("6_dtnyh")
 target_class = ExtResource("17_032ri")
 action = 1
 drop_scene = ExtResource("8_5fe5q")
-autostart = true
+start_mode = 2
 
 [node name="WaveHard1" type="Node2D" parent="Playfield/WaveSequence" index="5" unique_id=1490974110]
 script = ExtResource("4_q2raj")

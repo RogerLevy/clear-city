@@ -264,7 +264,7 @@ func hit_enemy(enemy):
 func hit_orb(orb):
     if recovering(): return
     damage(orb.atk)
-    var knockback = (global_position - orb.global_position).normalized() * 0.5
+    var knockback = orb.velocity.normalized() * 150
     velocity += knockback
     orb.queue_free()
 

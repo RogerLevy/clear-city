@@ -79,7 +79,7 @@ movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest3-pla
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/anim_track_converter/plugin.cfg", "res://addons/favorites/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/node_disabler/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/snap_rotate/plugin.cfg")
+enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/anim_track_converter/plugin.cfg", "res://addons/favorites/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/node_disabler/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/sequence_editor/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/solo_visibility/plugin.cfg")
 
 [global_group]
 
