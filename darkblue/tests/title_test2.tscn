@@ -35,8 +35,8 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.39999998, -0.1403963, 0.006890561, -0.9666667, -0.06029285, 0, 0),
-"times": PackedFloat32Array(0, 0.53333336, 1.5666667)
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.3333333, -0.24149728, -0.014387408, -1.8333334, -0.044447355, 0, 0),
+"times": PackedFloat32Array(0, 0.53333336, 2)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pamov"]
@@ -47,7 +47,7 @@ _data = {
 
 [node name="GameMode" unique_id=287075061 instance=ExtResource("1_tgc2k")]
 
-[node name="PixelatedViewport" parent="." index="5" unique_id=812505540]
+[node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
 texture = SubResource("ViewportTexture_48mws")
 
 [node name="StatusPanel" parent="PixelatedViewport/SubViewport" parent_id_path=PackedInt32Array(571273759) index="1" unique_id=1964749212]

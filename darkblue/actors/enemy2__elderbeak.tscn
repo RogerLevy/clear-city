@@ -13,7 +13,6 @@ hp = 2
 r = 16.0
 atk = 30
 bounty = 60
-stats = null
 sprite_texture = ExtResource("2_26v3i")
 frame_width = 41
 frame_height = 27
@@ -35,6 +34,8 @@ polygon = PackedVector2Array(-17, -5, -17, 3, -3, 6, 1, 12, 12, 9, 18, 0, 12, -1
 
 [node name="ShootAtPlayer" type="Node2D" parent="." unique_id=1371313404]
 script = ExtResource("3_rkv7c")
+beat_interval = 2.0
+time_offset = 1.0
 start_mode = 2
 open_ended = true
 metadata/_custom_type_script = "uid://cc5tsj0x0m1di"

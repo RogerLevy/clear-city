@@ -148,9 +148,7 @@ func update_charge_bars(ship):
 
 func update_ship_sprite(ship):
     if charge > 0:
-        # Frame 0-12 based on charge, 1 frame per 10 charge
-        var frame = mini(charge / 10, 12)
-        ship.current_frame = frame
+        ship.current_frame = charge * 12 / CHARGE_MAX
     elif not ship.recovering():
         ship.current_frame = 0
 

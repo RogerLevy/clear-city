@@ -256,13 +256,13 @@ func _on_enemy_hitbox_entered(area: Area2D):
         #hit_tri(actor)
 
 func hit_enemy(enemy):
-    if recovering(): return
+    if recovering() or invincible: return
     damage(enemy.atk)
     var knockback = (global_position - enemy.global_position).normalized() * 300
     velocity += knockback
 
 func hit_orb(orb):
-    if recovering(): return
+    if recovering() or invincible: return
     damage(orb.atk)
     var knockback = orb.velocity.normalized() * 150
     velocity += knockback

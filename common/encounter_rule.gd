@@ -21,6 +21,10 @@ var _initial_count: int = 0
 var _killed_count: int = 0
 var _started: bool = false
 var _parent: Node
+var _debug_font: Font = preload("res://common/font_04B_03__.ttf")
+
+func _ready():
+    super._ready()
 
 func start():
     if _started:
@@ -65,6 +69,7 @@ func _on_enemy_died(enemy: Node, pos: Vector2):
         return
     _last_pos = pos
     _killed_count += 1
+    print( _killed_count )
     _check_condition()
 
 func _check_condition():
@@ -85,3 +90,18 @@ func _trigger_action():
                 g.playfield.add_child.call_deferred(instance)
     g.enemy_died.disconnect(_on_enemy_died)
     complete()
+
+func _draw():
+    if not OS.is_debug_build(): return
+    if not _debug_font: return
+    if not running: return
+    var text = name
+    if condition == Condition.NUMBER_KILLED:
+        text += " %d/%d" % [_killed_count, kill_count]
+    elif condition == Condition.ALL_KILLED:
+        text += " %d/%d" % [_killed_count, _initial_count]
+    draw_string(_debug_font, Vector2(4,8), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color.YELLOW)
+
+func _process(_delta):
+    if _debug_font and running:
+        queue_redraw()

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="OnscreenOutputConfig" format=3 uid="uid://dmll45km8utg5"]
+
+[ext_resource type="Script" uid="uid://doaddv36xhb7k" path="res://addons/onscreen_output/Ignore/config.gd" id="1_3h3uo"]
+[ext_resource type="InputEventKey" uid="uid://dr650bnyy3u75" path="res://addons/onscreen_output/Ignore/default_keybind.tres" id="2_vnvgg"]
+
+[resource]
+script = ExtResource("1_3h3uo")
+toggle_keybind = ExtResource("2_vnvgg")
+font_color = Color(1, 0.8901961, 0, 1)
+background_color = Color(0, 0, 0, 0)
+size = Vector2(270, 540)

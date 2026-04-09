@@ -14,6 +14,7 @@ signal died
 @export var snd_damage: AudioStreamWAV = preload("res://darkblue/sfx/snd-06.wav")
 @export var snd_death: AudioStreamWAV = preload("res://darkblue/sfx/snd-06.wav")
 static var bounty_font: Font = preload("res://darkblue/fonts/darkblue_mini.ttf")
+@export var invincible: bool = false
 
 const DeathCircle = preload("res://darkblue/effects/death_circle.gd")
 
@@ -42,6 +43,7 @@ func recovering() -> bool:
 var dead: bool = false
 
 func damage(amount: int):
+    if invincible or recovering(): return
     if dead: return
     if not is_visible_in_tree(): return  # Not active yet (sequence not launched)
     hp -= amount

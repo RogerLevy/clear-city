@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dcjio1vuxp1v" path="res://common/click.wav" id="2_hj3p8"]
 [ext_resource type="Script" uid="uid://b1wppt5vfddg2" path="res://common/offscreen_cleaner.gd" id="3_jl3py"]
 [ext_resource type="Shader" uid="uid://cp52tdubcbeo" path="res://darkblue/effects/bgblur.gdshader" id="4_22fp8"]
+[ext_resource type="Script" uid="uid://nr5a564pcagm" path="res://darkblue/tests/debug_wave_skipper.gd" id="5_cilcj"]
 [ext_resource type="Texture2D" uid="uid://d234h3qv72bf8" path="res://darkblue/backgrounds/backdrop.png" id="5_w6k5e"]
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="6_w7nun"]
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_f8eaa"]
@@ -35,6 +36,9 @@ shader = ExtResource("4_22fp8")
 shader_parameter/radius = 5.0000002375
 shader_parameter/expansion = 0.0
 shader_parameter/dither_strength = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ht6nd"]
+blend_mode = 2
 
 [sub_resource type="GDScript" id="GDScript_2ntwe"]
 script/source = "extends Node
@@ -77,9 +81,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8418803, 0.16239317)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ht6nd"]
-blend_mode = 2
-
 [sub_resource type="GDScript" id="GDScript_3he2n"]
 script/source = "extends Sprite2D
 
@@ -93,29 +94,53 @@ func _physics_process(_delta):
     position = g.mouse_pos()
 "
 
-[node name="GameMode2" type="Node2D" unique_id=287075061]
+[node name="GameMode" type="Node2D" unique_id=287075061]
 script = SubResource("GDScript_5y6s7")
 metadata/_edit_lock_ = true
 
-[node name="StageConfig" type="Node" parent="." unique_id=58167012]
+[node name="StageConfig" type="Node" parent="." unique_id=58167012 groups=["export_only"]]
 script = ExtResource("1_8dg4j")
 metadata/_custom_type_script = "uid://d1kvv0xes5qp0"
 metadata/_favorite = true
 
-[node name="BeatConfig" type="Node" parent="." unique_id=1389375741]
+[node name="StageConfigDev" type="Node" parent="." unique_id=867944371 groups=["editor_only"]]
+script = ExtResource("1_8dg4j")
+invincibility = true
+metadata/_custom_type_script = "uid://d1kvv0xes5qp0"
+metadata/_favorite = true
+
+[node name="BeatConfig" type="Node" parent="." unique_id=1389375741 groups=["export_only"]]
 script = ExtResource("1_cilcj")
 bpm = 143.0
+metronome_sound = ExtResource("2_hj3p8")
+metadata/_favorite = true
+
+[node name="BeatConfigDev" type="Node" parent="." unique_id=49882070 groups=["editor_only"]]
+script = ExtResource("1_cilcj")
+bpm = 143.0
+metronome_enabled = true
 metronome_sound = ExtResource("2_hj3p8")
 metadata/_favorite = true
 
 [node name="OffscreenCleaner" type="Node" parent="." unique_id=1795284918]
 script = ExtResource("3_jl3py")
 
+[node name="WaveSkipperDebug" type="Node" parent="." unique_id=1766492947]
+script = ExtResource("5_cilcj")
+
 [node name="Backdrop" type="Sprite2D" parent="." unique_id=1605552771]
 material = SubResource("ShaderMaterial_gqy2i")
 scale = Vector2(1.1453633, 1.0222665)
 texture = ExtResource("5_w6k5e")
 centered = false
+metadata/_edit_lock_ = true
+
+[node name="DarkenEffect" type="ColorRect" parent="Backdrop" unique_id=4867736]
+material = SubResource("CanvasItemMaterial_ht6nd")
+custom_minimum_size = Vector2(9999, 9999)
+offset_right = 9999.0
+offset_bottom = 9999.0
+color = Color(0.8862745, 0.8862745, 0.8862745, 0.078431375)
 metadata/_edit_lock_ = true
 
 [node name="WindowInit" type="Node" parent="." unique_id=1914668296]

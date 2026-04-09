@@ -32,6 +32,7 @@ script = ExtResource("1_ship")
 snd_collect = ExtResource("3_abl7j")
 snd_bounce = ExtResource("4_eykgk")
 snd_damage = ExtResource("2_8d7bb")
+invincible = null
 sprite_texture = ExtResource("2_0a7q7")
 frame_width = 27
 frame_height = 27
@@ -39,8 +40,8 @@ frame_height = 27
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=483660802]
 unique_name_in_owner = true
 texture = ExtResource("2_0a7q7")
-hframes = 4
-vframes = 4
+hframes = 8
+vframes = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=12078926]
 collision_mask = 14

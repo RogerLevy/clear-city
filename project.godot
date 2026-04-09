@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="CLEAR-CITY"
-run/main_scene="uid://ck2hs02t8xhpa"
+run/main_scene="uid://ckupbibwbwpxa"
 config/use_hidden_project_data_directory=false
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.14117648, 0.79607844, 0.14117648, 1)
@@ -38,6 +38,8 @@ beat/metronome_sample="uid://dcjio1vuxp1v"
 beat="*uid://bp8vsqr2b5bjf"
 enemies="*res://darkblue/scripts/enemies.gd"
 g="*uid://5780chgktfwu"
+Output="*uid://bjetmrco2b8bw"
+DebugFilter="*uid://bilxcqqh2h3qk"
 
 [debug]
 
@@ -86,6 +88,9 @@ enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons
 enemies=""
 enemy_projectiles=""
 resources=""
+export_only=""
+editor_only=""
+debug_only=""
 
 [importer_defaults]
 
@@ -162,6 +167,17 @@ cancel_charge={
 ui_reload={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194336,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+skip_wave={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194343,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+start_game={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(192, 12),"global_position":Vector2(201, 60),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 

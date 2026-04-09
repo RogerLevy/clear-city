@@ -58,7 +58,7 @@ var _duration_override: bool = false
 var _anim: AnimationPlayer
 @export var autoplay_name: StringName = &"sequence"
 @export var open_ended: bool = false  ## If true, completion is code- or animation-controlled only
-@export var important: bool = false   ## On completion: false = free when no running Sequence children, true = free when no Sequence children
+#@export var important: bool = false   ## On completion: false = free when no running Sequence children, true = free when no Sequence children
 @export var stick_around: bool = false  ## If true, don't free on completion
 var sequences_launched: int = 0
 var _pending_free: bool = false
@@ -136,9 +136,9 @@ func running_sequence_children() -> Array[Node]:
     return sequence_children().filter(func(c): return c.running and not _is_independent(c))
 
 func can_free() -> bool:
-    if important:
-        return sequence_children().is_empty()
-    else:
+    #if important:
+        #return sequence_children().is_empty()
+    #else:
         return running_sequence_children().is_empty()
 
 func try_free():
@@ -182,6 +182,15 @@ func next():
     if is_instance_valid(seq):
         print_debug(name, " launching ", seq.name)
         launch_sequence(seq)
+
+func skip():
+    for child in get_children():
+        if child is Sequence and child.running:
+            child.stop()  # Stop children recursively
+            child.running = true  # Restore so complete() works
+            child.stick_around = false  # Force removal on skip
+            child.complete()  # Emit signal, trigger next()
+            return
 
 func _on_child_sequence_completed( _seq: Sequence, is_independent: bool = false ):
     if running and not has_animation and not is_independent:
@@ -286,6 +295,7 @@ func start_from_beat(from_beat: float):
     start()
 
 func _ready():
+    if Engine.is_editor_hint(): return
     add_to_group("sequences")
 
     # Stop all child AnimationPlayers (they may have autoplay) and find the sequence animation

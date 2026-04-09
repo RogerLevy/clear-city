@@ -134,8 +134,6 @@ y_pixels = 20.0
 amount = -0.5
 
 [node name="enemy2" parent="." unique_id=1198562410 instance=ExtResource("2_vn3cm")]
-position = Vector2(528, 48)
-snd_damage = null
-snd_death = null
+position = Vector2(524.1466, 52.760986)
 stats = {}
 metadata/_edit_lock_ = true

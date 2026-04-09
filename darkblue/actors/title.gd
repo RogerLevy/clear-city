@@ -9,4 +9,8 @@ func init():
     tween.tween_property(self, "scale:y", 1, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
     tween.tween_callback( func():
         %TitleMenu.visible = true
+        act( func():
+            if Input.is_action_just_pressed("start_game"):
+                get_tree().change_scene_to_file("res://darkblue/tests/wave_test5.tscn")
+            )
         )
