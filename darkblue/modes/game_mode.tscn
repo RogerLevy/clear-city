@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="11_kuxv1"]
 [ext_resource type="Script" uid="uid://b1aqqi5fgmdpy" path="res://darkblue/scripts/playfield.gd" id="12_en8bo"]
 [ext_resource type="PackedScene" path="res://darkblue/effects/ghosting.tscn" id="13_0r518"]
+[ext_resource type="Texture2D" uid="uid://crkryqn4e0srw" path="res://darkblue/assets/gary_face_alts_nobg_insta.png" id="13_hj3p8"]
 [ext_resource type="Shader" uid="uid://btqgwjb4m20vi" path="res://darkblue/effects/lcd_invert.gdshader" id="13_p84ta"]
 [ext_resource type="PackedScene" uid="uid://msbui6bm3ky" path="res://darkblue/effects/lcd_effect.tscn" id="14_8dg4j"]
 [ext_resource type="Shader" uid="uid://bhfmpgtjvej0p" path="res://darkblue/effects/light_effect.gdshader" id="14_br0ij"]
@@ -70,7 +71,7 @@ shader = ExtResource("14_br0ij")
 [sub_resource type="Gradient" id="Gradient_417bh"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.21311475, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.16996294, 0.16996294, 0.16996294, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.11575533, 0.11575533, 0.11575533, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5tw3s"]
 gradient = SubResource("Gradient_417bh")
@@ -135,7 +136,8 @@ texture = ExtResource("5_w6k5e")
 centered = false
 metadata/_edit_lock_ = true
 
-[node name="DarkenEffect" type="ColorRect" parent="Backdrop" unique_id=4867736]
+[node name="BackdropDarkenEffect" type="ColorRect" parent="Backdrop" unique_id=4867736]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_ht6nd")
 custom_minimum_size = Vector2(9999, 9999)
 offset_right = 9999.0
@@ -158,6 +160,7 @@ unique_name_in_owner = true
 texture_filter = 1
 texture = SubResource("ViewportTexture_1")
 centered = false
+metadata/_edit_lock_ = true
 
 [node name="SubViewport" type="SubViewport" parent="PixelatedViewport" unique_id=571273759]
 transparent_bg = true
@@ -200,6 +203,11 @@ points = PackedVector2Array(0, 37, 72, 37, 72, 48, 0, 48)
 closed = true
 width = 1.0
 default_color = Color(0.81960785, 0.81960785, 0.69803923, 1)
+
+[node name="GaryFaceAltsNobg" type="Sprite2D" parent="PixelatedViewport/SubViewport" unique_id=1557551241]
+visible = false
+position = Vector2(264, 180)
+texture = ExtResource("13_hj3p8")
 
 [node name="Playfield" type="Node2D" parent="." unique_id=768111580]
 unique_name_in_owner = true
@@ -265,5 +273,6 @@ color = Color(0.8862745, 0.8862745, 0.8862745, 0.70980394)
 metadata/_edit_lock_ = true
 
 [node name="Reticule" type="Sprite2D" parent="." unique_id=2117237723]
+z_index = 4095
 texture = ExtResource("20_p1ml6")
 script = SubResource("GDScript_3he2n")

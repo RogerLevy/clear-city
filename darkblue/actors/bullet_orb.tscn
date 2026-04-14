@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://d3q1ks1gkpy1r" path="res://darkblue/actors/tri_sprite.gdshader" id="1_gs7c6"]
 [ext_resource type="Script" uid="uid://djnbwwguv7djr" path="res://darkblue/actors/bullet_orb.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://ckmk8cqe3c6yg" path="res://darkblue/actors/orb.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://b8qlqwyxrebso" path="res://darkblue/scripts/offscreen_remover.gd" id="4_k2c2s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2c2s"]
 shader = ExtResource("1_gs7c6")
@@ -30,3 +31,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=445963808]
 shape = SubResource("CircleShape2D_1")
+
+[node name="OffscreenRemover" type="Node" parent="." unique_id=2101540245]
+script = ExtResource("4_k2c2s")
+margin = 5.0

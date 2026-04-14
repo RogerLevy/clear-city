@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="CLEAR-CITY"
-run/main_scene="uid://ckupbibwbwpxa"
+run/main_scene="uid://ck2hs02t8xhpa"
 config/use_hidden_project_data_directory=false
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.14117648, 0.79607844, 0.14117648, 1)
@@ -23,6 +23,7 @@ boot_splash/show_image=false
 config/icon="res://icon.svg"
 run/main_scene.darkblue-inputlag-test=""
 run/main_scene.darkblue-visuals-test="uid://ck2hs02t8xhpa"
+run/main_scene.darkblue-stephen="uid://bnyeyicmw113x"
 
 [audio]
 
@@ -40,6 +41,7 @@ enemies="*res://darkblue/scripts/enemies.gd"
 g="*uid://5780chgktfwu"
 Output="*uid://bjetmrco2b8bw"
 DebugFilter="*uid://bilxcqqh2h3qk"
+SceneLoader="*res://common/scene_loader.gd"
 
 [debug]
 

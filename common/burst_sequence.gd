@@ -48,7 +48,8 @@ func _setup_burst():
         else:
             angle = start_angle + angle_step * i if final_count > 1 else angle_offset
         prev_angle = angle
-        _spawns.append(Vector2.from_angle(deg_to_rad(angle)) * (force + randf_range(0, force_range)))
+        var final_force = (force + randf_range(0, force_range)) * g.burst_force_factor
+        _spawns.append(Vector2.from_angle(deg_to_rad(angle)) * final_force)
 
     if _spawns.size() > 0:
         _spawn_instance(_spawns[0])

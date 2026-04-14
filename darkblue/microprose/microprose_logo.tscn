@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cwjudjqifyl3e"]
+
+[ext_resource type="Texture2D" uid="uid://btrl2ubkvfv2k" path="res://darkblue/microprose/5277995_white_upscayl_3x_ultrasharp-4x.png" id="1_tgjsn"]
+
+[node name="Node2D" type="Node2D" unique_id=41950859]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1242281122]
+custom_minimum_size = Vector2(525, 350)
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="5277995" type="Sprite2D" parent="." unique_id=959852038]
+texture_filter = 4
+position = Vector2(260, 177)
+scale = Vector2(0.175, 0.175)
+texture = ExtResource("1_tgjsn")

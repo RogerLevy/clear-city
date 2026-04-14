@@ -220,8 +220,8 @@ func pause():
 func resume():
     if playing: return
     if _using_dsp:
-        # TODO: Dsp resume from position not yet implemented
-        push_warning("Beat: resume not yet supported in DSP mode")
+        var from_sample := int(_pause_position * _dsp.sample_rate)
+        _dsp.start(from_sample)
     else:
         _start_time = Time.get_ticks_msec() / 1000.0
     playing = true
@@ -287,3 +287,8 @@ func every(beat_interval: float) -> Timer:
 func play_now(stream: AudioStreamWAV, volume: float = 1.0):
     if stream and _dsp:
         _dsp.schedule(stream, _dsp.sample_position, volume)
+
+## Pre-decode an audio stream (call during loading screens to avoid stutter)
+func warmup_audio(stream: AudioStreamWAV):
+    if stream and _dsp:
+        _dsp._get_sample_data(stream)

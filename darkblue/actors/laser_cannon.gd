@@ -33,18 +33,19 @@ func exp2_ease_in(t: float) -> float:
 func _ready():
     rotation = angle
     prev_rotation = angle
+    can_damage = false
 
     var tween = create_tween()
     # Phase 1: Grow from 1px to full width (exponential3 ease-in)
-    tween.tween_method(func(t): set_width(lerpf(1.0, max_width, exp3_ease_in(t))), 0.0, 1.0, 0.1)
+    tween.tween_method(func(t): set_width(lerpf(1.0, max_width, exp3_ease_in(t))), 0.0, 1.0, 0.3)
     tween.tween_callback(func(): can_damage = true)
     # Phase 2: Hold full width for a bit
     tween.tween_interval(0.033)
     # Phase 3: Slowly narrow (exponential2 ease-out, still deals damage)
-    tween.tween_method(func(t): set_width(lerpf(max_width, 1.0, exp2_ease_out(t))), 0.0, 1.0, 0.2)
+    tween.tween_method(func(t): set_width(lerpf(max_width, 1.0, exp2_ease_out(t))), 0.0, 1.0, 0.3)
     tween.tween_callback(func(): can_damage = false)
     # Phase 4: Shorten length exponentially
-    tween.tween_method(set_length, length, 0.0, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+    tween.tween_method(set_length, length, 0.0, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
     # Done
     tween.tween_callback(cleanup)
 

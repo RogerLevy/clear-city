@@ -45,7 +45,30 @@ _data = {
 &"fadein": SubResource("Animation_qvjqs")
 }
 
-[node name="GameMode" unique_id=287075061 instance=ExtResource("1_tgc2k")]
+[sub_resource type="GDScript" id="GDScript_start"]
+script/source = "extends Node
+
+func _ready():
+	SceneLoader.preload_scene(\"res://darkblue/tests/wave_test5.tscn\")
+	var anim = %AnimationPlayer
+	await anim.animation_finished
+	set_process_input(true)
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_start_game()
+	elif event is InputEventKey and event.keycode == KEY_ENTER and event.pressed:
+		_start_game()
+
+func _start_game():
+	set_process_input(false)
+	SceneLoader.change_scene(\"res://darkblue/tests/wave_test5.tscn\")
+"
+
+[node name="TitleTest2" unique_id=287075061 instance=ExtResource("1_tgc2k")]
+
+[node name="BeatConfigDev" parent="." index="3" unique_id=49882070]
+metronome_enabled = false
 
 [node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
 texture = SubResource("ViewportTexture_48mws")
@@ -85,8 +108,12 @@ position = Vector2(100, 211)
 texture = ExtResource("6_f421s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Playfield/Troupe" index="2" unique_id=2044674994]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_pamov")
 autoplay = &"fadein"
+
+[node name="StartGameTrigger" type="Node" parent="Playfield/Troupe" index="3"]
+script = SubResource("GDScript_start")
 
 [node name="DarkenEffect" parent="PostProcStack" parent_id_path=PackedInt32Array(577433371) index="4" unique_id=570308716]
 visible = true

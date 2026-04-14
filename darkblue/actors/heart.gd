@@ -5,7 +5,7 @@ var snd_heart: AudioStreamWAV = preload("res://darkblue/sfx/heart-01.wav")
 var snd_collect: AudioStreamWAV = preload("res://darkblue/sfx/heart-02.wav")
 
 func init():
-    g.sfx(snd_heart,0.33)
+    g.sfx(snd_heart,0.25)
     beat.beat_hit.connect(_on_beat)
     _beat()
     add_to_group("pickups")
@@ -33,7 +33,7 @@ func _on_area_entered(area: Area2D):
         collect()
 
 func collect():
-    g.sfx(snd_collect,0.33)
+    g.sfx(snd_collect,0.25)
     var tm = g.get("tri_manager")
     if tm:
         tm.trap_all()

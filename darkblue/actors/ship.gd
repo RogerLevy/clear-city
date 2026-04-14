@@ -1,5 +1,6 @@
 @tool
 extends Vessel2D
+class_name Ship
 
 # === Properties ===
 var flash_ctr: int = -1          # <0 = normal, >=0 = recovering (invincibility frames)
@@ -10,7 +11,7 @@ var _tri_display_timer: float = 0.0  # time since last tri collection
 
 # === Tweaks ===
 @export var sbp: int = 5         # screen bounce paralysis length
-@export var spd: float = 15     # normal movement speed
+@export var spd: float = 12     # normal movement speed
 @export var ine: float = 0.93    # inertia multiplier
 
 # === Sounds ===
@@ -28,7 +29,7 @@ func get_speed() -> float:
 # === Main behavior ===
 func init():
     r = 13.0
-    m = 10.0
+    #m = 10.0
     act(main_behavior)
 
 func main_behavior():
@@ -275,6 +276,7 @@ func hit_orb(orb):
     #tri.queue_free()
 
 func _ready():
+    show_hp_bar = false
     super._ready()
     if Engine.is_editor_hint(): return
     g.p1 = self

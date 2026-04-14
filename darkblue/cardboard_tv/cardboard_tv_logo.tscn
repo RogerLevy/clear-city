@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ytlfs86w6jwi"]
+
+[ext_resource type="Texture2D" uid="uid://dl37n0tgvtngi" path="res://darkblue/cardboard-tv-logo-work.png" id="1_equel"]
+
+[node name="CardboardTvLogoBolderCleanedUp" type="Sprite2D" unique_id=1835307754]
+texture_filter = 4
+position = Vector2(94, 125)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_equel")

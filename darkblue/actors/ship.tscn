@@ -1,10 +1,8 @@
 [gd_scene format=4 uid="uid://dlha6us6tyhs8"]
 
-[ext_resource type="Script" uid="uid://i8jyh7gs143l" path="res://darkblue/actors/ship.gd" id="1_ship"]
+[ext_resource type="Script" uid="uid://bvs41j6w2ryah" path="res://darkblue/actors/ship.gd" id="1_ship"]
 [ext_resource type="Texture2D" uid="uid://nq06dlhmfjau" path="res://darkblue/actors/ship.png" id="2_0a7q7"]
-[ext_resource type="AudioStream" uid="uid://43xbklxtmm5g" path="res://darkblue/sfx/snd-03.wav" id="2_8d7bb"]
-[ext_resource type="AudioStream" uid="uid://dp8emfbwkitlc" path="res://darkblue/sfx/snd-07.wav" id="3_abl7j"]
-[ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="4_eykgk"]
+[ext_resource type="PackedScene" uid="uid://ks4buvn8vbsk" path="res://darkblue/actors/gary.tscn" id="6_abl7j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 12.0
@@ -29,13 +27,9 @@ position = Vector2(88, 80)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ship")
-snd_collect = ExtResource("3_abl7j")
-snd_bounce = ExtResource("4_eykgk")
-snd_damage = ExtResource("2_8d7bb")
-invincible = null
-sprite_texture = ExtResource("2_0a7q7")
-frame_width = 27
-frame_height = 27
+
+[node name="Gary" parent="." unique_id=131183322 instance=ExtResource("6_abl7j")]
+position = Vector2(0, 2)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=483660802]
 unique_name_in_owner = true

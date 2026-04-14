@@ -18,6 +18,9 @@ var mouse_constraint_radius: float = 50
 var quantize_aim:bool = false
 var move_mouse_with_player:bool = true
 
+var enemy_bullet_factor: float = 1.0
+var burst_force_factor: float = 1.0
+
 var _p1_prev_pos: Vector2
 var _status_text_ref: BitmapText
 var _status_text: BitmapText:
@@ -35,6 +38,9 @@ var scroll_speed:Vector2 = Vector2(-50,0):
         
 func _ready():
     super._ready()
+    enemy_bullet_factor = 1.0
+    burst_force_factor = 1.0
+    Vessel2D.damage_deadzone = 0.0
     #if OS.has_feature("editor"):
         #set_deferred( "energy", 1000000 )
 
@@ -65,6 +71,8 @@ func process_status():
     _status_text.text = "%d" % int(_display_energy)
 
 func _process(_delta):
+    if get_tree().paused:
+        return
     process_mouse()
     process_status()
 

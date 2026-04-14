@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://tdmsmcugewy6"]
+
+[ext_resource type="PackedScene" uid="uid://byy7wvfqvk2y1" path="res://darkblue/modes/game_mode.tscn" id="1_joovx"]
+[ext_resource type="Script" uid="uid://b0a8alnoonhop" path="res://darkblue/tests/wave_test5_enemy_stats.gd" id="2_04wfj"]
+[ext_resource type="AudioStream" uid="uid://l7am6sy7a58m" path="res://darkblue/music/darkblue-reprise-test.wav" id="3_aix8d"]
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="4_b7ya4"]
+[ext_resource type="Script" uid="uid://15a3uljo3ida" path="res://common/sequence_start.gd" id="5_cnpyd"]
+[ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="6_u7mn7"]
+[ext_resource type="PackedScene" uid="uid://cn635ybymxnnt" path="res://darkblue/actors/enemy_ganglion.tscn" id="7_m1rqj"]
+[ext_resource type="Script" uid="uid://blhkdnhwle8oi" path="res://common/path_motion.gd" id="9_m1rqj"]
+[ext_resource type="Script" uid="uid://ct7snw7mgw0f3" path="res://common/pause.gd" id="10_te3l1"]
+[ext_resource type="Script" uid="uid://cdwkhh1oneb6a" path="res://common/loop_sequence.gd" id="11_v1641"]
+[ext_resource type="AudioStream" uid="uid://ccayrq5gis1x2" path="res://darkblue/sfx/snd-06.wav" id="13_gkm0t"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="17_1hbv0"]
+[ext_resource type="PackedScene" uid="uid://dlha6us6tyhs8" path="res://darkblue/actors/ship.tscn" id="23_6uxtc"]
+[ext_resource type="AudioStream" uid="uid://dp8emfbwkitlc" path="res://darkblue/sfx/snd-07.wav" id="24_4fwbp"]
+[ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="25_q01mp"]
+[ext_resource type="PackedScene" uid="uid://5r1g237ymi0y" path="res://darkblue/actors/turret.tscn" id="26_b0dvf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_te3l1"]
+viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="Curve2D" id="Curve2D_te3l1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -197, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gkm0t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -197, 0, 0, 0, 0, 0, -196, 108)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_v1641"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -196, 108, 0, 0, 0, 0, -196, 0)
+}
+point_count = 2
+
+[node name="GameMode" unique_id=287075061 instance=ExtResource("1_joovx")]
+
+[node name="StageConfig" parent="." index="0" unique_id=58167012]
+enemy_stats = ExtResource("2_04wfj")
+ship_speed = 12.0
+
+[node name="StageConfigDev" parent="." index="1" unique_id=867944371]
+enemy_stats = ExtResource("2_04wfj")
+starting_energy = 20000
+ship_speed = 12.0
+
+[node name="BeatConfig" parent="." index="2" unique_id=1389375741]
+music = ExtResource("3_aix8d")
+
+[node name="BeatConfigDev" parent="." index="3" unique_id=49882070]
+metronome_enabled = false
+
+[node name="WaveSkipperDebug" parent="." index="5" unique_id=1766492947 groups=["debug_only"]]
+
+[node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
+texture = SubResource("ViewportTexture_te3l1")
+
+[node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=2092535520]
+unique_name_in_owner = true
+script = ExtResource("4_b7ya4")
+stick_around = true
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+metadata/_favorite = true
+
+[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="0" unique_id=1247839593]
+script = ExtResource("5_cnpyd")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+metadata/_favorite = true
+
+[node name="SongSection" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=384353626]
+script = ExtResource("6_u7mn7")
+open_ended = true
+stick_around = true
+metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
+metadata/_edit_lock_ = true
+
+[node name="Sequence" type="Node2D" parent="Playfield/WaveSequence/SongSection" index="0" unique_id=204709974]
+position = Vector2(547, 73)
+script = ExtResource("4_b7ya4")
+open_ended = true
+stick_around = true
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="SineMovement" type="Node" parent="Playfield/WaveSequence/SongSection/Sequence" index="0" unique_id=1053282724]
+script = ExtResource("17_1hbv0")
+enabled = false
+y_phase = 90.0
+x_pixels = 20.0
+y_pixels = 20.0
+speed = 0.5
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="EnemyGanglion" parent="Playfield/WaveSequence/SongSection/Sequence" index="1" unique_id=547318557 instance=ExtResource("7_m1rqj")]
+
+[node name="PathMotion" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence" index="2" unique_id=867541760 node_paths=PackedStringArray("target")]
+script = ExtResource("9_m1rqj")
+target = NodePath("../EnemyGanglion")
+ease_out = 1.0
+duration = 4.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="Playfield/WaveSequence/SongSection/Sequence/PathMotion" index="0" unique_id=1761967475]
+curve = SubResource("Curve2D_te3l1")
+
+[node name="Pause" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence" index="3" unique_id=668601096]
+script = ExtResource("10_te3l1")
+duration = 8.0
+metadata/_custom_type_script = "uid://ct7snw7mgw0f3"
+
+[node name="LoopSequence" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence" index="4" unique_id=1557548616]
+script = ExtResource("11_v1641")
+times = 4
+
+[node name="PathMotion2" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence" index="0" unique_id=1768804272 node_paths=PackedStringArray("target")]
+script = ExtResource("9_m1rqj")
+target = NodePath("../../EnemyGanglion")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 2.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence/PathMotion2" index="0" unique_id=1142680418]
+curve = SubResource("Curve2D_gkm0t")
+
+[node name="Pause2" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence" index="1" unique_id=279144595]
+script = ExtResource("10_te3l1")
+duration = 6.0
+metadata/_custom_type_script = "uid://ct7snw7mgw0f3"
+
+[node name="PathMotion3" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence" index="2" unique_id=1759458311 node_paths=PackedStringArray("target")]
+script = ExtResource("9_m1rqj")
+target = NodePath("../../EnemyGanglion")
+ease_in = 1.0
+ease_out = 1.0
+ease_out_curve = 5
+duration = 2.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence/PathMotion3" index="0" unique_id=1331078767]
+curve = SubResource("Curve2D_v1641")
+
+[node name="Pause3" type="Node2D" parent="Playfield/WaveSequence/SongSection/Sequence/LoopSequence" index="3" unique_id=1140744901]
+script = ExtResource("10_te3l1")
+duration = 6.0
+metadata/_custom_type_script = "uid://ct7snw7mgw0f3"
+
+[node name="Ship" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=1525402565 instance=ExtResource("23_6uxtc")]
+unique_name_in_owner = true
+position = Vector2(49, 189)
+snd_collect = ExtResource("24_4fwbp")
+snd_bounce = ExtResource("25_q01mp")
+atk = 1
+bounty = ExtResource("13_gkm0t")
+snd_death = false
+invincible = 0
+stats = false
+
+[node name="Turret" parent="Playfield/Ship" index="4" unique_id=544839953 instance=ExtResource("26_b0dvf")]
+position = Vector2(-30.60001, -16.400002)
+orbit_radius = 24.0

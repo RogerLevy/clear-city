@@ -15,6 +15,22 @@ func _input(event):
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
             set_windowed_size()
 
+    # F7: Toggle pause (for debugging - switch to editor via taskbar)
+    if event is InputEventKey and event.pressed and event.keycode == KEY_F7:
+        beat.toggle_pause()
+        if get_tree().paused:
+            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+        else:
+            Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+    # Click to unpause
+    if get_tree().paused and event is InputEventMouseButton and event.pressed:
+        beat.resume()
+        Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+        # Clear shoot action so turret doesn't fire
+        Input.action_release("shoot")
+        get_viewport().set_input_as_handled()
+
     if event is InputEventMouseMotion:
         constrain_mouse()
 
@@ -52,6 +68,7 @@ func init_border():
 
 ## Constrain mouse to game viewport (call from _process)
 func constrain_mouse():
+    if get_tree().paused: return
     if not get_window().has_focus(): return
     if get_window().is_embedded(): return
 

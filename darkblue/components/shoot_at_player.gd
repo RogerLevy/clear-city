@@ -175,7 +175,7 @@ func _shoot():
 
     # Set velocity towards player
     var dir = (player.global_position - global_position).normalized()
-    bullet.velocity = dir * bullet_speed * Engine.physics_ticks_per_second
+    bullet.velocity = dir * bullet_speed * g.enemy_bullet_factor * Engine.physics_ticks_per_second
 
     # Set attack value
     if "atk" in bullet:

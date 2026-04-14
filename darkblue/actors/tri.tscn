@@ -3,9 +3,31 @@
 [ext_resource type="Script" uid="uid://cvr6x63qxn7ba" path="res://darkblue/actors/tri_sprite.gd" id="1_ld6sf"]
 [ext_resource type="Texture2D" uid="uid://bhdjx3npvqj23" path="res://darkblue/actors/tri_sheet.png" id="2_ld6sf"]
 [ext_resource type="Shader" uid="uid://d3q1ks1gkpy1r" path="res://darkblue/actors/tri_sprite.gdshader" id="3_shader"]
+[ext_resource type="Shader" uid="uid://da0c2bt87uhrq" path="res://darkblue/shaders/rim_light.gdshader" id="4_rim"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tri"]
 shader = ExtResource("3_shader")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rim"]
+shader = ExtResource("4_rim")
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/light_angle = 225.0
+shader_parameter/rim_width = 1.0000000475
+shader_parameter/rim_intensity = 0.7850000372875
+shader_parameter/center_offset = Vector2(0.5, 0.5)
+shader_parameter/specular_radius = 0.6310000299725
+shader_parameter/facing_threshold = 0.15600005491000002
+
+[sub_resource type="GDScript" id="GDScript_rim_rotate"]
+script/source = "extends Sprite2D
+
+@export var rotation_speed: float = 360.0
+
+func _process(delta):
+    var angle = material.get_shader_parameter(\"light_angle\")
+    angle = fmod(angle + rotation_speed * delta, 360.0)
+    material.set_shader_parameter(\"light_angle\", angle)
+"
 
 [node name="Tri" type="CharacterBody2D" unique_id=14285508 groups=["resources"]]
 position = Vector2(56, 56)
@@ -18,3 +40,11 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tri")
 texture = ExtResource("2_ld6sf")
 hframes = 72
+
+[node name="RimLight" type="Sprite2D" parent="." unique_id=1241759934]
+visible = false
+z_index = 4096
+material = SubResource("ShaderMaterial_rim")
+texture = ExtResource("2_ld6sf")
+hframes = 72
+script = SubResource("GDScript_rim_rotate")

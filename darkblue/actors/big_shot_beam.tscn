@@ -1,12 +1,14 @@
-[gd_scene format=3 uid="uid://cpj0uvmjlnt86"]
+[gd_scene format=3 uid="uid://co1milal7y4om"]
 
 [ext_resource type="PackedScene" uid="uid://bp2d703t1yrgl" path="res://common/actor_2d.tscn" id="1"]
 [ext_resource type="Script" uid="uid://b51js427j3y6" path="res://darkblue/actors/big_shot_beam.gd" id="2"]
+[ext_resource type="Script" uid="uid://b8qlqwyxrebso" path="res://darkblue/scripts/offscreen_remover.gd" id="3_cfkir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beam"]
 size = Vector2(48, 16)
 
 [node name="BigShotBeam" unique_id=1645516782 instance=ExtResource("1")]
+position = Vector2(-24, 0)
 script = ExtResource("2")
 
 [node name="Sprite2D" parent="." index="0" unique_id=46284632]
@@ -25,3 +27,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0" unique_id=239168339]
 shape = SubResource("RectangleShape2D_beam")
+
+[node name="OffscreenRemover" type="Node" parent="." index="3" unique_id=1676698316]
+script = ExtResource("3_cfkir")
+margin = 25.0

@@ -50,7 +50,7 @@ func update_sprite():
     
 func _ready():
     add_to_group("actors")
-    sprite = find_child("Sprite2D")
+    sprite = find_child("Sprite2D", false)  # Non-recursive to avoid finding nested actor sprites
     update_sprite()
     if get_parent() == get_tree().root:
         var cam = Camera2D.new()
@@ -69,6 +69,8 @@ func _physics_process( _delta ):
         animationPos += animationSpeed 
         if animationPos >= animation.size():
             animationPos = fmod( animationPos, animation.size() )
+        if animationPos < 0:
+            animationPos += animation.size()
         current_frame = animation[ animationPos ]
         
     super._physics_process( _delta )

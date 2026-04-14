@@ -8,17 +8,23 @@ signal died
 
 @export var hp: int = 1          # health points
 @export var r: float = 8.0       # collision radius
-@export var m: float = 1.0       # mass
+#@export var m: float = 1.0       # mass
 @export var atk: int = 5         # attack power
 @export var bounty: int = 10     # points/reward when killed
 @export var snd_damage: AudioStreamWAV = preload("res://darkblue/sfx/snd-06.wav")
 @export var snd_death: AudioStreamWAV = preload("res://darkblue/sfx/snd-06.wav")
 static var bounty_font: Font = preload("res://darkblue/fonts/darkblue_mini.ttf")
 @export var invincible: bool = false
+@export var show_hp_bar: bool = true
 
 const DeathCircle = preload("res://darkblue/effects/death_circle.gd")
 
+static var damage_deadzone: float = 0.0  ## Screen edge margin where enemies can't be damaged
+
 var _shake_counter: int = 0
+var _max_hp: int = 0
+var _display_hp: float = 0.0
+var _damaged: bool = false
 
 @export var stats:Dictionary
 
@@ -34,19 +40,31 @@ func load_stats():
             bounty = stats.bounty
 
 func _ready():
-    super._ready()   
+    super._ready()
     if not Engine.is_editor_hint(): load_stats()
+    _max_hp = hp
+    _display_hp = float(hp)
 
 func recovering() -> bool:
     return false
 
 var dead: bool = false
 
+func _in_damage_deadzone() -> bool:
+    if damage_deadzone <= 0: return false
+    if not is_in_group("enemies"): return false
+    var vp_size = get_viewport_rect().size
+    var pos = global_position
+    return pos.x < damage_deadzone or pos.x > vp_size.x - damage_deadzone or \
+           pos.y < damage_deadzone or pos.y > vp_size.y - damage_deadzone
+
 func damage(amount: int):
     if invincible or recovering(): return
     if dead: return
     if not is_visible_in_tree(): return  # Not active yet (sequence not launched)
+    if _in_damage_deadzone(): return
     hp -= amount
+    _damaged = true
     if hp <= 0:
         dead = true
         die()
@@ -87,3 +105,30 @@ func _process_shake():
 func _physics_process( _delta ):
     super._physics_process( _delta )
     _process_shake()
+    _process_hp_bar()
+
+func _process_hp_bar():
+    if not show_hp_bar or not _damaged or _max_hp <= 0: return
+    var diff = hp - _display_hp
+    var roll_speed = absf(diff) * 0.05 + 0.1
+    var prev = _display_hp
+    _display_hp = move_toward(_display_hp, hp, roll_speed)
+    if prev != _display_hp:
+        queue_redraw()
+
+func _get_sprite_size() -> Vector2:
+    if sprite and sprite.texture:
+        var tex_size = sprite.texture.get_size()
+        if sprite.hframes > 1 or sprite.vframes > 1:
+            return Vector2(tex_size.x / sprite.hframes, tex_size.y / sprite.vframes)
+        return tex_size
+    return Vector2(frame_width, frame_height)
+
+func _draw():
+    if Engine.is_editor_hint(): return
+    if not show_hp_bar or not _damaged or _max_hp <= 0: return
+    var size = _get_sprite_size()
+    var bar_width: float = size.x
+    var bar_y: float = -size.y * 0.5 - 2
+    var filled: float = bar_width * (_display_hp / _max_hp)
+    draw_line(Vector2(-bar_width * 0.5, bar_y), Vector2(-bar_width * 0.5 + filled, bar_y), g.COLOR_MAIN)

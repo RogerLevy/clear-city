@@ -10,7 +10,8 @@
       "Bash(mv \"darkblue/effects/lcd_response.tscn\" \"darkblue/effects/lcd_effect.tscn\")",
       "Bash(mv \"darkblue/effects/lcd_response.gd.uid\" \"darkblue/effects/lcd_effect.gd.uid\")",
       "Bash(mv \"darkblue/effects/lcd_response.gdshader.uid\" \"darkblue/effects/lcd_effect.gdshader.uid\")",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(find \"C:/Users/roger/Dev/godot-dev/CLEAR-CITY\" -name \"*.gd\" -exec grep -l \"extends Node\" {} \\\\;)"
     ]
   }
 }
