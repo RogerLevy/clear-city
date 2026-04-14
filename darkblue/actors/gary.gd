@@ -12,6 +12,11 @@ func init():
         if ship is not Ship:
             return
 
+        if ship.dead:
+            current_frame = 6
+            animationSpeed = 0
+            return
+
         var turret = ship.get_node_or_null("Turret")
         if not turret:
             return
@@ -21,7 +26,7 @@ func init():
 
         # Ship movement direction
         var ship_moving_right = ship.velocity.x > 0
-        var ship_moving = absf(ship.velocity.x) > 1.0
+        var ship_moving = ship.velocity.length() > 1.0
 
         # Gary faces the direction the turret is facing
         if sprite:
@@ -31,8 +36,12 @@ func init():
         var speed_factor = ship.velocity.length() / 100.0
         var speed = minf(speed_factor, 0.75)
 
-        # Run backwards if turret faces opposite to movement
-        if ship_moving and turret_facing_right != ship_moving_right:
+        # Run backwards if:
+        # 1. Moving horizontally and turret faces opposite to movement, OR
+        # 2. Moving upward (within 45 degrees of straight up)
+        var moving_horizontally = absf(ship.velocity.x) > 1.0
+        var moving_upward = ship.velocity.y < 0 and absf(ship.velocity.y) >= absf(ship.velocity.x)
+        if (moving_horizontally and turret_facing_right != ship_moving_right) or moving_upward:
             speed = -speed
 
         animationSpeed = speed
