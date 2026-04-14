@@ -7,8 +7,11 @@ static var current_section:SongSection
 var _debug_font: Font = preload("res://common/font_04B_03__.ttf")
 #var _name_display_timer: float = 0.0
 
-#func _init():
-    #stick_around = true
+func _ready():
+    if not Engine.is_editor_hint():
+        var warnings = EntryWarnings.new()
+        add_child(warnings)
+    super._ready()
 
 func start():
     current_section = self

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c5kjo3j3ip6fv"]
+
+[ext_resource type="Script" uid="uid://ckbuq8mfsut4a" path="res://darkblue/effects/entry_arrow.gd" id="1_script"]
+
+[node name="EntryArrow" type="Node2D" unique_id=1485444426]
+script = ExtResource("1_script")
+
+[node name="Arrow" type="Polygon2D" parent="." unique_id=468470799]
+scale = Vector2(-1, -1)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(8, 0, 0, -5, 0, -2, -5, -2, -5, 2, 0, 2, 0, 5)

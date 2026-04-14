@@ -65,6 +65,7 @@ static func get_scenes() -> Dictionary:
 		"tentacle_segment": "res://darkblue/components/tentacle_segment.tscn",
 		"tentacle_test": "res://darkblue/components/tentacle_test.tscn",
 		"death_circle": "res://darkblue/effects/death_circle.tscn",
+		"entry_arrow": "res://darkblue/effects/entry_arrow.tscn",
 		"ghosting": "res://darkblue/effects/ghosting.tscn",
 		"hit_sparks": "res://darkblue/effects/hit_sparks.tscn",
 		"lcd_effect": "res://darkblue/effects/lcd_effect.tscn",
