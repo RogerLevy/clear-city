@@ -16,14 +16,18 @@ position = Vector2(100, 100)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_script")
+pulse_amount = null
+pulse_duration = null
 sprite_texture = ExtResource("2_tex")
 frame_width = 13
 frame_height = 13
+current_frame = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=351447468]
 material = SubResource("ShaderMaterial_k2c2s")
 texture = ExtResource("2_tex")
 hframes = 4
+frame = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=630710036]
 collision_layer = 8

@@ -571,12 +571,7 @@ stick_around = true
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 metadata/_favorite = true
 
-[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="0" unique_id=1247839593]
-script = ExtResource("15_24wc1")
-metadata/_custom_type_script = "uid://15a3uljo3ida"
-metadata/_favorite = true
-
-[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=1839355543]
+[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1839355543]
 script = ExtResource("5_o4v11")
 duration = 32.0
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
@@ -630,6 +625,11 @@ infinite = true
 timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
+
+[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="1" unique_id=1247839593]
+script = ExtResource("15_24wc1")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+metadata/_favorite = true
 
 [node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1651965941]
 process_mode = 4

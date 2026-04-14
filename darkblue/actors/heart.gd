@@ -7,7 +7,7 @@ var snd_collect: AudioStreamWAV = preload("res://darkblue/sfx/heart-02.wav")
 func init():
     g.sfx(snd_heart,0.25)
     beat.beat_hit.connect(_on_beat)
-    _beat()
+    #_beat()
     add_to_group("pickups")
     $Area2D.area_entered.connect(_on_area_entered)
     if g.p1:
