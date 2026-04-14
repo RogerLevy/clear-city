@@ -79,7 +79,17 @@ func _process(_delta):
 func _input(event):
     super._input(event)
     if event.is_action_pressed("ui_reload"):
+        _reenable_sine_movement_tracks()
         get_tree().reload_current_scene()
+
+func _reenable_sine_movement_tracks():
+    var anims = get_tree().current_scene.find_children("*", "AnimationPlayer") if get_tree().current_scene else []
+    for anim_player in anims:
+        for anim_name in anim_player.get_animation_list():
+            var anim: Animation = anim_player.get_animation(anim_name)
+            for track_idx in anim.get_track_count():
+                if not anim.track_is_enabled(track_idx):
+                    anim.track_set_enabled(track_idx, true)
 
 func constrain_mouse():
     super.constrain_mouse()
