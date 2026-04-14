@@ -8,13 +8,13 @@ const vec3 KEY_COLOR = vec3(0.298, 0.298, 0.498);  // #4c4c7f
 const float KEY_THRESHOLD = 0.02;
 
 void vertex() {
-    // Instance color's red channel contains frame / 72
+    // Instance color's red channel contains normalized frame (0-1 for 24 frames)
     frame_data = COLOR.r;
 }
 
 void fragment() {
-    float frame = floor(frame_data * 72.0);
-    float frame_width = 1.0 / 72.0;
+    float frame = floor(frame_data * 24.0);
+    float frame_width = 1.0 / 24.0;
     vec2 uv = UV;
     uv.x = frame * frame_width + uv.x * frame_width;
 

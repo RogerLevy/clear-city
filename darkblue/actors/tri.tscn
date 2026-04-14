@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://n6hikm3jorqj"]
 
 [ext_resource type="Script" uid="uid://cvr6x63qxn7ba" path="res://darkblue/actors/tri_sprite.gd" id="1_ld6sf"]
-[ext_resource type="Texture2D" uid="uid://bhdjx3npvqj23" path="res://darkblue/actors/tri_sheet.png" id="2_ld6sf"]
+[ext_resource type="Texture2D" uid="uid://bhdjx3npvqj23" path="res://darkblue/actors/tri_sheet_hilite.png" id="2_ld6sf"]
 [ext_resource type="Shader" uid="uid://d3q1ks1gkpy1r" path="res://darkblue/actors/tri_sprite.gdshader" id="3_shader"]
 [ext_resource type="Shader" uid="uid://da0c2bt87uhrq" path="res://darkblue/shaders/rim_light.gdshader" id="4_rim"]
 
@@ -39,12 +39,12 @@ script = ExtResource("1_ld6sf")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tri")
 texture = ExtResource("2_ld6sf")
-hframes = 72
+hframes = 24
 
 [node name="RimLight" type="Sprite2D" parent="." unique_id=1241759934]
 visible = false
 z_index = 4096
 material = SubResource("ShaderMaterial_rim")
 texture = ExtResource("2_ld6sf")
-hframes = 72
+hframes = 24
 script = SubResource("GDScript_rim_rotate")

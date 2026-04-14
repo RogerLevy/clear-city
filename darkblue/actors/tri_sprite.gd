@@ -24,7 +24,7 @@ func _physics_process(_delta):
     screen_bounce()
     a += animationSpeed
     if a >= 360: a -= 360
-    s.frame = int(a / 360.0 * 72.0)
+    s.frame = int(fmod(a, 120.0) / 120.0 * 24.0)
 
 func screen_bounce():
     var screen_size = get_viewport().get_visible_rect().size

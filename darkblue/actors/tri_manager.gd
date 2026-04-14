@@ -13,12 +13,16 @@ var angles: PackedFloat32Array
 var bounced: PackedByteArray
 var trapped: PackedByteArray
 var count: int = 0
-var spin_speed: float = 12.0
+var spin_speed: float = 6.4321
+var _global_angle: float = 0.0
+var lockstep: bool = false  ## All tris animate together
 
 var multimesh_instance: MultiMeshInstance2D
 var tri_texture: Texture2D
 var tri_shader: Shader
 var tri_material: ShaderMaterial
+
+const TRI_FRAMES:float = 24.0
 
 func _ready():
     g.tri_manager = self
@@ -29,7 +33,7 @@ func _ready():
     bounced.resize(MAX_TRIS)
     trapped.resize(MAX_TRIS)
 
-    tri_texture = preload("res://darkblue/actors/tri_sheet.png")
+    tri_texture = preload("res://darkblue/actors/tri_sheet_hilite.png")
     tri_shader = preload("res://darkblue/actors/tri_multimesh.gdshader")
     tri_material = ShaderMaterial.new()
     tri_material.shader = tri_shader
@@ -79,7 +83,7 @@ func spawn(pos: Vector2, vel: Vector2) -> int:
     var t: Transform2D = Transform2D.IDENTITY
     t.origin = pos
     mm.set_instance_transform_2d(idx, t)
-    var frame_norm: float = (angle / 360.0 * 72.0) / 72.0
+    var frame_norm: float = fmod(angle, 120.0) / 120.0
     mm.set_instance_color(idx, Color(frame_norm, 0.0, 0.0, 1.0))
     mm.visible_instance_count = count
     return idx
@@ -94,6 +98,10 @@ func _physics_process(delta: float) -> void:
     var cull_max_y: float = screen_h + 20.0
     var bounce_max_x: float = screen_w - TRI_RADIUS
     var bounce_max_y: float = screen_h - TRI_RADIUS
+
+    # Update global angle for lockstep mode
+    _global_angle = fmod(_global_angle + spin_speed, 360.0)
+    var global_frame_norm: float = fmod(_global_angle, 120.0) / 120.0
 
     var i: int = 0
     while i < count:
@@ -118,11 +126,15 @@ func _physics_process(delta: float) -> void:
                 bounced[i] = 1
 
         # Update rotation
-        var angle: float = fmod(angles[i] + spin_speed, 360.0)
-        angles[i] = angle
+        var frame_norm: float
+        if lockstep:
+            frame_norm = global_frame_norm
+        else:
+            var angle: float = fmod(angles[i] + spin_speed, 360.0)
+            angles[i] = angle
+            frame_norm = fmod(angle, 120.0) / 120.0
 
         # Update multimesh transform (reuse t)
-        var frame_norm: float = (angle / 360.0 * 72.0) / 72.0
         t.origin = pos
         mm.set_instance_transform_2d(i, t)
         mm.set_instance_color(i, Color(frame_norm, 0.0, 0.0, 1.0))
@@ -204,6 +216,6 @@ func remove_tri(idx: int):
         var t: Transform2D = Transform2D.IDENTITY
         t.origin = positions[idx]
         mm.set_instance_transform_2d(idx, t)
-        var frame_norm: float = (angles[idx] / 360.0 * 72.0) / 72.0
+        var frame_norm: float = (angles[idx] / 360.0 * TRI_FRAMES) / TRI_FRAMES
         mm.set_instance_color(idx, Color(frame_norm, 0.0, 0.0, 1.0))
     mm.visible_instance_count = count
