@@ -34,7 +34,7 @@ viewport_path = NodePath("PixelatedViewport/SubViewport")
 
 [sub_resource type="Animation" id="Animation_gp5rv"]
 resource_name = "sequence"
-length = 16.0
+length = 12.0
 step = 0.5
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -240,7 +240,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.6666667, 0, 0, 0, 1, -0.16666667, -0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 4.25, 5.25)
+"times": PackedFloat32Array(4, 8.25, 9.25)
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -249,7 +249,7 @@ tracks/1/path = NodePath("../Angel/Burst2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(4),
+"times": PackedFloat32Array(8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -263,7 +263,7 @@ tracks/2/path = NodePath("../Angel2/Burst2D2")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(5),
+"times": PackedFloat32Array(9),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -277,7 +277,7 @@ tracks/3/path = NodePath("../Angel3/Burst2D3")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(6),
+"times": PackedFloat32Array(10),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -291,7 +291,7 @@ tracks/4/path = NodePath("../Angel4/Burst2D4")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(7),
+"times": PackedFloat32Array(11),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -307,7 +307,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 199, -4, 0, 0, 0, 199, 0, 0, 8, 0, 518.08057, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4, 28, 36)
+"times": PackedFloat32Array(4, 8, 28, 36)
 }
 tracks/6/type = "bezier"
 tracks/6/imported = false
@@ -318,7 +318,7 @@ tracks/6/loop_wrap = true
 tracks/6/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 180, -4, 0, 0, 0, 180, 0, 0, 8, 0, 521.73645, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4, 28, 36)
+"times": PackedFloat32Array(4, 8, 28, 36)
 }
 tracks/7/type = "bezier"
 tracks/7/imported = false
@@ -329,7 +329,7 @@ tracks/7/loop_wrap = true
 tracks/7/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4.75, 5.75)
+"times": PackedFloat32Array(4, 8.75, 9.75)
 }
 tracks/8/type = "bezier"
 tracks/8/imported = false
@@ -340,7 +340,7 @@ tracks/8/loop_wrap = true
 tracks/8/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 167, -4, 0, 0, 0, 167, 0, 0, 8, 0, 468.65463, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4, 28, 36)
+"times": PackedFloat32Array(4, 8, 28, 36)
 }
 tracks/9/type = "bezier"
 tracks/9/imported = false
@@ -351,7 +351,7 @@ tracks/9/loop_wrap = true
 tracks/9/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4, 5)
+"times": PackedFloat32Array(4, 8, 9)
 }
 tracks/10/type = "bezier"
 tracks/10/imported = false
@@ -362,7 +362,7 @@ tracks/10/loop_wrap = true
 tracks/10/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 200, -4, 0, 0, 0, 200, 0, 0, 8, 0, 520.1821, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4, 28, 36)
+"times": PackedFloat32Array(4, 8, 28, 36)
 }
 tracks/11/type = "bezier"
 tracks/11/imported = false
@@ -373,7 +373,7 @@ tracks/11/loop_wrap = true
 tracks/11/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 4.5, 5.5)
+"times": PackedFloat32Array(4, 8.5, 9.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5d3rs"]
@@ -485,7 +485,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3),
+"times": PackedFloat32Array(4, 5, 6, 7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -571,7 +571,12 @@ stick_around = true
 metadata/_custom_type_script = "uid://dosix5nlpo73y"
 metadata/_favorite = true
 
-[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="0" unique_id=1839355543]
+[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="0" unique_id=1247839593]
+script = ExtResource("15_24wc1")
+metadata/_custom_type_script = "uid://15a3uljo3ida"
+metadata/_favorite = true
+
+[node name="WaveBurstTest1" type="Node2D" parent="Playfield/WaveSequence" index="1" unique_id=1839355543]
 script = ExtResource("5_o4v11")
 duration = 32.0
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
@@ -626,15 +631,11 @@ timing_mode = 2
 duration = 8.0
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
-[node name="SequenceStart" type="Node" parent="Playfield/WaveSequence" index="1" unique_id=1247839593]
-script = ExtResource("15_24wc1")
-metadata/_custom_type_script = "uid://15a3uljo3ida"
-metadata/_favorite = true
-
 [node name="WaveAnimTest2" type="Node2D" parent="Playfield/WaveSequence" index="2" unique_id=1651965941]
 process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
+stick_around = true
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 
 [node name="WaveAnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveAnimTest2" index="0" unique_id=702105343]
@@ -828,7 +829,7 @@ speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Angel" parent="Playfield/WaveSequence/WaveAngelTest1" index="5" unique_id=1423960764 instance=ExtResource("18_8twpd")]
-position = Vector2(-109.00018, 144.98901)
+position = Vector2(341, -56)
 hp = 0
 atk = 0
 bounty = 0
@@ -850,7 +851,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel2" parent="Playfield/WaveSequence/WaveAngelTest1" index="6" unique_id=36322529 instance=ExtResource("18_8twpd")]
-position = Vector2(-55, 86)
+position = Vector2(685, 48)
 hp = 0
 atk = 0
 bounty = 0
@@ -872,7 +873,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel3" parent="Playfield/WaveSequence/WaveAngelTest1" index="7" unique_id=1663051665 instance=ExtResource("18_8twpd")]
-position = Vector2(-104.51416, 88)
+position = Vector2(136.00002, -61)
 hp = 0
 atk = 0
 bounty = 0
@@ -894,7 +895,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel4" parent="Playfield/WaveSequence/WaveAngelTest1" index="8" unique_id=419047630 instance=ExtResource("18_8twpd")]
-position = Vector2(-96.99423, 238.08736)
+position = Vector2(341, 440)
 hp = 0
 atk = 0
 bounty = 0
@@ -929,7 +930,7 @@ open_ended = true
 process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
-duration = 64.0
+duration = 60.0
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WaveHard1" index="0" unique_id=702855906]
@@ -1094,7 +1095,7 @@ open_ended = true
 process_mode = 4
 visible = false
 script = ExtResource("5_o4v11")
-duration = 32.0
+duration = 36.0
 metadata/_custom_type_script = "uid://b0rdm6q6xjfcf"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Playfield/WaveSequence/WavePathMotionTest" index="0" unique_id=1348763960]
