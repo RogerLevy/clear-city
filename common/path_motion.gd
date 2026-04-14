@@ -20,6 +20,7 @@ var _path: Path2D
 var _tween: Tween
 var _curve_length: float
 var _end_tangent_local: Vector2  ## Tangent at end, in path-local coords
+var _tween_speed_scale: float = 1.0  ## Tracked speed scale for slowdown
 
 func _curve_uses_param(curve: Tween.TransitionType) -> bool:
     match curve:
@@ -68,7 +69,8 @@ func start():
     target.global_position = _path.to_global(curve.get_point_position(0))
 
     _tween = create_tween()
-    _tween.set_speed_scale(1.0 / _get_time_scale())
+    _tween_speed_scale = 1.0 / _get_time_scale()
+    _tween.set_speed_scale(_tween_speed_scale)
 
     # Custom ease using method call
     _tween.tween_method(_sample_path, 0.0, 1.0, duration)

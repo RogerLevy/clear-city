@@ -62,6 +62,15 @@ func stop():
     _player.stop()
     _active.clear()
 
+func pause():
+    playing = false
+    _player.stop()
+
+func resume():
+    _player.play()
+    _playback = _player.get_stream_playback()
+    playing = true
+
 ## Set the main music track (WAV only)
 ## Auto-configures sample rate to match the file
 func set_music(stream: AudioStreamWAV):

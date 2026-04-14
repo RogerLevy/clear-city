@@ -189,7 +189,7 @@ func start(from_beat: float = 0.0):
 func _schedule_beats_and_metronome(from_beat: float = 0.0):
     print_debug( metronome_enabled, _metronome_stream )
     print_debug("bpm=", bpm, " scale=", scale, " sample_rate=", _dsp.sample_rate)
-    
+
     _dsp.clear_callbacks()
     _dsp.clear_repeating()
     _dsp.clear_scheduled()
@@ -198,9 +198,10 @@ func _schedule_beats_and_metronome(from_beat: float = 0.0):
     # Minimizes floating point error by avoiding intermediate scale variable
     var samples_per_minute: float = _dsp.sample_rate * 60.0
     var max_beats = 1000  # ~2 min at 120bpm
+    var first_beat: int = ceili(from_beat)  # Next whole beat at or after from_beat
     for b in max_beats:
-        var beat_num: int = int(from_beat) + b
-        var sample_pos: int = int((from_beat + b) * samples_per_minute / bpm)
+        var beat_num: int = first_beat + b
+        var sample_pos: int = int(float(beat_num) * samples_per_minute / bpm)
         _dsp.schedule_callback(sample_pos, beat_num)
         # Schedule metronome: full volume on downbeat, 50% on other beats
         if metronome_enabled and _metronome_stream:
@@ -213,15 +214,14 @@ func pause():
     playing = false
     _pause_position = position
     if _using_dsp:
-        _dsp.stop()
+        _dsp.pause()
     get_tree().paused = true
 
 ## Resume music and game
 func resume():
     if playing: return
     if _using_dsp:
-        var from_sample := int(_pause_position * _dsp.sample_rate)
-        _dsp.start(from_sample)
+        _dsp.resume()
     else:
         _start_time = Time.get_ticks_msec() / 1000.0
     playing = true

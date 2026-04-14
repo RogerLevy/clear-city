@@ -200,6 +200,7 @@ func slowdown_playfield():
     for seq:Sequence in get_tree().get_nodes_in_group("sequences"):
         seq.freeze()
     var anims = g.playfield.find_children("*", "AnimationPlayer") if g.playfield else []
+    var path_motions = g.playfield.find_children("*", "PathMotion") if g.playfield else []
     var decelerator = g.spawn("", get_parent(), Vector2.ZERO)
     var sines = get_tree().get_nodes_in_group("sine_movements")
     var tm = g.get("tri_manager")
@@ -219,6 +220,10 @@ func slowdown_playfield():
             actor.animationSpeed *= 0.94
         for anim in anims:
             anim.speed_scale *= 0.94
+        for pm in path_motions:
+            if is_instance_valid(pm) and pm._tween:
+                pm._tween_speed_scale *= 0.94
+                pm._tween.set_speed_scale(pm._tween_speed_scale)
         for sine in sines:
             if is_instance_valid(sine):
                 sine.speed *= 0.94

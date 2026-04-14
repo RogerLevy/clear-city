@@ -173,8 +173,13 @@ func attract_to(target: Vector2, radius: float, speed: float):
     var radius_sq: float = radius * radius
     var tx: float = target.x
     var ty: float = target.y
+    var screen_w: float = get_viewport().get_visible_rect().size.x
+    var screen_h: float = get_viewport().get_visible_rect().size.y
     for i in count:
         var pos: Vector2 = positions[i]
+        # Skip tris that have left the screen
+        if pos.x < -6 or pos.x > screen_w + 6 or pos.y < -6 or pos.y > screen_h + 6:
+            continue
         var dx: float = tx - pos.x
         var dy: float = ty - pos.y
         var dist_sq: float = dx * dx + dy * dy
