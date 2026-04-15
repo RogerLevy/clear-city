@@ -21,6 +21,7 @@ var _initial_count: int = 0
 var _killed_count: int = 0
 var _started: bool = false
 var _parent: Node
+var _tracked_enemies: Array[Node] = []  # Track actual enemy nodes
 var _debug_font: Font = preload("res://common/font_04B_03__.ttf")
 
 func _ready():
@@ -31,9 +32,8 @@ func start():
         return
     _started = true
     _parent = get_parent()
-    # For ALL_KILLED, count initial targets BEFORE connecting signal
-    if condition == Condition.ALL_KILLED:
-        _count_initial_targets()
+    # Count and track initial targets
+    _count_initial_targets()
     g.enemy_died.connect(_on_enemy_died)
     super.start()
 
@@ -45,6 +45,7 @@ func _count_initial_targets():
             continue
         if _matches_filter(node):
             _initial_count += 1
+            _tracked_enemies.append(node)
 
 func _is_descendant_of(node: Node, ancestor: Node) -> bool:
     var current = node.get_parent()
@@ -95,6 +96,7 @@ func _draw():
     if not OS.is_debug_build(): return
     if not _debug_font: return
     if not running: return
+    if process_mode == PROCESS_MODE_DISABLED: return
     var text = name
     if condition == Condition.NUMBER_KILLED:
         text += " %d/%d" % [_killed_count, kill_count]
@@ -105,3 +107,31 @@ func _draw():
 func _process(_delta):
     if _debug_font and running:
         queue_redraw()
+    # Disable self if all tracked enemies are gone/disabled AND parent SongSection is not playing
+    if not _started or _tracked_enemies.is_empty():
+        return
+
+    var any_active := false
+    for enemy in _tracked_enemies:
+        if is_instance_valid(enemy) and enemy.is_inside_tree() and enemy.process_mode != ProcessMode.PROCESS_MODE_DISABLED:
+            any_active = true
+            break
+
+    if any_active:
+        return
+
+    var section := _find_song_section()
+    if section == null or not section.running:
+        if g.enemy_died.is_connected(_on_enemy_died):
+            g.enemy_died.disconnect(_on_enemy_died)
+        queue_redraw()  # Clear debug text
+        process_mode = PROCESS_MODE_DISABLED
+        print_debug("EncounterRule disabled: ", name)
+
+func _find_song_section() -> SongSection:
+    var current = get_parent()
+    while current:
+        if current is SongSection:
+            return current
+        current = current.get_parent()
+    return null
