@@ -35,12 +35,9 @@ func should_remove() -> bool:
     for vessel in vessels:
         if not is_instance_valid(vessel):
             continue
-        # Handle BurstSequence - remove when running and on-screen
+        # Handle BurstSequence - remove as soon as it starts
         if vessel is BurstSequence:
             if not vessel.running:
-                return false
-            var pos = vessel.global_position
-            if pos.x < 0 or pos.x > screen.x or pos.y < 0 or pos.y > screen.y:
                 return false
             continue
         # Not visible yet = still waiting to enter

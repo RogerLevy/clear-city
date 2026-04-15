@@ -229,6 +229,7 @@ func slowdown_playfield():
                 sine.speed *= 0.94
         if tm:
             tm.slowdown(0.94)
+        g.scroll_speed *= 0.94
     )
 
 # === Collision handlers (connect via Area2D signals) ===
