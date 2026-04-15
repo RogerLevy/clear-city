@@ -6,7 +6,10 @@
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="4_n2j6r"]
 [ext_resource type="AudioStream" uid="uid://d4fhtoyoh37pe" path="res://darkblue/music/darkblue-vamp-test.wav" id="4_pq440"]
 [ext_resource type="PackedScene" uid="uid://dr1totk6x775p" path="res://darkblue/actors/enemy_saton_e01.tscn" id="5_2d4ec"]
+[ext_resource type="Texture2D" uid="uid://bpx7hhqorts8e" path="res://darkblue/backgrounds/chatgpt-landscape-test.png" id="5_6dqk4"]
 [ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="5_o4v11"]
+[ext_resource type="Shader" uid="uid://03yago526qd5" path="res://darkblue/backgrounds/backdrop_punch.gdshader" id="5_uf64t"]
+[ext_resource type="Script" uid="uid://ba6feyg58sxde" path="res://darkblue/backgrounds/chatgpt_landscape_test.gd" id="6_1gqgl"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="6_pq440"]
 [ext_resource type="PackedScene" uid="uid://j2urqjikc3ab" path="res://darkblue/actors/enemy7__pentagon.tscn" id="7_kc7yv"]
 [ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="8_6dqk4"]
@@ -29,8 +32,13 @@
 [ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="25_o4v11"]
 [ext_resource type="AudioStream" uid="uid://43xbklxtmm5g" path="res://darkblue/sfx/snd-03.wav" id="28_kc7yv"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_pq440"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_1gqgl"]
 viewport_path = NodePath("PixelatedViewport/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uf64t"]
+shader = ExtResource("5_uf64t")
+shader_parameter/key_color = Color(0, 0, 0.003921569, 1)
+shader_parameter/key_threshold = 0.01
 
 [sub_resource type="Animation" id="Animation_gp5rv"]
 resource_name = "sequence"
@@ -240,7 +248,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.6666667, 0, 0, 0, 1, -0.16666667, -0.16666667, 0, 0),
-"times": PackedFloat32Array(4, 8.25, 9.25)
+"times": PackedFloat32Array(4, 10.25, 11.25)
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -249,7 +257,7 @@ tracks/1/path = NodePath("../Angel/Burst2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(8),
+"times": PackedFloat32Array(10),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -263,7 +271,7 @@ tracks/2/path = NodePath("../Angel2/Burst2D2")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(9),
+"times": PackedFloat32Array(11),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -277,7 +285,7 @@ tracks/3/path = NodePath("../Angel3/Burst2D3")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(10),
+"times": PackedFloat32Array(12),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -291,7 +299,7 @@ tracks/4/path = NodePath("../Angel4/Burst2D4")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(11),
+"times": PackedFloat32Array(13),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -307,7 +315,7 @@ tracks/5/loop_wrap = true
 tracks/5/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 199, -4, 0, 0, 0, 199, 0, 0, 8, 0, 518.08057, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8, 28, 36)
+"times": PackedFloat32Array(4, 10, 28, 36)
 }
 tracks/6/type = "bezier"
 tracks/6/imported = false
@@ -318,7 +326,7 @@ tracks/6/loop_wrap = true
 tracks/6/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 180, -4, 0, 0, 0, 180, 0, 0, 8, 0, 521.73645, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8, 28, 36)
+"times": PackedFloat32Array(4, 10, 28, 36)
 }
 tracks/7/type = "bezier"
 tracks/7/imported = false
@@ -329,7 +337,7 @@ tracks/7/loop_wrap = true
 tracks/7/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8.75, 9.75)
+"times": PackedFloat32Array(4, 10.75, 11.75)
 }
 tracks/8/type = "bezier"
 tracks/8/imported = false
@@ -340,7 +348,7 @@ tracks/8/loop_wrap = true
 tracks/8/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 167, -4, 0, 0, 0, 167, 0, 0, 8, 0, 468.65463, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8, 28, 36)
+"times": PackedFloat32Array(4, 10, 28, 36)
 }
 tracks/9/type = "bezier"
 tracks/9/imported = false
@@ -351,7 +359,7 @@ tracks/9/loop_wrap = true
 tracks/9/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8, 9)
+"times": PackedFloat32Array(4, 10, 11)
 }
 tracks/10/type = "bezier"
 tracks/10/imported = false
@@ -362,7 +370,7 @@ tracks/10/loop_wrap = true
 tracks/10/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 200, -4, 0, 0, 0, 200, 0, 0, 8, 0, 520.1821, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8, 28, 36)
+"times": PackedFloat32Array(4, 10, 28, 36)
 }
 tracks/11/type = "bezier"
 tracks/11/imported = false
@@ -373,7 +381,7 @@ tracks/11/loop_wrap = true
 tracks/11/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(4, 8.5, 9.5)
+"times": PackedFloat32Array(4, 10.5, 11.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5d3rs"]
@@ -549,7 +557,6 @@ damage_deadzone = 10.0
 [node name="StageConfigDev" parent="." index="1" unique_id=867944371]
 enemy_stats = ExtResource("2_6hcyp")
 starting_energy = 100
-invincibility = false
 damage_deadzone = 10.0
 
 [node name="BeatConfig" parent="." index="2" unique_id=1389375741]
@@ -561,10 +568,21 @@ metronome_enabled = false
 
 [node name="WaveSkipperDebug" parent="." index="5" unique_id=1766492947 groups=["debug_only"]]
 
-[node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
-texture = SubResource("ViewportTexture_pq440")
+[node name="Starfield" parent="." index="8" unique_id=1633305215]
+modulate = Color(1, 1, 1, 1)
 
-[node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="2" unique_id=2092535520]
+[node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
+texture = SubResource("ViewportTexture_1gqgl")
+
+[node name="ChatgptLandscapeTest" type="Sprite2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="0" unique_id=239910533]
+modulate = Color(1, 1, 1, 0.5647059)
+material = SubResource("ShaderMaterial_uf64t")
+position = Vector2(190, 252)
+texture = ExtResource("5_6dqk4")
+offset = Vector2(2108, -126)
+script = ExtResource("6_1gqgl")
+
+[node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=2092535520]
 unique_name_in_owner = true
 script = ExtResource("4_n2j6r")
 stick_around = true
@@ -829,7 +847,7 @@ speed = 0.0
 metadata/_custom_type_script = "uid://cnn3a053ow21s"
 
 [node name="Angel" parent="Playfield/WaveSequence/WaveAngelTest1" index="5" unique_id=1423960764 instance=ExtResource("18_8twpd")]
-position = Vector2(341, -56)
+position = Vector2(-109.00018, 144.98901)
 hp = 0
 atk = 0
 bounty = 0
@@ -851,7 +869,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel2" parent="Playfield/WaveSequence/WaveAngelTest1" index="6" unique_id=36322529 instance=ExtResource("18_8twpd")]
-position = Vector2(685, 48)
+position = Vector2(-55, 86)
 hp = 0
 atk = 0
 bounty = 0
@@ -873,7 +891,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel3" parent="Playfield/WaveSequence/WaveAngelTest1" index="7" unique_id=1663051665 instance=ExtResource("18_8twpd")]
-position = Vector2(136.00002, -61)
+position = Vector2(-104.51416, 88)
 hp = 0
 atk = 0
 bounty = 0
@@ -895,7 +913,7 @@ open_ended = true
 metadata/_custom_type_script = "uid://bpi4umj4vtm21"
 
 [node name="Angel4" parent="Playfield/WaveSequence/WaveAngelTest1" index="8" unique_id=419047630 instance=ExtResource("18_8twpd")]
-position = Vector2(341, 440)
+position = Vector2(-96.99423, 238.08736)
 hp = 0
 atk = 0
 bounty = 0
@@ -1235,7 +1253,7 @@ drop_scene = ExtResource("10_uf64t")
 start_mode = 2
 open_ended = true
 
-[node name="Ship" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=1525402565 instance=ExtResource("21_7jnju")]
+[node name="Ship" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="4" unique_id=1525402565 instance=ExtResource("21_7jnju")]
 unique_name_in_owner = true
 position = Vector2(49, 189)
 snd_collect = ExtResource("24_n2j6r")
