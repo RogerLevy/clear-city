@@ -21,6 +21,8 @@ var move_mouse_with_player:bool = true
 var enemy_bullet_factor: float = 1.0
 var burst_force_factor: float = 1.0
 
+var debug_info: bool = true
+
 var _p1_prev_pos: Vector2
 var _status_text_ref: BitmapText
 var _status_text: BitmapText:

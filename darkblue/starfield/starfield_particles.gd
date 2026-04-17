@@ -32,7 +32,7 @@ func _process(delta: float):
     var vp_w = get_viewport().get_visible_rect().size.x
     for i in star_count:
         var idx = i * 3
-        _stars[idx] -= _stars[idx + 2] * scroll_speed * 60.0 * delta
+        _stars[idx] -= _stars[idx + 2] * scroll_speed * 50.0 * delta
         if _stars[idx] < 0.0:
             _stars[idx] += vp_w
     queue_redraw()
@@ -91,9 +91,16 @@ func _is_masked(x: float, y: float) -> bool:
     # Check center and corners of star area (stars are ~2-3 pixels)
     for ox in [0, 2]:
         for oy in [0, 2]:
-            if _is_key_at(x + ox, y + oy):
+            if _is_opaque_at(x + ox, y + oy):
                 return true
     return false
+
+func _is_opaque_at(x: float, y: float) -> bool:
+    var mx = int(x - mask_offset.x)
+    var my = int(y - mask_offset.y)
+    if mx < 0 or my < 0 or mx >= mask_image.get_width() or my >= mask_image.get_height():
+        return false
+    return mask_image.get_pixel(mx, my).a > 0.01
 
 func _is_key_at(x: float, y: float) -> bool:
     var mx = int(x - mask_offset.x)

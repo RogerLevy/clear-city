@@ -70,7 +70,6 @@ func _on_enemy_died(enemy: Node, pos: Vector2):
         return
     _last_pos = pos
     _killed_count += 1
-    print( _killed_count )
     _check_condition()
 
 func _check_condition():
@@ -93,7 +92,8 @@ func _trigger_action():
     complete()
 
 func _draw():
-    if not OS.is_debug_build(): return
+    #if not OS.is_debug_build(): return
+    if not g.debug_info: return
     if not _debug_font: return
     if not running: return
     if process_mode == PROCESS_MODE_DISABLED: return

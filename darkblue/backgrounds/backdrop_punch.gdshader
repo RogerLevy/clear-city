@@ -13,6 +13,5 @@ void fragment() {
         discard;
     }
 
-    // Premultiply alpha for correct blending
-    COLOR = vec4(tex.rgb * tex.a, tex.a) * COLOR;
+    //COLOR = tex * COLOR;
 }

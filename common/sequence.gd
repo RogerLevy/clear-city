@@ -169,18 +169,18 @@ func next():
     # During seek, just count calls without launching
     if _seeking:
         _seek_next_count += 1
-        print_debug("next() BLOCKED during seek, count=", _seek_next_count, " anim_pos=", anim_pos)
+        print("next() BLOCKED during seek, count=", _seek_next_count, " anim_pos=", anim_pos)
         return
 
     _current_index += 1
-    print_debug(name, ".next() index=", _current_index, "/", _sequence_list.size())
+    print(name, ".next() index=", _current_index, "/", _sequence_list.size())
     if _current_index >= _sequence_list.size():
         if not _duration_override and not open_ended:
             _complete()
         return
     var seq = _sequence_list[_current_index]
     if is_instance_valid(seq):
-        print_debug(name, " launching ", seq.name)
+        print(name, " launching ", seq.name)
         launch_sequence(seq)
 
 func skip():
@@ -217,7 +217,7 @@ func _on_timeout():
 func start():
     if running: return  # Prevent double-start
     running = true
-    print_debug(name, ".start() has_animation=", has_animation, " duration=", duration, " autoplay_name=", autoplay_name)
+    print(name, ".start() has_animation=", has_animation, " duration=", duration, " autoplay_name=", autoplay_name)
 
     # Emit signals
     sequence_started.emit()
@@ -277,14 +277,14 @@ func start_from_beat(from_beat: float):
 
             # Skip the sequences that would have been launched
             _current_index = next_calls_before_seek - 1  # -1 because next() increments first
-            print_debug("start_from_beat: from_beat=", from_beat, " seek_time=", seek_time, " next_calls=", next_calls_before_seek, " _current_index=", _current_index)
+            print("start_from_beat: from_beat=", from_beat, " seek_time=", seek_time, " next_calls=", next_calls_before_seek, " _current_index=", _current_index)
 
             # Play and seek slightly before target so methods at seek_time trigger naturally
             # Use _seeking to block method calls during seek (deferred until next frame)
             _seeking = true
             _anim.play(autoplay_name)
             _anim.seek(seek_time - 0.001, true)
-            print_debug("  after seek, anim_pos=", _anim.current_animation_position)
+            print("  after seek, anim_pos=", _anim.current_animation_position)
             call_deferred("_end_seeking")
 
             if not _duration_override:
@@ -336,7 +336,7 @@ func _ready():
             child.visible = false
             child.process_mode = Node.PROCESS_MODE_DISABLED
 
-    print_debug(name, " _sequence_list=", _sequence_list.map(func(s): return s.name), " _independent_list=", _independent_list.map(func(s): return s.name))
+    print("Sequence:_ready ", name, " _sequence_list=", _sequence_list.map(func(s): return s.name), " _independent_list=", _independent_list.map(func(s): return s.name))
 
     # Handle start_mode
     match start_mode:
@@ -374,7 +374,7 @@ func _ready():
 
 func _end_seeking():
     _seeking = false
-    print_debug("_end_seeking, anim_pos=", _anim.current_animation_position if _anim else -1)
+    print("_end_seeking, anim_pos=", _anim.current_animation_position if _anim else -1)
 
 func _deferred_start():
     if beat.target_sequence == self and beat.started_from_beat > 0:

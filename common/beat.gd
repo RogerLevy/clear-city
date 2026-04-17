@@ -187,7 +187,7 @@ func start(from_beat: float = 0.0):
         _start_time = Time.get_ticks_msec() / 1000.0
 
 func _schedule_beats_and_metronome(from_beat: float = 0.0):
-    print_debug( metronome_enabled, _metronome_stream )
+    #print_debug( metronome_enabled, _metronome_stream )
     print_debug("bpm=", bpm, " scale=", scale, " sample_rate=", _dsp.sample_rate)
 
     _dsp.clear_callbacks()

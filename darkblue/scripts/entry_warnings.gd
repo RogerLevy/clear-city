@@ -216,6 +216,7 @@ func _spawn_arrows():
         arrow.edge = edge
         arrow.vessels = vessels
         arrow.z_index = 4095  # Same as Reticule, above pixelated viewport
+        arrow.add_to_group("entry_arrows")
         get_tree().current_scene.add_child(arrow)
         _arrows.append(arrow)
 

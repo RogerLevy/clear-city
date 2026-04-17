@@ -13,20 +13,22 @@ var _was_moving: bool = false
 var _is_panting: bool = false
 var _debug_font: Font = preload("res://common/font_04B_03__.ttf")
 
-func _process(_delta):
-    if OS.is_debug_build():
-        queue_redraw()
+#func _process(_delta):
+    #if OS.is_debug_build():
+        #queue_redraw()
 
-func _draw():
-    if not OS.is_debug_build(): return
-    var text = "%.1f" % fatigue
-    draw_string(_debug_font, Vector2(30, 0), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color.YELLOW)
+#func _draw():
+    #if not OS.is_debug_build(): return
+    #var text = "%.1f" % fatigue
+    #draw_string(_debug_font, Vector2(30, 0), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color.YELLOW)
 
 func init():
     animation = DEFAULT_ANIM
     animationSpeed = 0.5
+    var ship = get_parent()
+    if ship is Ship:
+        ship.damaged.connect(_on_ship_damaged)
     act( func():
-        var ship = get_parent()
         if ship is not Ship:
             return
 
@@ -56,9 +58,9 @@ func init():
 
         var delta = get_physics_process_delta_time()
 
-        # Reset fatigue when starting to run while panting
+        # Lower fatigue when starting to run while panting
         if player_moving and not _was_moving and _is_panting:
-            fatigue = 0.0
+            #fatigue *= 0.5
             _is_panting = false
         _was_moving = player_moving
 
@@ -71,9 +73,9 @@ func init():
             else:
                 fatigue = maxf(fatigue - (delta), 0.0)
 
-        # Start panting when ship has stopped and fatigued enough
+        # Start panting when ship has stopped, player not moving, and fatigued enough
         var ship_speed = ship.velocity.length()
-        if ship_speed < NEAR_STOPPED and fatigue >= PANT_THRESHOLD:
+        if ship_speed < NEAR_STOPPED and fatigue >= PANT_THRESHOLD and not player_moving:
             _is_panting = true
 
         # Stop panting when fatigue reaches 0
@@ -105,3 +107,7 @@ func init():
 
         animationSpeed = speed
     )
+
+func _on_ship_damaged():
+    _is_panting = false
+    fatigue = 0.0

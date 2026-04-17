@@ -8,10 +8,8 @@ func _input(event):
     if event.is_action_pressed("toggle_fullscreen"):
         if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN and \
            DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-            print_debug("Going fullscreen.")
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
         else:
-            print_debug("Going windowed.")
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
             set_windowed_size()
 

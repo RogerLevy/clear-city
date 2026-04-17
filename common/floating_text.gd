@@ -4,6 +4,7 @@ extends Label
 @export var float_distance: float = 16.0
 @export var float_time: float = 0.25
 @export var hold_time: float = 0.66
+@export var animate: bool = true
 
 const SLOT_SPACING: float = 8.0
 const MAX_SLOTS: int = 8
@@ -13,7 +14,8 @@ var _slot: int = -1
 
 func _ready():
     var tween = create_tween()
-    tween.tween_property(self, "position:y", position.y - float_distance, float_time)
+    if animate:
+        tween.tween_property(self, "position:y", position.y - float_distance, float_time)
     tween.tween_interval(hold_time)
     tween.tween_callback(_free_slot)
 
@@ -35,9 +37,10 @@ static func _get_free_slot(owner: Object) -> int:
             return i
     return 0  # fallback to bottom slot if all full
 
-static func spawn(parent: Node, pos: Vector2, msg: String, font: Font = null, size: int = 16, color: Color = Color.WHITE, owner: Object = null) -> FloatingText:
+static func spawn(parent: Node, pos: Vector2, msg: String, font: Font = null, size: int = 16, color: Color = Color.WHITE, owner: Object = null, animate: bool = true) -> FloatingText:
     var ft = FloatingText.new()
     ft.text = msg
+    ft.animate = animate
     ft._owner = owner if owner else parent
     ft._slot = _get_free_slot(ft._owner)
     ft.position = pos - Vector2(0, ft._slot * SLOT_SPACING)

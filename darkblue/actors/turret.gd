@@ -161,7 +161,7 @@ func fire_pea():
     var shot = g.spawn("shot", null, get_parent().global_position)
     if shot:
         shot.velocity = Vector2.from_angle(current_angle) * shot_speed
-    FloatingText.spawn(g.playfield, get_parent().global_position, "-1", charge_shot_font, 16, Color("f00"), get_parent())
+    FloatingText.spawn(get_parent(), Vector2.ZERO, "-1", charge_shot_font, 16, Color("f00"), get_parent())
 
 func fire_big_shot(ship):
     g.energy -= 29
@@ -176,7 +176,7 @@ func fire_big_shot(ship):
     var beam = g.spawn("big_shot_beam", null, ship.global_position)
     beam.velocity = Vector2.from_angle(current_angle) * shot_speed
 
-    FloatingText.spawn(g.playfield, get_parent().global_position, "-29", charge_shot_font, 16, Color("f00"), get_parent())
+    FloatingText.spawn(get_parent(), Vector2.ZERO, "-29", charge_shot_font, 16, Color("f00"), get_parent())
 
 func fire_laser_cannon(ship):
     g.energy -= 99
@@ -194,7 +194,7 @@ func fire_laser_cannon(ship):
     laser.turret = self
     laser.finished.connect(func(): laser_active = false)
         
-    FloatingText.spawn(g.playfield, get_parent().global_position, "-99", charge_shot_font, 16, Color("f00"), get_parent())
+    FloatingText.spawn(get_parent(), Vector2.ZERO, "-99", charge_shot_font, 16, Color("f00"), get_parent())
 
 #func _draw():
 #    # Debug: show charge counter (un-rotated)

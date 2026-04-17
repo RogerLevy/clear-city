@@ -80,7 +80,7 @@ func die():
     var playfield = g.get("playfield")
     if playfield:
         DeathCircle.spawn(playfield, global_position, r, g.COLOR_MAIN, clampf(16.0 / r, 0.5, 1.5) )
-        FloatingText.spawn(playfield, global_position, str(bounty), Vessel2D.bounty_font)
+        #FloatingText.spawn(playfield, global_position, str(bounty), Vessel2D.bounty_font)
     # Spawn tris biased towards player
     var tm = g.tri_manager
     if tm:

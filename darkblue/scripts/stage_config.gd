@@ -9,6 +9,7 @@ extends Node
 @export var burst_force_factor: float = 1.0
 @export var damage_deadzone: float = 0.0  ## Screen edge margin where enemies can't be damaged
 @export var scroll_speed: Vector2 = Vector2(-50, 0)
+@export var debug_info: bool = false
 
 func _ready():
     g.energy = starting_energy
@@ -23,4 +24,4 @@ func _ready():
     g.burst_force_factor = burst_force_factor
     g.scroll_speed = scroll_speed
     Vessel2D.damage_deadzone = damage_deadzone
-    print_debug("i executed: " + self.name)
+    g.debug_info = debug_info

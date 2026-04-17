@@ -13,7 +13,7 @@ var angles: PackedFloat32Array
 var bounced: PackedByteArray
 var trapped: PackedByteArray
 var count: int = 0
-var spin_speed: float = 5.4321
+var spin_speed: float = 4.321
 var _global_angle: float = 0.0
 var lockstep: bool = false  ## All tris animate together
 

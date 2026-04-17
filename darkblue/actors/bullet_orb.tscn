@@ -9,7 +9,7 @@
 shader = ExtResource("1_gs7c6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 0.01
+radius = 1.0
 
 [node name="BulletOrb" type="CharacterBody2D" unique_id=1011130752 groups=["actors"]]
 position = Vector2(100, 100)
@@ -24,7 +24,7 @@ current_frame = 2
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=351447468]
 material = SubResource("ShaderMaterial_k2c2s")
 texture = ExtResource("2_tex")
-hframes = 4
+hframes = 8
 frame = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=630710036]

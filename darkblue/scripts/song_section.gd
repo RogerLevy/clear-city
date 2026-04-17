@@ -26,7 +26,8 @@ func _process(delta):
 
 func _draw():
     if Engine.is_editor_hint(): return
-    if not OS.is_debug_build(): return
+    #if not OS.is_debug_build(): return
+    if not g.debug_info: return
     var screen_size = get_viewport().get_visible_rect().size
     var bottom_left = to_local(Vector2(4, screen_size.y - 4))
     draw_string(_debug_font, bottom_left, name, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, Color.YELLOW)

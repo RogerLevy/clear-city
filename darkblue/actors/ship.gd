@@ -2,6 +2,8 @@
 extends Vessel2D
 class_name Ship
 
+signal damaged
+
 # === Properties ===
 var flash_ctr: int = -1          # <0 = normal, >=0 = recovering (invincibility frames)
 var tri_cooldown: int = -1       # separate cooldown for tri collection
@@ -102,7 +104,7 @@ func check_tris():
     elif _tri_accumulator > 0:
         _tri_display_timer += get_physics_process_delta_time()
         if _tri_display_timer >= 0.2:
-            FloatingText.spawn(get_parent(), global_position, "+" + str(_tri_accumulator), damage_font, 16, Color("0f0"), self)
+            FloatingText.spawn(self, Vector2.ZERO, "+" + str(_tri_accumulator), damage_font, 16, Color("0f0"), self)
             _tri_accumulator = 0
 
 func screen_bounce(damping: float) -> bool:
@@ -134,6 +136,7 @@ func screen_bounce(damping: float) -> bool:
 # === Damage system ===
 func damage(amount: int):
     if amount == 0: return
+    damaged.emit()
     g.sfx(snd_damage)
     FloatingText.spawn(get_parent(), global_position, "-" + str(amount), damage_font, 16, Color("f00"), self)
 
@@ -188,7 +191,6 @@ func shatter():
     queue_free()
 
 func expel(amount: int):
-    print("expel ", amount)
     var tm:TriManager = g.get("tri_manager")
     if not tm: return
     for i in amount:

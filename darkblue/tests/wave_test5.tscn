@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="4_n2j6r"]
 [ext_resource type="AudioStream" uid="uid://d4fhtoyoh37pe" path="res://darkblue/music/darkblue-vamp-test.wav" id="4_pq440"]
 [ext_resource type="PackedScene" uid="uid://dr1totk6x775p" path="res://darkblue/actors/enemy_saton_e01.tscn" id="5_2d4ec"]
-[ext_resource type="Texture2D" uid="uid://bpx7hhqorts8e" path="res://darkblue/backgrounds/chatgpt-landscape-test.png" id="5_6dqk4"]
 [ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="5_o4v11"]
 [ext_resource type="Shader" uid="uid://03yago526qd5" path="res://darkblue/backgrounds/backdrop_punch.gdshader" id="5_uf64t"]
 [ext_resource type="Script" uid="uid://ba6feyg58sxde" path="res://darkblue/backgrounds/chatgpt_landscape_test.gd" id="6_1gqgl"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="6_pq440"]
+[ext_resource type="Texture2D" uid="uid://d06prff7g7vnq" path="res://darkblue/backgrounds/chatgpt-landscape-test-blurred.png" id="6_uf64t"]
 [ext_resource type="PackedScene" uid="uid://j2urqjikc3ab" path="res://darkblue/actors/enemy7__pentagon.tscn" id="7_kc7yv"]
 [ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="8_6dqk4"]
 [ext_resource type="Script" uid="uid://d3nfvtuber5rj" path="res://darkblue/actors/enemy7__pentagon.gd" id="9_1gqgl"]
@@ -553,11 +553,14 @@ _data = {
 [node name="StageConfig" parent="." index="0" unique_id=58167012]
 enemy_stats = ExtResource("2_6hcyp")
 damage_deadzone = 10.0
+scroll_speed = Vector2(-40, 0)
 
 [node name="StageConfigDev" parent="." index="1" unique_id=867944371]
+invincibility = false
 enemy_stats = ExtResource("2_6hcyp")
 starting_energy = 100
 damage_deadzone = 10.0
+scroll_speed = Vector2(-40, 0)
 
 [node name="BeatConfig" parent="." index="2" unique_id=1389375741]
 music = ExtResource("3_6hcyp")
@@ -575,10 +578,11 @@ modulate = Color(1, 1, 1, 1)
 texture = SubResource("ViewportTexture_1gqgl")
 
 [node name="ChatgptLandscapeTest" type="Sprite2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="0" unique_id=239910533]
-modulate = Color(1, 1, 1, 0.5647059)
+modulate = Color(1, 1, 1, 0.5019608)
 material = SubResource("ShaderMaterial_uf64t")
-position = Vector2(190, 252)
-texture = ExtResource("5_6dqk4")
+position = Vector2(67.00001, 248.00002)
+scale = Vector2(0.3771132, 0.3771132)
+texture = ExtResource("6_uf64t")
 offset = Vector2(2108, -126)
 script = ExtResource("6_1gqgl")
 
