@@ -7,12 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://d4fhtoyoh37pe" path="res://darkblue/music/darkblue-vamp-test.wav" id="4_pq440"]
 [ext_resource type="PackedScene" uid="uid://dr1totk6x775p" path="res://darkblue/actors/enemy_saton_e01.tscn" id="5_2d4ec"]
 [ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="5_o4v11"]
-[ext_resource type="Shader" uid="uid://03yago526qd5" path="res://darkblue/backgrounds/backdrop_punch.gdshader" id="5_uf64t"]
-[ext_resource type="Script" uid="uid://ba6feyg58sxde" path="res://darkblue/backgrounds/chatgpt_landscape_test.gd" id="6_1gqgl"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="6_pq440"]
-[ext_resource type="Texture2D" uid="uid://d06prff7g7vnq" path="res://darkblue/backgrounds/chatgpt-landscape-test-blurred.png" id="6_uf64t"]
 [ext_resource type="PackedScene" uid="uid://j2urqjikc3ab" path="res://darkblue/actors/enemy7__pentagon.tscn" id="7_kc7yv"]
 [ext_resource type="Script" uid="uid://c41yo76nvyclk" path="res://common/encounter_rule.gd" id="8_6dqk4"]
+[ext_resource type="PackedScene" uid="uid://c6t5hfh5nb2wa" path="res://darkblue/backgrounds/chatgpt_landscape.tscn" id="8_djfvh"]
 [ext_resource type="Script" uid="uid://d3nfvtuber5rj" path="res://darkblue/actors/enemy7__pentagon.gd" id="9_1gqgl"]
 [ext_resource type="PackedScene" uid="uid://ba6uy87d0tkkd" path="res://darkblue/actors/heart.tscn" id="10_uf64t"]
 [ext_resource type="PackedScene" uid="uid://cbxaen0wlpqoa" path="res://darkblue/actors/enemy2_e02.tscn" id="11_3j3pj"]
@@ -31,12 +29,24 @@
 [ext_resource type="AudioStream" uid="uid://dp8emfbwkitlc" path="res://darkblue/sfx/snd-07.wav" id="24_n2j6r"]
 [ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="25_o4v11"]
 [ext_resource type="AudioStream" uid="uid://43xbklxtmm5g" path="res://darkblue/sfx/snd-03.wav" id="28_kc7yv"]
+[ext_resource type="Script" uid="uid://cxdi6tcrcmivs" path="res://darkblue/backgrounds/landscape.gd" id="29_lsc"]
+[ext_resource type="Shader" uid="uid://bblq43y77v14m" path="res://darkblue/backgrounds/landscape_display.gdshader" id="31_ldsp"]
+[ext_resource type="Shader" uid="uid://bi74nckxvlcjk" path="res://darkblue/backgrounds/landscape_punch.gdshader" id="32_lpnch"]
+[ext_resource type="Shader" uid="uid://qyxyjoq50bfb" path="res://darkblue/backgrounds/starfield_mask.gdshader" id="33_smsk"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_1gqgl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_starfield_mask"]
+shader = ExtResource("33_smsk")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3j3pj"]
 viewport_path = NodePath("PixelatedViewport/SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uf64t"]
-shader = ExtResource("5_uf64t")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_landscape_blend"]
+shader = ExtResource("31_ldsp")
+shader_parameter/key_color = Color(0, 0, 0.003921569, 1)
+shader_parameter/key_threshold = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_landscape_punch"]
+shader = ExtResource("32_lpnch")
 shader_parameter/key_color = Color(0, 0, 0.003921569, 1)
 shader_parameter/key_threshold = 0.01
 
@@ -556,9 +566,9 @@ damage_deadzone = 10.0
 scroll_speed = Vector2(-40, 0)
 
 [node name="StageConfigDev" parent="." index="1" unique_id=867944371]
-invincibility = false
 enemy_stats = ExtResource("2_6hcyp")
 starting_energy = 100
+invincibility = false
 damage_deadzone = 10.0
 scroll_speed = Vector2(-40, 0)
 
@@ -573,18 +583,28 @@ metronome_enabled = false
 
 [node name="Starfield" parent="." index="8" unique_id=1633305215]
 modulate = Color(1, 1, 1, 1)
+material = SubResource("ShaderMaterial_starfield_mask")
 
 [node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
-texture = SubResource("ViewportTexture_1gqgl")
+texture = SubResource("ViewportTexture_3j3pj")
 
-[node name="ChatgptLandscapeTest" type="Sprite2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="0" unique_id=239910533]
-modulate = Color(1, 1, 1, 0.5019608)
-material = SubResource("ShaderMaterial_uf64t")
-position = Vector2(67.00001, 248.00002)
-scale = Vector2(0.3771132, 0.3771132)
-texture = ExtResource("6_uf64t")
-offset = Vector2(2108, -126)
-script = ExtResource("6_1gqgl")
+[node name="Landscape" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="0" unique_id=1016475212]
+script = ExtResource("29_lsc")
+
+[node name="SubViewport" type="SubViewport" parent="Playfield/Landscape" index="0" unique_id=1418225927]
+transparent_bg = true
+size = Vector2i(525, 350)
+render_target_update_mode = 4
+
+[node name="ChatgptLandscape" parent="Playfield/Landscape/SubViewport" index="0" unique_id=1208054278 instance=ExtResource("8_djfvh")]
+
+[node name="DisplayBlend" type="Sprite2D" parent="Playfield/Landscape" index="1" unique_id=1953062699]
+material = SubResource("ShaderMaterial_landscape_blend")
+centered = false
+
+[node name="DisplayPunch" type="Sprite2D" parent="Playfield/Landscape" index="2" unique_id=826275477]
+material = SubResource("ShaderMaterial_landscape_punch")
+centered = false
 
 [node name="WaveSequence" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="3" unique_id=2092535520]
 unique_name_in_owner = true
@@ -1269,6 +1289,9 @@ show_hp_bar = false
 [node name="Turret" parent="Playfield/Ship" index="4" unique_id=544839953 instance=ExtResource("22_8csx5")]
 position = Vector2(-30.60001, -16.400002)
 orbit_radius = 24.0
+
+[node name="GhostEffect" parent="PostProcStack" parent_id_path=PackedInt32Array(577433371) index="0" unique_id=1484726150]
+process_mode = 4
 
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel2"]

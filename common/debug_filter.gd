@@ -23,9 +23,7 @@ func _on_node_added(node: Node) -> void:
         _vaporize(node)
 
 func _vaporize(node: Node) -> void:
-    # Use call_deferred for the print to ensure we see it clearly in the logs
     print("CLEANER: Nuked node [", node.name, "]")
-    
     node.set_script(null)
     node.process_mode = PROCESS_MODE_DISABLED
     node.queue_free()

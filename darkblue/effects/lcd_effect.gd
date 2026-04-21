@@ -1,9 +1,9 @@
 extends Node2D
 
 ## How fast pixels fade in - higher = faster
-@export_range(0.01, 1.0) var fade_in_speed: float = 0.2
+@export_range(0.01, 1.0) var fade_in_speed: float = 0.5
 ## How fast pixels fade out - higher = faster
-@export_range(0.01, 1.0) var fade_out_speed: float = 0.1
+@export_range(0.0, 1.0) var fade_out_speed: float = 0.5
 ## Alpha multiplier for the 1-pixel gap lines (0 = fully transparent)
 @export_range(0.0, 1.0) var grille_gap_alpha: float = 0.5
 
@@ -113,10 +113,3 @@ func _update_grille_cell_size() -> void:
 
 func _on_first_frame() -> void:
     _copy_sprite.texture = _composite.get_texture()
-
-func _process(_delta: float) -> void:
-    if _mat:
-        _mat.set_shader_parameter("fade_in_speed", fade_in_speed)
-        _mat.set_shader_parameter("fade_out_speed", fade_out_speed)
-    if _grille_mat:
-        _grille_mat.set_shader_parameter("gap_alpha", grille_gap_alpha)

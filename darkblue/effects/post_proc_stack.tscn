@@ -42,8 +42,6 @@ texture_filter = 1
 ghost_amount = 0.3
 
 [node name="LCDEffect" parent="." unique_id=1219698695 instance=ExtResource("3_lcd")]
-fade_in_speed = 0.461
-fade_out_speed = 0.605
 grille_gap_alpha = 0.809
 
 [node name="LCDInversionEffect" type="ColorRect" parent="." unique_id=1278291405]

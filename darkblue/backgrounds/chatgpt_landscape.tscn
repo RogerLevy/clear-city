@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://c6t5hfh5nb2wa"]
+
+[ext_resource type="Script" uid="uid://bj36ht5no2byy" path="res://darkblue/backgrounds/scroller.gd" id="1_thtsq"]
+[ext_resource type="Texture2D" uid="uid://d06prff7g7vnq" path="res://darkblue/backgrounds/chatgpt-landscape-test-blurred.png" id="2_1atxx"]
+[ext_resource type="Shader" uid="uid://bvr4xv2jqhmm7" path="res://darkblue/backgrounds/landscape_layer.gdshader" id="3_1atxx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1atxx"]
+shader = ExtResource("3_1atxx")
+shader_parameter/key_color = Color(0, 0, 0, 1)
+shader_parameter/key_threshold = 0.02
+
+[sub_resource type="GDScript" id="GDScript_soywb"]
+script/source = "extends Sprite2D
+
+#var _adir = 1
+#
+#func _physics_process(delta: float) -> void:
+    #modulate.a8 += _adir
+    #if modulate.a8 >= 128:
+        #_adir = -1
+    #if modulate.a8 == 1:
+        #_adir = 1 
+    #
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2et4"]
+shader = ExtResource("3_1atxx")
+shader_parameter/key_color = Color(0, 0, 0, 1)
+shader_parameter/key_threshold = 0.02
+
+[node name="ChatgptLandscape" type="Node2D" unique_id=1208054278]
+
+[node name="Scroller2" type="Node2D" parent="." unique_id=374794915]
+material = SubResource("ShaderMaterial_1atxx")
+script = ExtResource("1_thtsq")
+parallax = 0.5
+
+[node name="ChatgptLandscapeTest" type="Sprite2D" parent="Scroller2" unique_id=1701632766]
+texture_filter = 1
+position = Vector2(1148.0001, 256)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1atxx")
+script = SubResource("GDScript_soywb")
+
+[node name="Scroller" type="Node2D" parent="." unique_id=1837656987]
+material = SubResource("ShaderMaterial_q2et4")
+script = ExtResource("1_thtsq")
+
+[node name="ChatgptLandscapeTest" type="Sprite2D" parent="Scroller" unique_id=847072702]
+texture_filter = 1
+position = Vector2(1148.0001, 256)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1atxx")
+script = SubResource("GDScript_soywb")

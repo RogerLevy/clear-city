@@ -61,6 +61,7 @@ static func get_scenes() -> Dictionary:
 		"tri_manager": "res://darkblue/actors/tri_manager.tscn",
 		"tri_old": "res://darkblue/actors/tri_old.tscn",
 		"turret": "res://darkblue/actors/turret.tscn",
+		"chatgpt_landscape": "res://darkblue/backgrounds/chatgpt_landscape.tscn",
 		"cardboard_tv_logo": "res://darkblue/cardboard_tv/cardboard_tv_logo.tscn",
 		"tentacle_segment": "res://darkblue/components/tentacle_segment.tscn",
 		"tentacle_test": "res://darkblue/components/tentacle_test.tscn",

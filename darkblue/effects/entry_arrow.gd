@@ -12,10 +12,9 @@ var vessels: Array[Node] = []  # Vessels this arrow represents
 
 func _ready():
     _update_rotation()
-    # Set arrow color
-    #var arrow = get_node_or_null("Arrow")
-    #if arrow is Polygon2D:
-        #arrow.color = g.COLOR_MAIN
+    
+func _physics_process(delta: float) -> void:
+    visible = (fmod(beat.beat_progress, 0.5) < .25)
 
 func _update_rotation():
     match edge:
@@ -23,10 +22,6 @@ func _update_rotation():
         Edge.RIGHT:  rotation = PI
         Edge.TOP:    rotation = PI / 2
         Edge.BOTTOM: rotation = -PI / 2
-
-func _process(_delta):
-    # Blink at 1/8th note interval (toggle every 0.25 beats)
-    visible = (int(beat.current_beat * 4) % 2) == 0
 
 func should_remove() -> bool:
     # Remove if all tracked vessels/bursts are on screen (and visible) or gone

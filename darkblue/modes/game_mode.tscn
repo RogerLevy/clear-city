@@ -237,8 +237,6 @@ metadata/_edit_lock_ = true
 
 [node name="LCDEffect" parent="PostProcStack" unique_id=1219698695 instance=ExtResource("14_8dg4j")]
 unique_name_in_owner = true
-fade_in_speed = 0.461
-fade_out_speed = 0.605
 grille_gap_alpha = 0.809
 metadata/_edit_lock_ = true
 
