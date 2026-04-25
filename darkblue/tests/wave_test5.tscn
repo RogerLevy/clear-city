@@ -559,7 +559,7 @@ scroll_speed = Vector2(-40, 0)
 
 [node name="StageConfigDev" parent="." index="1" unique_id=867944371]
 enemy_stats = ExtResource("2_6hcyp")
-starting_energy = 100
+starting_energy = 100000
 invincibility = false
 damage_deadzone = 10.0
 scroll_speed = Vector2(-40, 0)

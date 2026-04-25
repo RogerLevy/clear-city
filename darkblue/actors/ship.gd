@@ -5,7 +5,8 @@ class_name Ship
 signal damaged
 
 # === Properties ===
-var flash_ctr: int = -1          # <0 = normal, >=0 = recovering (invincibility frames)
+var flash_ctr: int = -1          # <0 = normal, >=0 = flashing (no knockback)
+var inv_ctr: int = 0             # blocks re-hits for 10 frames
 var tri_cooldown: int = -1       # separate cooldown for tri collection
 var paralysis: int = 0           # prevents input when >0
 var _tri_accumulator: int = 0    # accumulated tris for display
@@ -26,7 +27,7 @@ func recovering() -> bool:
     return flash_ctr >= 0
 
 func get_speed() -> float:
-    return spd / 2.5 if tri_cooldown >= 0 else spd
+    return spd
 
 # === Main behavior ===
 func init():
@@ -74,6 +75,8 @@ func _physics_process(delta):
     screen_bounce(0.9)
     attract_tris()
     check_tris()
+    if inv_ctr > 0:
+        inv_ctr -= 1
     super._physics_process(delta)
 
 func attract_tris():
@@ -146,7 +149,10 @@ func damage(amount: int):
         return
 
     expel(amount)
-    flash_ctr = 90
+    if flash_ctr < 0:
+        paralysis = 12
+    flash_ctr = 30
+    inv_ctr = 10
     tri_cooldown = 30
 
 func die():
@@ -250,14 +256,14 @@ func check_overlapping_hazards():
             return
 
 func _on_area_entered(area: Area2D):
-    if recovering(): return
+    if inv_ctr > 0: return
     var actor = area.get_parent()
 
     if actor.is_in_group("enemy_projectiles"):
         hit_orb(actor)
 
 func _on_enemy_hitbox_entered(area: Area2D):
-    if recovering(): return
+    if inv_ctr > 0: return
     var actor = area.get_parent()
     if actor.is_in_group("enemies"):
         hit_enemy(actor)
@@ -265,16 +271,18 @@ func _on_enemy_hitbox_entered(area: Area2D):
         #hit_tri(actor)
 
 func hit_enemy(enemy):
-    if recovering() or invincible: return
+    if inv_ctr > 0 or invincible: return
+    var first_hit = flash_ctr < 0
     damage(enemy.atk)
-    var knockback = (global_position - enemy.global_position).normalized() * 300
-    velocity += knockback
+    if first_hit:
+        velocity = (global_position - enemy.global_position).normalized() * 100
 
 func hit_orb(orb):
-    if recovering() or invincible: return
+    if inv_ctr > 0 or invincible: return
+    var first_hit = flash_ctr < 0
     damage(orb.atk)
-    var knockback = orb.velocity.normalized() * 150
-    velocity += knockback
+    if first_hit:
+        velocity = orb.velocity.normalized() * 100
     orb.queue_free()
 
 #func hit_tri(tri):
