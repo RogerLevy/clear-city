@@ -20,6 +20,8 @@ func _init():
     start_mode = StartMode.ON_PARENT
     open_ended = true
 
+const RingBurst = preload("res://darkblue/effects/ring_burst.gd")
+
 @export var bullet_scene: PackedScene = preload("res://darkblue/actors/bullet_orb.tscn")
 @export var beat_interval: float = 8.0
 @export var time_offset: float = 0.0  ## Beat offset for firing alignment
@@ -170,6 +172,16 @@ func _shoot():
     var player = g.p1
     if not player or not is_instance_valid(player): return
 
+    # Spawn ring burst effect
+    var playfield = g.get("playfield")
+    if playfield:
+        var ring_r: float = 8.0
+        var parent = get_parent()
+        if parent.has_method("_get_sprite_size"):
+            var sz = parent._get_sprite_size()
+            ring_r = maxf(sz.x, sz.y) * 0.4
+        RingBurst.spawn(playfield, global_position, ring_r, g.COLOR_MAIN, parent)
+
     var bullet = bullet_scene.instantiate()
     bullet.global_position = global_position
 
@@ -182,7 +194,6 @@ func _shoot():
         bullet.atk = bullet_atk
 
     # Add to playfield
-    var playfield = g.get("playfield")
     if playfield:
         playfield.add_child(bullet)
     else:

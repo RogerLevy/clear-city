@@ -79,7 +79,9 @@ func die():
     # Spawn death effect
     var playfield = g.get("playfield")
     if playfield:
-        DeathCircle.spawn(playfield, global_position, r, g.COLOR_MAIN, clampf(16.0 / r, 0.5, 1.5) )
+        var sprite_size = _get_sprite_size()
+        var death_r = maxf(sprite_size.x, sprite_size.y) * 0.55
+        DeathCircle.spawn(playfield, global_position, death_r, g.COLOR_MAIN, clampf(16.0 / death_r, 0.5, 1.5) )
         #FloatingText.spawn(playfield, global_position, str(bounty), Vessel2D.bounty_font)
     # Spawn tris biased towards player
     var tm = g.tri_manager

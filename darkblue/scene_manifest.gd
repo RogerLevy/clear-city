@@ -71,6 +71,7 @@ static func get_scenes() -> Dictionary:
 		"hit_sparks": "res://darkblue/effects/hit_sparks.tscn",
 		"lcd_effect": "res://darkblue/effects/lcd_effect.tscn",
 		"post_proc_stack": "res://darkblue/effects/post_proc_stack.tscn",
+		"ring_burst": "res://darkblue/effects/ring_burst.tscn",
 		"microprose_logo": "res://darkblue/microprose/microprose_logo.tscn",
 		"game_mode": "res://darkblue/modes/game_mode.tscn",
 		"soak_test": "res://darkblue/modes/soak_test.tscn",
