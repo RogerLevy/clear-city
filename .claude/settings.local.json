@@ -13,7 +13,9 @@
       "Bash(cd:*)",
       "Bash(find \"C:/Users/roger/Dev/godot-dev/CLEAR-CITY\" -name \"*.gd\" -exec grep -l \"extends Node\" {} \\\\;)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(python *)",
+      "Bash(claude *)"
     ]
   }
 }

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://qhmpg4c6ug3e" path="res://darkblue/actors/gary.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cpbcl8g1v4j5k" path="res://darkblue/actors/gary.png" id="2_tex"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khpjg"]
+size = Vector2(3, 10)
 
 [node name="Gary" type="CharacterBody2D" unique_id=131183322 groups=["actors"]]
 position = Vector2(100, 100)
@@ -15,11 +15,12 @@ sprite_texture = ExtResource("2_tex")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=167694438]
 texture = ExtResource("2_tex")
-hframes = 6
+hframes = 9
 
 [node name="Area2D" type="Area2D" parent="." unique_id=156509137]
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1063350382]
-shape = SubResource("CircleShape2D_1")
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_khpjg")

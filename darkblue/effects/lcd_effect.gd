@@ -1,11 +1,17 @@
 extends Node2D
 
 ## How fast pixels fade in - higher = faster
-@export_range(0.01, 1.0) var fade_in_speed: float = 0.5
+@export_range(0.01, 1.0) var fade_in_speed: float = 0.5:
+    set(v): fade_in_speed = v; if _mat: _mat.set_shader_parameter("fade_in_speed", v)
 ## How fast pixels fade out - higher = faster
-@export_range(0.0, 1.0) var fade_out_speed: float = 0.5
+@export_range(0.0, 1.0) var fade_out_speed: float = 0.5:
+    set(v): fade_out_speed = v; if _mat: _mat.set_shader_parameter("fade_out_speed", v)
 ## Alpha multiplier for the 1-pixel gap lines (0 = fully transparent)
-@export_range(0.0, 1.0) var grille_gap_alpha: float = 0.5
+@export_range(0.0, 1.0) var grille_gap_alpha: float = 0.5:
+    set(v): grille_gap_alpha = v; if _grille_mat: _grille_mat.set_shader_parameter("gap_alpha", v)
+## Power curve applied to luminance before phosphor sim (>1 sharper, <1 softer)
+@export_range(0.1, 4.0) var alpha_bias: float = 1.0:
+    set(v): alpha_bias = v; if _mat: _mat.set_shader_parameter("alpha_bias", v)
 
 var _game_viewport: SubViewport
 var _pixelated_viewport: Node
@@ -82,6 +88,7 @@ func _setup() -> void:
     _mat.set_shader_parameter("prev_output", _prev_copy.get_texture())
     _mat.set_shader_parameter("fade_in_speed", fade_in_speed)
     _mat.set_shader_parameter("fade_out_speed", fade_out_speed)
+    _mat.set_shader_parameter("alpha_bias", alpha_bias)
 
     _shader_rect = ColorRect.new()
     _shader_rect.size = Vector2(size)
@@ -91,6 +98,9 @@ func _setup() -> void:
     _grille_mat = ShaderMaterial.new()
     _grille_mat.shader = load("res://darkblue/effects/pixel_grille.gdshader") as Shader
     _grille_mat.set_shader_parameter("gap_alpha", grille_gap_alpha)
+    _grille_mat.set_shader_parameter("on_color", g.COLOR_MAIN)
+    #_grille_mat.set_shader_parameter("on_color", Color(1,1,0))
+    
     get_viewport().size_changed.connect(_update_grille_cell_size)
     _update_grille_cell_size()
 

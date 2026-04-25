@@ -43,7 +43,7 @@ static func spawn(parent: Node, pos: Vector2, msg: String, font: Font = null, si
     ft.animate = animate
     ft._owner = owner if owner else parent
     ft._slot = _get_free_slot(ft._owner)
-    ft.position = pos - Vector2(0, ft._slot * SLOT_SPACING)
+    ft.position = pos - Vector2(0, (ft._slot * SLOT_SPACING) + 3)
     if font:
         ft.add_theme_font_override("font", font)
     ft.add_theme_font_size_override("font_size", size)

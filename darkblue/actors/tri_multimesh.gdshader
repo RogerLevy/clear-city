@@ -3,10 +3,6 @@ render_mode blend_disabled;
 
 varying float frame_data;
 
-// Color key to replace with transparent
-const vec3 KEY_COLOR = vec3(0.298, 0.298, 0.498);  // #4c4c7f
-const float KEY_THRESHOLD = 0.02;
-
 void vertex() {
     // Instance color's red channel contains normalized frame (0-1 for 24 frames)
     frame_data = COLOR.r;
@@ -25,10 +21,5 @@ void fragment() {
         discard;
     }
 
-    // Replace key color with transparent (cuts through)
-    if (distance(tex.rgb, KEY_COLOR) < KEY_THRESHOLD) {
-        COLOR = vec4(0.0);
-    } else {
-        COLOR = tex;
-    }
+    COLOR = tex;
 }

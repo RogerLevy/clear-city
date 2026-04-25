@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b31q2o6ft4mx6" path="res://darkblue/starfield/starfield_particles.gd" id="6_w7nun"]
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_f8eaa"]
 [ext_resource type="Shader" uid="uid://croxek4pewu5e" path="res://common/replace_transparency.gdshader" id="8_3c5oa"]
+[ext_resource type="Shader" path="res://darkblue/effects/lum_to_alpha.gdshader" id="35_lum"]
 [ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="9_0qp6m"]
 [ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="10_v1ibh"]
 [ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="11_kuxv1"]
@@ -55,6 +56,9 @@ viewport_path = NodePath("PixelatedViewport/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oxhko"]
 shader = ExtResource("8_3c5oa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lum_to_alpha"]
+shader = ExtResource("35_lum")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_obtg6"]
 shader = ExtResource("13_p84ta")
@@ -157,6 +161,7 @@ metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
 
 [node name="PixelatedViewport" type="Sprite2D" parent="." unique_id=812505540]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_lum_to_alpha")
 texture_filter = 1
 texture = SubResource("ViewportTexture_1")
 centered = false
