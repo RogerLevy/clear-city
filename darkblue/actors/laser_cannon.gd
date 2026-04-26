@@ -10,7 +10,7 @@ var turret: Node2D = null
 var width: float = 1.0
 var max_width: float = 100.0
 var length: float = 2000.0
-var color: Color = g.COLOR_MAIN
+var color: Color = Color("white")
 
 var damaged_enemies: Dictionary = {}  # track who we've hit
 var can_damage: bool = false

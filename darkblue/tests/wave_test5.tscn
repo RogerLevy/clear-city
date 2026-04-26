@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://b0a8alnoonhop" path="res://darkblue/tests/wave_test5_enemy_stats.gd" id="2_6hcyp"]
 [ext_resource type="AudioStream" uid="uid://l7am6sy7a58m" path="res://darkblue/music/darkblue-reprise-test.wav" id="3_6hcyp"]
 [ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="4_n2j6r"]
-[ext_resource type="AudioStream" uid="uid://d4fhtoyoh37pe" path="res://darkblue/music/darkblue-vamp-test.wav" id="4_pq440"]
 [ext_resource type="PackedScene" uid="uid://dr1totk6x775p" path="res://darkblue/actors/enemy_saton_e01.tscn" id="5_2d4ec"]
 [ext_resource type="Script" uid="uid://b0rdm6q6xjfcf" path="res://darkblue/scripts/song_section.gd" id="5_o4v11"]
 [ext_resource type="Script" uid="uid://bpi4umj4vtm21" path="res://common/burst_sequence.gd" id="6_pq440"]
@@ -30,16 +29,8 @@
 [ext_resource type="AudioStream" uid="uid://d10rk16xwhhh0" path="res://darkblue/sfx/snd-08.wav" id="25_o4v11"]
 [ext_resource type="AudioStream" uid="uid://43xbklxtmm5g" path="res://darkblue/sfx/snd-03.wav" id="28_kc7yv"]
 [ext_resource type="Script" uid="uid://cxdi6tcrcmivs" path="res://darkblue/backgrounds/landscape.gd" id="29_lsc"]
-[ext_resource type="Shader" uid="uid://qyxyjoq50bfb" path="res://darkblue/backgrounds/starfield_mask.gdshader" id="33_smsk"]
-[ext_resource type="Shader" uid="uid://bmjgxmff851a1" path="res://darkblue/effects/lum_to_alpha.gdshader" id="34_lum"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_starfield_mask"]
-shader = ExtResource("33_smsk")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lum_to_alpha"]
-shader = ExtResource("34_lum")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_uf64t"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_kc7yv"]
 viewport_path = NodePath("PixelatedViewport/SubViewport")
 
 [sub_resource type="Animation" id="Animation_gp5rv"]
@@ -568,22 +559,15 @@ scroll_speed = Vector2(-40, 0)
 music = ExtResource("3_6hcyp")
 
 [node name="BeatConfigDev" parent="." index="3" unique_id=49882070]
-music = ExtResource("4_pq440")
 metronome_enabled = false
 
 [node name="WaveSkipperDebug" parent="." index="5" unique_id=1766492947 groups=["debug_only"]]
 
 [node name="BackdropDarkenEffect" parent="Backdrop" parent_id_path=PackedInt32Array(1605552771) index="0" unique_id=4867736]
-color = Color(0.8862745, 0.8862745, 0.8862745, 0.11764706)
-
-[node name="Starfield" parent="." index="8" unique_id=1633305215]
-modulate = Color(1, 1, 1, 1)
-material = SubResource("ShaderMaterial_starfield_mask")
+color = Color(0.8862745, 0.8862745, 0.8862745, 0.19607843)
 
 [node name="PixelatedViewport" parent="." index="9" unique_id=812505540]
-modulate = Color(0.81960785, 0.81960785, 0.69803923, 1)
-material = SubResource("ShaderMaterial_lum_to_alpha")
-texture = SubResource("ViewportTexture_uf64t")
+texture = SubResource("ViewportTexture_kc7yv")
 
 [node name="Landscape" type="Node2D" parent="Playfield" parent_id_path=PackedInt32Array(768111580) index="0" unique_id=1016475212]
 script = ExtResource("29_lsc")
@@ -1282,6 +1266,11 @@ process_mode = 4
 fade_out_speed = 0.432
 grille_gap_alpha = 0.75
 alpha_bias = 1.125
+
+[node name="LCDInversionEffect" parent="PostProcStack" parent_id_path=PackedInt32Array(577433371) index="2" unique_id=1278291405]
+color_dark = null
+color_mid = null
+color_light = null
 
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel2"]

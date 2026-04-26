@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://do817h8khrb8t" path="res://darkblue/starfield/star.png" id="7_f8eaa"]
 [ext_resource type="Shader" uid="uid://croxek4pewu5e" path="res://common/replace_transparency.gdshader" id="8_3c5oa"]
 [ext_resource type="Shader" path="res://darkblue/effects/lum_to_alpha.gdshader" id="35_lum"]
+[ext_resource type="Shader" uid="uid://qyxyjoq50bfb" path="res://darkblue/backgrounds/starfield_mask.gdshader" id="36_smsk"]
 [ext_resource type="Script" uid="uid://co57vlddnjc4w" path="res://common/bitmap_text.gd" id="9_0qp6m"]
 [ext_resource type="Texture2D" uid="uid://cye3mowo7ekny" path="res://common/vga2_8x8_allegro5.png" id="10_v1ibh"]
 [ext_resource type="PackedScene" uid="uid://dytl5c6lml251" path="res://darkblue/actors/tri_manager.tscn" id="11_kuxv1"]
@@ -22,6 +23,7 @@
 [ext_resource type="Shader" uid="uid://bhfmpgtjvej0p" path="res://darkblue/effects/light_effect.gdshader" id="14_br0ij"]
 [ext_resource type="Texture2D" uid="uid://egjltigjtje8" path="res://darkblue/actors/lightning.png" id="15_k28rq"]
 [ext_resource type="Texture2D" uid="uid://bwlkwqjyobdqd" path="res://darkblue/actors/reticule.png" id="20_p1ml6"]
+[ext_resource type="Script" path="res://darkblue/effects/lcd_inversion_effect.gd" id="21_lcdinv"]
 
 [sub_resource type="GDScript" id="GDScript_5y6s7"]
 script/source = "extends Node2D
@@ -59,6 +61,9 @@ shader = ExtResource("8_3c5oa")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lum_to_alpha"]
 shader = ExtResource("35_lum")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_starfield_mask"]
+shader = ExtResource("36_smsk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_obtg6"]
 shader = ExtResource("13_p84ta")
@@ -154,13 +159,15 @@ script = SubResource("GDScript_2ntwe")
 
 [node name="Starfield" type="Node2D" parent="." unique_id=1633305215]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.5019608)
+modulate = Color(1, 1, 1, 1)
+material = SubResource("ShaderMaterial_starfield_mask")
 script = ExtResource("6_w7nun")
 star_texture = ExtResource("7_f8eaa")
 metadata/_custom_type_script = "uid://b31q2o6ft4mx6"
 
 [node name="PixelatedViewport" type="Sprite2D" parent="." unique_id=812505540]
 unique_name_in_owner = true
+modulate = Color(0.81960785, 0.81960785, 0.69803923, 1)
 material = SubResource("ShaderMaterial_lum_to_alpha")
 texture_filter = 1
 texture = SubResource("ViewportTexture_1")
@@ -251,6 +258,13 @@ material = SubResource("ShaderMaterial_obtg6")
 custom_minimum_size = Vector2(9999, 9999)
 offset_right = 9999.0
 offset_bottom = 9999.0
+script = ExtResource("21_lcdinv")
+inversion = 0.0
+tilt_strength = 0.116
+tilt_center = 0.68
+color_dark = Color(0.13333334, 0.13333334, 0.54509807, 1)
+color_mid = Color(0.19380866, 0.22104552, 0.3027561, 1)
+color_light = Color(0.7490196, 0.78039217, 0.6509804, 1)
 metadata/_edit_lock_ = true
 
 [node name="VignetteEffect" type="TextureRect" parent="PostProcStack" unique_id=1857341615]

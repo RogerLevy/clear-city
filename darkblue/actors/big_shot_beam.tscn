@@ -18,7 +18,6 @@ visible = false
 offset_top = -8.0
 offset_right = 48.0
 offset_bottom = 8.0
-color = Color(0.81960785, 0.81960785, 0.69803923, 1)
 
 [node name="Area2D" type="Area2D" parent="." index="2" unique_id=1871409212]
 position = Vector2(24, 0)
