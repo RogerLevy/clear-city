@@ -1263,14 +1263,9 @@ orbit_radius = 24.0
 process_mode = 4
 
 [node name="LCDEffect" parent="PostProcStack" parent_id_path=PackedInt32Array(577433371) index="1" unique_id=1219698695]
-fade_out_speed = 0.432
+fade_out_speed = 0.399
 grille_gap_alpha = 0.75
 alpha_bias = 1.125
-
-[node name="LCDInversionEffect" parent="PostProcStack" parent_id_path=PackedInt32Array(577433371) index="2" unique_id=1278291405]
-color_dark = null
-color_mid = null
-color_light = null
 
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel"]
 [editable path="Playfield/WaveSequence/WaveAngelTest1/Angel2"]

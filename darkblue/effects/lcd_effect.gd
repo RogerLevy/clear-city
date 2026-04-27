@@ -27,6 +27,7 @@ var _grille_mat: ShaderMaterial
 var _initialized := false
 
 func _ready() -> void:
+    set_process(true)
     visibility_changed.connect(_on_visibility_changed)
     if visible:
         _setup.call_deferred()
@@ -123,3 +124,7 @@ func _update_grille_cell_size() -> void:
 
 func _on_first_frame() -> void:
     _copy_sprite.texture = _composite.get_texture()
+
+func _process(delta: float) -> void:
+    if _mat:
+        _mat.set_shader_parameter("delta", delta)
