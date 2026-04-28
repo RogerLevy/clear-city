@@ -99,7 +99,7 @@ func check_tris():
     var collected = tm.check_ship_collision(global_position, r)
     if collected > 0:
         if _collect_snd_cooldown <= 0:
-            g.sfx(snd_collect, 0.2, "Collect")
+            g.sfx(snd_collect, 0.1, "Collect")
             _collect_snd_cooldown = 3
         g.energy += collected
         _tri_accumulator += collected

@@ -249,7 +249,9 @@ metadata/_edit_lock_ = true
 
 [node name="LCDEffect" parent="PostProcStack" unique_id=1219698695 instance=ExtResource("14_8dg4j")]
 unique_name_in_owner = true
-grille_gap_alpha = 0.809
+fade_out_speed = 0.399
+grille_gap_alpha = 0.75
+alpha_bias = 1.125
 metadata/_edit_lock_ = true
 
 [node name="LCDInversionEffect" type="ColorRect" parent="PostProcStack" unique_id=1278291405]
