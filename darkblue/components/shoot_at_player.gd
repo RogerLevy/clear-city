@@ -26,7 +26,6 @@ const RingBurst = preload("res://darkblue/effects/ring_burst.gd")
 @export var beat_interval: float = 8.0
 @export var time_offset: float = 0.0  ## Beat offset for firing alignment
 @export var bullet_speed: float = 0.9  # pixels per frame
-@export var bullet_atk: int = 50
 @export var sync_to_beat: bool = false  ## Sync all shooters with same interval to fire together
 @export var fire_mode: FireMode = FireMode.INDIVIDUAL
 @export var fire_count: int = 1  ## How many instances fire per interval (distributed modes only)
@@ -188,10 +187,6 @@ func _shoot():
     # Set velocity towards player
     var dir = (player.global_position - global_position).normalized()
     bullet.velocity = dir * bullet_speed * g.enemy_bullet_factor * Engine.physics_ticks_per_second
-
-    # Set attack value
-    if "atk" in bullet:
-        bullet.atk = bullet_atk
 
     # Add to playfield
     if playfield:

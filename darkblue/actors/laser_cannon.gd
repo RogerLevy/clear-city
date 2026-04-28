@@ -44,8 +44,9 @@ func _ready():
     # Phase 3: Slowly narrow (exponential2 ease-out, still deals damage)
     tween.tween_method(func(t): set_width(lerpf(max_width, 1.0, exp2_ease_out(t))), 0.0, 1.0, 0.3)
     tween.tween_callback(func(): can_damage = false)
-    # Phase 4: Shorten length exponentially
-    tween.tween_method(set_length, length, 0.0, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+    # Phase 4: Shorten length and narrow to 0 simultaneously
+    tween.parallel().tween_method(set_length, length, 0.0, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+    tween.parallel().tween_method(set_width, 1.0, 0.0, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
     # Done
     tween.tween_callback(cleanup)
 

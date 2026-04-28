@@ -2,7 +2,7 @@
 class_name BulletOrb
 extends Actor2D
 
-@export var atk: int = 30
+@export var atk: int = 10
 @export var pulse_amount: float = 0
 @export var pulse_duration: float = 0.3
 

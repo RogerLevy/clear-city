@@ -88,9 +88,10 @@ func die():
     if tm:
         var to_player = (g.p1.global_position - global_position).angle() if g.p1 else 0.0
         var angles: Array[float] = []
+        var max_spread = PI * (bounty - 1.0) / bounty if bounty > 1 else 0.0
         for i in bounty:
             var t = float(i) / (bounty - 1) * 2.0 - 1.0 if bounty > 1 else 0.0
-            var offset = sign(t) * pow(abs(t), 3.0) * PI
+            var offset = sign(t) * pow(abs(t), 3.0) * max_spread
             angles.append(to_player + offset)
         angles.shuffle()
         for angle in angles:

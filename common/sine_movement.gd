@@ -8,7 +8,7 @@ extends Node
 @export_range(0.0, 360.0, 1.0) var y_phase: float = 0.0
 @export_range(0.0, 240.0, 1.0) var x_pixels: float = 0.0
 @export_range(0.0, 160.0, 1.0) var y_pixels: float = 100.0
-@export_range(-4.0, 4.0) var speed: float = 1.0
+@export var speed: float = 1.0
 @export_range(-2.0, 2.0) var amount: float = 1.0
 
 var x_angle: float = 0.0
