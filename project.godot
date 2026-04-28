@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="CLEAR-CITY"
-run/main_scene="uid://djbnswd65qbmw"
+run/main_scene="uid://dbmk0qjhqkq1m"
 config/use_hidden_project_data_directory=false
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.14117648, 0.79607844, 0.14117648, 1)
@@ -83,7 +83,7 @@ movie_writer/movie_file="C:/Users/roger/Desktop/coolstuff/darkblue-wavetest3-pla
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/anim_track_converter/plugin.cfg", "res://addons/favorites/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/node_disabler/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/sequence_editor/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/solo_visibility/plugin.cfg")
+enabled=PackedStringArray("res://addons/actor_factory/plugin.cfg", "res://addons/anim_track_converter/plugin.cfg", "res://addons/custom_colors/plugin.cfg", "res://addons/favorites/plugin.cfg", "res://addons/hide_bottom_panel_on_build/plugin.cfg", "res://addons/make_unique_anim/plugin.cfg", "res://addons/node_disabler/plugin.cfg", "res://addons/path_motion_inspector/plugin.cfg", "res://addons/repl/plugin.cfg", "res://addons/sequence_editor/plugin.cfg", "res://addons/snap_rotate/plugin.cfg", "res://addons/solo_visibility/plugin.cfg")
 
 [global_group]
 
