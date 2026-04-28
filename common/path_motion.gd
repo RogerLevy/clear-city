@@ -3,18 +3,20 @@ extends Sequence
 class_name PathMotion
 
 @export var target: Node2D
-@export var ease_in: float = 0.0  ## Ease-in strength (0 = linear start)
-@export var ease_in_curve: Tween.TransitionType = Tween.TRANS_QUAD:
+@export_range(0.0, 1.0) var ease_in: float = 0.0  ## Ease-in strength (0 = linear start)
+@export_enum("Linear:0", "Sine:1", "Quad:4", "Expo:5", "Circ:8", "Elastic:6", "Back:10", "Bounce:9")
+var ease_in_curve: int = Tween.TRANS_QUAD:
     set(v):
         ease_in_curve = v
         notify_property_list_changed()
-@export var ease_in_param: float = 1.0  ## Curve modifier: exponent, intensity, frequency, or bounce count
-@export var ease_out: float = 0.0  ## Ease-out strength (0 = linear end)
-@export var ease_out_curve: Tween.TransitionType = Tween.TRANS_QUAD:
+@export_range(0.0, 8.0) var ease_in_param: float = 1.0  ## Curve modifier: exponent, intensity, frequency, or bounce count
+@export_range(0.0, 1.0) var ease_out: float = 0.0  ## Ease-out strength (0 = linear end)
+@export_enum("Linear:0", "Sine:1", "Quad:4", "Expo:5", "Circ:8", "Elastic:6", "Back:10", "Bounce:9")
+var ease_out_curve: int = Tween.TRANS_QUAD:
     set(v):
         ease_out_curve = v
         notify_property_list_changed()
-@export var ease_out_param: float = 1.0  ## Curve modifier: exponent, intensity, frequency, or bounce count
+@export_range(0.0, 8.0) var ease_out_param: float = 1.0  ## Curve modifier: exponent, intensity, frequency, or bounce count
 
 var _path: Path2D
 var _tween: Tween
@@ -22,7 +24,7 @@ var _curve_length: float
 var _end_tangent_local: Vector2  ## Tangent at end, in path-local coords
 var _tween_speed_scale: float = 1.0  ## Tracked speed scale for slowdown
 
-func _curve_uses_param(curve: Tween.TransitionType) -> bool:
+func _curve_uses_param(curve: int) -> bool:
     match curve:
         Tween.TRANS_LINEAR, Tween.TRANS_SINE, Tween.TRANS_CIRC:
             return false
@@ -118,26 +120,27 @@ func _apply_ease(t: float) -> float:
 
     return result
 
-func _ease_in(t: float, curve: Tween.TransitionType, param: float) -> float:
+func _ease_in(t: float, curve: int, param: float) -> float:
     return _raw_ease(t, curve, param)
 
-func _ease_out(t: float, curve: Tween.TransitionType, param: float) -> float:
+func _ease_out(t: float, curve: int, param: float) -> float:
     return 1.0 - _raw_ease(1.0 - t, curve, param)
 
-func _raw_ease(t: float, curve: Tween.TransitionType, param: float) -> float:
+func _raw_ease(t: float, curve: int, param: float) -> float:
     match curve:
         Tween.TRANS_LINEAR:
             return t
-        Tween.TRANS_QUAD, Tween.TRANS_CUBIC, Tween.TRANS_QUART, Tween.TRANS_QUINT:
-            # param IS the exponent (1.0 uses curve default: 2/3/4/5)
-            var exp = param if param != 1.0 else _default_exponent(curve)
-            return pow(t, exp)
+        Tween.TRANS_QUAD:
+            return pow(t, 2.0 * param)
         Tween.TRANS_SINE:
             return 1.0 - cos(t * PI * 0.5)
         Tween.TRANS_EXPO:
-            # param controls intensity (default 10)
-            var intensity = param * 10.0
-            return 0.0 if t == 0 else pow(2, intensity * (t - 1))
+            if t == 0.0: return 0.0
+            if t == 1.0: return 1.0
+            var k := param * 10.0
+            if k < 1e-6: return t
+            var lo := pow(2.0, -k)
+            return (pow(2.0, k * (t - 1.0)) - lo) / (1.0 - lo)
         Tween.TRANS_CIRC:
             return 1.0 - sqrt(1.0 - t * t)
         Tween.TRANS_ELASTIC:
@@ -154,44 +157,29 @@ func _raw_ease(t: float, curve: Tween.TransitionType, param: float) -> float:
         _:
             return t
 
-func _default_exponent(curve: Tween.TransitionType) -> float:
-    match curve:
-        Tween.TRANS_QUAD: return 2.0
-        Tween.TRANS_CUBIC: return 3.0
-        Tween.TRANS_QUART: return 4.0
-        Tween.TRANS_QUINT: return 5.0
-        _: return 2.0
-
 func _bounce_out(t: float, param: float) -> float:
-    # param controls number of bounces (1.0 = 4 bounces default)
-    var bounces = int(4 * param)
-    if bounces < 1:
-        bounces = 1
+    var n := maxi(1, roundi(4.0 * param))
+    # r_t: time decay ratio between successive bounce arcs.
+    # Chosen so the last arc always has the same relative amplitude as Penner n=4.
+    # At n=4 this is exactly 0.5, so n<=4 matches the original Penner formula.
+    var r_t := pow(0.25, 1.0 / maxf(float(n) - 2.0, 1.0))
+    var d := 1.0 + (1.0 - pow(r_t, n - 1)) / (1.0 - r_t) if n > 1 else 1.0
+    var A := d * d
 
-    # Standard 4-bounce implementation when param=1
-    if bounces == 4:
-        if t < 1.0 / 2.75:
-            return 7.5625 * t * t
-        elif t < 2.0 / 2.75:
-            var t2 = t - 1.5 / 2.75
-            return 7.5625 * t2 * t2 + 0.75
-        elif t < 2.5 / 2.75:
-            var t2 = t - 2.25 / 2.75
-            return 7.5625 * t2 * t2 + 0.9375
-        else:
-            var t2 = t - 2.625 / 2.75
-            return 7.5625 * t2 * t2 + 0.984375
+    if t < 1.0 / d:
+        return A * t * t
 
-    # Generalized bounce with variable count
-    var decay = 2.75 / bounces
-    var amplitude = 7.5625
-    for i in bounces:
-        var threshold = (i + 1.0) / (bounces + 0.75)
-        if t < threshold:
-            var offset = (i + 0.5) / (bounces + 0.75) if i > 0 else 0.0
-            var t2 = t - offset
-            var height = 1.0 - pow(0.5, i)
-            return amplitude * t2 * t2 + height
+    var pos := 1.0 / d
+    var w := 1.0 / d
+    for i in range(1, n):
+        var next_pos := pos + w
+        if t < next_pos or i == n - 1:
+            var t2 := t - (pos + w * 0.5)
+            var floor_h := 1.0 - A * pow(w * 0.5, 2.0)
+            return A * t2 * t2 + floor_h
+        pos = next_pos
+        w *= r_t
+
     return 1.0
 
 func _on_tween_finished():
