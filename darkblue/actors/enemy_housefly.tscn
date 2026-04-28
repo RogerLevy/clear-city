@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://coro4ybolpuyh"]
+
+[ext_resource type="Script" uid="uid://cmm3gyida6fy0" path="res://darkblue/actors/enemy_housefly.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://2g5uvd5k4w0h" path="res://darkblue/actors/enemy_housefly.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="EnemyHousefly" type="CharacterBody2D" unique_id=317694824 groups=["enemies"]]
+position = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+r = 16.0
+sprite_texture = ExtResource("2_tex")
+frame_width = 32
+frame_height = 33
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2146797102]
+texture = ExtResource("2_tex")
+hframes = 2
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1352580252]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2066335935]
+shape = SubResource("CircleShape2D_1")

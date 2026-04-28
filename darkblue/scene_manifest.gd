@@ -29,6 +29,8 @@ static func get_scenes() -> Dictionary:
 		"enemy_ganglion": "res://darkblue/actors/enemy_ganglion.tscn",
 		"enemy_gumpus": "res://darkblue/actors/enemy_gumpus.tscn",
 		"enemy_helmaton": "res://darkblue/actors/enemy_helmaton.tscn",
+		"enemy_housefly": "res://darkblue/actors/enemy_housefly.tscn",
+		"enemy_housefly_e01": "res://darkblue/actors/enemy_housefly_e01.tscn",
 		"enemy_jollyboy": "res://darkblue/actors/enemy_jollyboy.tscn",
 		"enemy_jug_jug": "res://darkblue/actors/enemy_jug_jug.tscn",
 		"enemy_king": "res://darkblue/actors/enemy_king.tscn",
@@ -87,6 +89,7 @@ static func get_scenes() -> Dictionary:
 		"wave_test3": "res://darkblue/tests/wave_test3.tscn",
 		"wave_test4": "res://darkblue/tests/wave_test4.tscn",
 		"wave_test5": "res://darkblue/tests/wave_test5.tscn",
+		"wave_test6": "res://darkblue/tests/wave_test6.tscn",
 		"charge_bar": "res://darkblue/ui/charge_bar.tscn",
 		"enemy_movement": "res://darkblue/utilities/enemy_movement.tscn",
 	}

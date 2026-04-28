@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://ktxu4w123pd4"]
+
+[ext_resource type="Script" uid="uid://blhkdnhwle8oi" path="res://common/path_motion.gd" id="1_etgn6"]
+[ext_resource type="Script" uid="uid://dosix5nlpo73y" path="res://common/sequence.gd" id="1_rut5a"]
+[ext_resource type="PackedScene" uid="uid://coro4ybolpuyh" path="res://darkblue/actors/enemy_housefly.tscn" id="2_etgn6"]
+[ext_resource type="Script" uid="uid://cc5tsj0x0m1di" path="res://darkblue/components/shoot_at_player.gd" id="3_1skmt"]
+[ext_resource type="Script" uid="uid://ct7snw7mgw0f3" path="res://common/pause.gd" id="3_l6kje"]
+[ext_resource type="Script" uid="uid://cnn3a053ow21s" path="res://common/sine_movement.gd" id="4_317as"]
+
+[sub_resource type="Curve2D" id="Curve2D_rut5a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -162, 164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1skmt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -162, 164, 0, 0, 0, 0, 34, -34)
+}
+point_count = 2
+
+[node name="enemy_housefly_e01" type="Node2D" unique_id=1836964379]
+position = Vector2(430, 14)
+script = ExtResource("1_rut5a")
+timing_mode = 1
+start_mode = 1
+metadata/_custom_type_script = "uid://dosix5nlpo73y"
+
+[node name="Base" type="Node2D" parent="." unique_id=1234567891]
+
+[node name="EnemyHousefly" parent="Base" unique_id=317694824 instance=ExtResource("2_etgn6")]
+position = Vector2(0, 0)
+
+[node name="ShootAtPlayer" type="Node2D" parent="Base/EnemyHousefly" unique_id=1891960250]
+script = ExtResource("3_1skmt")
+beat_interval = 1.0
+sync_to_beat = true
+fire_mode = 2
+fire_count = 2
+start_mode = 2
+open_ended = true
+metadata/_custom_type_script = "uid://cc5tsj0x0m1di"
+
+[node name="SineMovement" type="Node" parent="Base/EnemyHousefly" unique_id=948274945]
+script = ExtResource("4_317as")
+y_pixels = 10.0
+metadata/_custom_type_script = "uid://cnn3a053ow21s"
+
+[node name="PathMotion" type="Node2D" parent="." unique_id=1879361291 node_paths=PackedStringArray("target")]
+script = ExtResource("1_etgn6")
+target = NodePath("../Base")
+ease_out = 1.0
+ease_out_param = 1.611
+timing_mode = 1
+duration = 2.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion" unique_id=1148469916]
+curve = SubResource("Curve2D_rut5a")
+
+[node name="Pause" type="Node2D" parent="." unique_id=968207924]
+script = ExtResource("3_l6kje")
+timing_mode = 1
+duration = 0.5
+metadata/_custom_type_script = "uid://ct7snw7mgw0f3"
+
+[node name="PathMotion2" type="Node2D" parent="." unique_id=816164666 node_paths=PackedStringArray("target")]
+script = ExtResource("1_etgn6")
+target = NodePath("../Base")
+ease_in = 1.0
+ease_in_param = 1.5
+ease_out_param = 2.0
+timing_mode = 1
+duration = 3.0
+metadata/_custom_type_script = "uid://blhkdnhwle8oi"
+
+[node name="Path2D" type="Path2D" parent="PathMotion2" unique_id=1861231415]
+curve = SubResource("Curve2D_1skmt")
